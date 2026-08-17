@@ -1,0 +1,23 @@
+.gitignore
+  s_e33ab74fb42f4f::t_031448d9686504 21-24
+home.nix
+  s_e33ab74fb42f4f::t_87ad03ea03de93 60-64
+secrets/env.sh.example
+  s_e33ab74fb42f4f::t_db812f97a374b6 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "e30322c873582ce8e0bfcf363aba2fc48d3f85fd",
+  "prompts": {},
+  "sessions": {
+    "s_e33ab74fb42f4f": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1e052c25-3bf9-4838-a01c-9c2da8ee3734",
+        "model": "default"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
