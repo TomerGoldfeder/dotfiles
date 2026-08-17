@@ -1,0 +1,24 @@
+home.nix
+  s_e33ab74fb42f4f::t_78c81424c92aee 72-73,76-78,82-86
+  s_e33ab74fb42f4f::t_4705d48020a5f5 80-81
+  s_e33ab74fb42f4f::t_7a771949c9c7f4 71,74-75,79,87
+secrets/env.sh.example
+  s_e33ab74fb42f4f::t_ecee84789b3dd2 10
+  s_e33ab74fb42f4f::t_15a351937f5d52 9,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "755c3a73acb144bf45cf278af1265ba7d5a7cb8e",
+  "prompts": {},
+  "sessions": {
+    "s_e33ab74fb42f4f": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1e052c25-3bf9-4838-a01c-9c2da8ee3734",
+        "model": "default"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
