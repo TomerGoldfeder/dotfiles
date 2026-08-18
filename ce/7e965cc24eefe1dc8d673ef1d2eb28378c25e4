@@ -1,0 +1,14 @@
+configuration.nix
+  h_d5cb918de7058b 27-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "ce7e965cc24eefe1dc8d673ef1d2eb28378c25e4",
+  "prompts": {},
+  "humans": {
+    "h_d5cb918de7058b": {
+      "author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
