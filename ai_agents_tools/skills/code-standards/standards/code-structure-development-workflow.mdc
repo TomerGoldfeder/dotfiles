@@ -1,0 +1,16 @@
+---
+description: Development practices for bug reproduction, UI quality, and engineering excellence
+---
+# Code Structure: Development Workflow
+
+## E2E Bug Reproduction
+
+**Good:** Starting bug fixes by reproducing the issue in an end-to-end setting that mirrors the user's environment — running the exact UI flow, using real dependencies, and validating against the same build the user encounters.
+
+**Bad:** Fixing a bug based solely on a unit test or a mock that doesn't reflect the user's actual experience, risking a fix that doesn't address the real problem.
+
+## Engineering Excellence (Lint & Test Flakiness)
+
+**Good:** Treating lint warnings, test failures, and test flakiness with the same high standard — fixing them immediately if encountered, regardless of whether they're caused by the current task.
+
+**Bad:** Leaving lint errors or flaky tests unfixed with the mindset "not my problem" or "I'll fix it later," allowing technical debt to accumulate and degrade codebase quality.

@@ -1,0 +1,110 @@
+---
+description: Composition over inheritance. Classes over loose functions for anything stateful or with dependencies
+---
+
+# Code Structure: Composition
+
+## Composition Over Inheritance
+
+Build behavior by combining small objects, not by extending base classes. Inheritance is reserved for true *is-a* relationships and for implementing protocols/ABCs/framework bases.
+
+**Good:**
+```python
+class JobScoringService:
+    def __init__(self, scorer: Scorer, enricher: Enricher, repo: JobRepository) -> None:
+        self._scorer = scorer
+        self._enricher = enricher
+        self._repo = repo
+
+    def process(self, job: JobPosting) -> MatchScore:
+        enriched = self._enricher.enrich(job)
+        score = self._scorer.score(enriched)
+        self._repo.save(score)
+        return score
+```
+
+**Bad:**
+```python
+class BaseProcessor:
+    def process(self, job): ...
+
+class EnrichingProcessor(BaseProcessor):
+    def process(self, job): ...
+
+class ScoringEnrichingProcessor(EnrichingProcessor):
+    def process(self, job): ...    # inheritance chain to combine two behaviors
+```
+
+**Allowed inheritance:** `typing.Protocol`, `Exception`, framework bases (`pydantic.BaseModel`, `fastapi.APIRouter`), abstract base classes you own.
+
+## Classes Over Loose Functions
+
+Module-level functions are appropriate for **pure, stateless utilities**. Anything with state, dependencies, or that belongs to a concept should be a class.
+
+**Good:**
+```python
+# adapters/telegram/client.py
+class TelegramClient:
+    def __init__(self, token: str, http: HttpClient) -> None:
+        self._token = token
+        self._http = http
+
+    def send(self, chat_id: str, message: str) -> None: ...
+
+# core/text.py — pure utility, no dependencies, no state
+def strip_html(text: str) -> str:
+    ...
+```
+
+**Bad:**
+```python
+# adapters/telegram.py
+_TOKEN = None
+_SESSION = None
+
+def init(token):
+    global _TOKEN, _SESSION
+    _TOKEN = token
+    _SESSION = requests.Session()
+
+def send(chat_id, message):
+    _SESSION.post(...)    # hidden global state, untestable, unmockable
+```
+
+The function-with-globals pattern is class-shaped state hiding in a module. Make it a class.
+
+## Static Methods When Instance State Isn't Used
+
+If a class method does not read or mutate `self` (or other instance attributes), mark it `@staticmethod`. This makes the contract explicit: callers and reviewers can see the method does not depend on instance state.
+
+Use `@classmethod` only when the method needs the class object (`cls`) — for example, alternative constructors or class-level configuration.
+
+**Good:**
+```python
+class PriceCalculator:
+    def __init__(self, tax_rate: Decimal) -> None:
+        self._tax_rate = tax_rate
+
+    def total(self, subtotal: Decimal) -> Decimal:
+        return subtotal + subtotal * self._tax_rate
+
+    @staticmethod
+    def format_currency(amount: Decimal) -> str:
+        return f"${amount:.2f}"
+
+    @classmethod
+    def from_config(cls, config: TaxConfig) -> PriceCalculator:
+        return cls(tax_rate=config.tax_rate)
+```
+
+**Bad:**
+```python
+class PriceCalculator:
+    def __init__(self, tax_rate: Decimal) -> None:
+        self._tax_rate = tax_rate
+
+    def format_currency(self, amount: Decimal) -> str:  # no self usage — should be @staticmethod
+        return f"${amount:.2f}"
+```
+
+If a method is static and has no natural class affinity, prefer a module-level function in a pure utility module (see "Classes Over Loose Functions" above).

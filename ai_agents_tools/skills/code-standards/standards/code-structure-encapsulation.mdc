@@ -1,0 +1,102 @@
+---
+description: Each logical unit owns its exceptions, logger, and decorators. Nothing leaks into global errors.py or utils.py
+globs: **/errors.py,**/exceptions.py,**/decorators.py,**/middleware.py,**/logger.py,**/utils.py
+---
+
+# Code Structure: Encapsulation
+
+Each logical unit owns **everything it needs to operate**: its types, its exceptions, its logger, and its unit-specific error-handling decorators or middleware. Nothing about a unit lives in a global `exceptions.py`, `errors.py`, or `utils.py`.
+
+The only shared error primitive is a single base class in `core/errors.py` (e.g. `AppError`) that unit-specific exceptions inherit from, so cross-cutting catches work.
+
+## Folder Layout
+
+```
+adapters/telegram/
+├── __init__.py            # re-exports TelegramClient, TelegramSendError
+├── client.py              # TelegramClient
+├── errors.py              # TelegramError (base), TelegramSendError, TelegramRateLimitError
+├── logger.py              # module logger: logging.getLogger("adapters.telegram")
+├── decorators.py          # @retry_on_rate_limit, @log_telegram_call
+└── formatting/
+    └── ...
+```
+
+## Good
+
+```python
+# core/errors.py
+class AppError(Exception):
+    """Base for all application-specific errors."""
+
+# adapters/telegram/errors.py
+from core.errors import AppError
+
+class TelegramError(AppError):
+    """Base for all Telegram adapter errors."""
+
+class TelegramSendError(TelegramError):
+    """Raised when sending fails after retries."""
+
+class TelegramRateLimitError(TelegramError):
+    """Raised when Telegram returns 429."""
+
+# adapters/telegram/logger.py
+import logging
+logger = logging.getLogger(__name__)   # "adapters.telegram"
+
+# adapters/telegram/decorators.py
+from functools import wraps
+from adapters.telegram.errors import TelegramRateLimitError, TelegramSendError
+from adapters.telegram.logger import logger
+
+def retry_on_rate_limit(max_attempts: int = 3):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_attempts):
+                try:
+                    return func(*args, **kwargs)
+                except TelegramRateLimitError:
+                    logger.warning("rate limited %d/%d", attempt + 1, max_attempts)
+            raise TelegramSendError("max retries exceeded")
+        return wrapper
+    return decorator
+```
+
+## Bad
+
+```python
+# project-wide errors.py ❌
+class TelegramSendError(Exception): ...
+class SqliteWriteError(Exception): ...
+class ScoringFailedError(Exception): ...
+
+# project-wide utils.py ❌
+def retry_on_rate_limit(...): ...
+def retry_on_db_error(...): ...
+
+# project-wide logger_config.py with named loggers per feature ❌
+TELEGRAM_LOGGER = logging.getLogger("telegram")
+SQLITE_LOGGER = logging.getLogger("sqlite")
+```
+
+When you delete or rename the Telegram adapter, you'd have to hunt through five global files to remove its scraps. The unit isn't actually encapsulated.
+
+## Logging: Use vs. Configuration
+
+- **Use** (`logging.getLogger(__name__)`, `logger.info(...)`) lives inside each unit.
+- **Configuration** (formatters, handlers, levels, sinks) is set up **once** at app startup by entry points (`cli/`, `api/`) via `logging.config.dictConfig(...)` with settings from `config/`.
+
+**Good:**
+```python
+# cli/commands.py
+from config import get_logging_config
+import logging.config
+
+def main() -> None:
+    logging.config.dictConfig(get_logging_config())
+    ...
+```
+
+**Bad:** every unit calling `logging.basicConfig(...)` and fighting over the root logger.

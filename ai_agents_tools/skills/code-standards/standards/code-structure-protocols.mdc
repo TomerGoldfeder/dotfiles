@@ -1,0 +1,79 @@
+---
+description: Cross-layer dependencies go through typing.Protocol, one protocol per file in <layer>/ports/
+globs: **/ports/**/*.py,**/services/**/*.py
+---
+
+# Code Structure: Protocols
+
+Every cross-layer dependency goes through a `typing.Protocol` defined in the *consumer's* layer. Concrete implementations live elsewhere and are injected.
+
+**One protocol per file**, grouped in a `ports/` folder at the consumer layer. Each contract is discoverable and editable in isolation.
+
+## Folder Layout
+
+```
+services/
+├── ports/
+│   ├── __init__.py            # re-exports all protocols
+│   ├── scorer.py              # Scorer
+│   ├── job_repository.py      # JobRepository
+│   ├── notifier.py            # Notifier
+│   └── job_source.py          # JobSource
+├── job_scoring_service.py
+└── notification_service.py
+```
+
+## Good
+
+```python
+# services/ports/job_repository.py
+from typing import Protocol
+from core.models import MatchScore
+
+class JobRepository(Protocol):
+    def save(self, score: MatchScore) -> None: ...
+    def get(self, job_id: str) -> MatchScore | None: ...
+
+# services/ports/__init__.py
+from services.ports.job_repository import JobRepository
+from services.ports.scorer import Scorer
+from services.ports.notifier import Notifier
+__all__ = ["JobRepository", "Scorer", "Notifier"]
+
+# services/job_scoring_service.py
+from services.ports import JobRepository, Scorer
+
+class JobScoringService:
+    def __init__(self, scorer: Scorer, repo: JobRepository) -> None:
+        self._scorer = scorer
+        self._repo = repo
+
+# adapters/sqlite/repository.py — concrete impl
+class SqliteJobRepository:
+    def save(self, score: MatchScore) -> None: ...
+    def get(self, job_id: str) -> MatchScore | None: ...
+```
+
+The service consumes `JobRepository`; Sqlite/Postgres/InMemory all satisfy it structurally. Tests inject a fake; production injects the real one.
+
+## Bad
+
+```python
+# services/ports.py ❌ — single file containing 8 protocols
+class JobRepository(Protocol): ...
+class Scorer(Protocol): ...
+class Notifier(Protocol): ...
+class JobSource(Protocol): ...
+# ...4 more
+
+# services/job_scoring_service.py ❌ — imports concrete class directly
+from adapters.sqlite.repository import SqliteJobRepository
+
+class JobScoringService:
+    def __init__(self) -> None:
+        self._repo = SqliteJobRepository()   # hard-wired, untestable
+```
+
+## Liskov for Protocols
+
+All implementations of a protocol must honor its full contract — same return types, same exception semantics. If `SqliteJobRepository.save()` silently overwrites and `PostgresJobRepository.save()` raises `IntegrityError`, callers now need to know which one they have. Bad.

@@ -1,0 +1,78 @@
+---
+description: When writing a plan document, commit to logical units not file paths. Use Structure blocks instead of Files blocks
+globs: docs/plans/**/*.md,plans/**/*.md,**/PLAN.md
+---
+
+# Code Structure: Planning
+
+Plans commit to **layer + logical unit + responsibility**. Plans do **not** commit to exact file paths. The implementer decides file vs. folder at coding time per `code-structure-layout`.
+
+A **logical unit** is a coherent concept: one adapter, one service, one bounded piece of the domain. It names *what exists in the system*, not *which files hold it*.
+
+## The `Structure:` Block
+
+Replace the `**Files:**` block from `writing-plans` with this in every task:
+
+```markdown
+**Structure:**
+- Layer: <core | services | adapters | api | cli | config>
+- Logical unit: <name>
+  - Responsibility: <one line>
+  - Public API: <class/function exposed via __init__.py>
+  - Owns: <errors, logger, decorators>
+  - Depends on: <protocols from <layer>/ports/, core types>
+- New protocols: `<layer>/ports/<name>.py` (if any)
+- Config: `config/<mirrored path>` (if any)
+
+**Test target:** `tests/<layer>/test_<unit>_<thing>.py`
+```
+
+## Good
+
+```markdown
+### Task 3: Telegram notification adapter
+
+**Structure:**
+- Layer: `adapters/`
+- Logical unit: Telegram adapter (folder if grows beyond one class)
+  - Responsibility: send formatted notifications, handle Telegram-specific retries
+  - Public API: `TelegramClient` (exposed via `__init__.py`)
+  - Owns: `TelegramError`, `TelegramSendError`, `TelegramRateLimitError`,
+          module logger, `@retry_on_rate_limit` decorator
+  - Depends on: `services.ports.Notifier` (implements), `core.models.Notification`
+- New protocols: `services/ports/notifier.py`
+- Config: `config/adapters/telegram.py` (API base, timeouts, env-loaded token)
+
+**Test target:** `tests/adapters/test_telegram_client.py`
+
+**Step 1: Write the failing test**
+...
+```
+
+## Bad
+
+```markdown
+### Task 3: Telegram notification adapter
+
+**Files:**
+- Create: `adapters/telegram_client.py`
+- Create: `adapters/telegram_formatter.py`
+- Create: `adapters/telegram_retry.py`
+- Test: `tests/adapters/test_telegram_client.py`
+```
+
+Why bad: commits to three sibling files at the `adapters/` root before the code exists. When `telegram_formatter.py` grows supporting helpers, it has nowhere natural to put them without breaking the plan.
+
+## What the Plan Commits To
+
+- **Layers touched.**
+- **Logical units created/modified** — names, responsibilities, public APIs.
+- **New protocols** under `<layer>/ports/`.
+- **Config additions** under `config/<mirrored path>`.
+- **Test target** — the test file path.
+
+## What the Plan Does NOT Commit To
+
+- Exact source file paths inside a logical unit (file vs. folder, internal file names).
+- Private class names, helper function names, internal decomposition.
+- Whether helpers exist at all — the implementer adds them if needed.

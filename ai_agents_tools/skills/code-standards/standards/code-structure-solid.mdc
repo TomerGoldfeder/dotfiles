@@ -1,0 +1,81 @@
+---
+description: SOLID principles in Python form. Single responsibility, open/closed, Liskov, interface segregation, dependency inversion
+---
+
+# Code Structure: SOLID
+
+Not dogma — each principle has a concrete Python form.
+
+## Single Responsibility — one class, one reason to change
+
+**Good:**
+```python
+class JobScorer:
+    def score(self, job: JobPosting) -> MatchScore: ...
+
+class JobRepository:
+    def save(self, score: MatchScore) -> None: ...
+```
+
+**Bad:**
+```python
+class JobManager:
+    def score(self, job): ...
+    def save(self, score): ...
+    def send_email(self, score): ...   # three responsibilities
+```
+
+## Open/Closed — extend by adding, not editing
+
+**Good:** `services/notifier.py` takes a `Notifier` protocol. Adding Slack = new `SlackNotifier` adapter; the service is untouched.
+
+**Bad:** `services/notifier.py` has `if channel == "telegram": ... elif channel == "slack": ...`. Every new channel edits the service.
+
+## Liskov Substitution — implementations are interchangeable
+
+Subclasses/implementations must be usable anywhere the parent/protocol is expected, without surprises.
+
+**Good:** `SqliteJobRepository` and `PostgresJobRepository` both honor `JobRepository`'s full contract — same return types, same exception semantics.
+
+**Bad:** `PostgresJobRepository.save()` raises `IntegrityError` when `SqliteJobRepository.save()` silently overwrites. Callers now need to know which one they have.
+
+## Interface Segregation — many small protocols, not one big one
+
+**Good:**
+```python
+# services/ports/job_reader.py
+class JobReader(Protocol):
+    def get(self, id: str) -> JobPosting: ...
+
+# services/ports/job_writer.py
+class JobWriter(Protocol):
+    def save(self, job: JobPosting) -> None: ...
+```
+
+**Bad:**
+```python
+class JobStore(Protocol):
+    def get(self, id): ...
+    def save(self, job): ...
+    def delete(self, id): ...
+    def search(self, query): ...
+    def export_csv(self): ...    # read-only callers depend on write methods they never use
+```
+
+## Dependency Inversion — high-level depends on abstractions, concrete is injected
+
+**Good:**
+```python
+class JobScoringService:
+    def __init__(self, scorer: Scorer, repo: JobRepository) -> None:
+        self._scorer = scorer
+        self._repo = repo
+```
+
+**Bad:**
+```python
+class JobScoringService:
+    def __init__(self) -> None:
+        self._scorer = ClaudeScorer()           # hard-wired
+        self._repo = SqliteJobRepository()      # hard-wired
+```

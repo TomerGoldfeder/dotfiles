@@ -1,0 +1,18 @@
+---
+description: File length target 400 lines, hard ceiling 450. Approaching the limit is a signal to split
+globs: **/*.py
+---
+
+# Code Structure: File Length
+
+Target: **≤ 400 lines per file**, including docstrings and blank lines. Hard ceiling: **450**. Beyond that, split.
+
+When a file approaches 400 lines, treat it as a **signal to check** — not an automatic command:
+
+1. Does it contain more than one logical concept? → split by concept into multiple files in a folder (per `code-structure-layout`).
+2. Is one class doing too much? → SRP violation, decompose the class first (per `code-structure-solid`).
+3. Is it legitimately one cohesive thing (e.g. a large state machine, generated code)? → allowed to exceed with a comment at the top explaining why.
+
+**Good:** A `TelegramClient` at 380 lines stays as one file. A 520-line `TelegramClient` gets split into `client.py` (transport) + `formatting.py` (message construction) + `retry.py` (retry policy), all under `adapters/telegram/`.
+
+**Bad:** One `utils.py` at 900 lines containing 14 unrelated helper functions.

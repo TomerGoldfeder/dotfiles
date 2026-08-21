@@ -1,0 +1,102 @@
+---
+description: Type hints required on every function parameter, return type, and class attribute
+globs: **/*.py
+alwaysApply: true
+---
+
+# Code Structure: Type Hints
+
+Type hints are non-negotiable. Every function parameter, every return type, every class attribute and every variable needs to be typed. No `Any` unless genuinely dynamic (and commented why). No missing return annotations — use `-> None` explicitly.
+
+**Good:**
+```python
+from collections.abc import Iterable
+from typing import Protocol
+
+class Scorer(Protocol):
+    def score(self, job: JobPosting) -> MatchScore: ...
+
+def filter_matches(scores: Iterable[MatchScore], threshold: float) -> list[MatchScore]:
+    return [s for s in scores if s.value >= threshold]
+
+class JobScoringService:
+    def __init__(self, scorer: Scorer, repo: JobRepository) -> None:
+        self._scorer = scorer
+        self._repo = repo
+```
+
+**Bad:**
+```python
+class Scorer:
+    def score(self, job): ...
+
+def filter_matches(scores, threshold):
+    return [s for s in scores if s.value >= threshold]
+
+class JobScoringService:
+    def __init__(self, scorer, repo):       # no annotations, no -> None
+        self._scorer = scorer
+        self._repo = repo
+```
+
+**Good:**
+```python
+def X() -> int:
+    return 1
+
+x: int = X()
+```
+
+**Bad:**
+```python
+def X() -> int:
+    return 1
+
+x = X()
+```
+
+## Modern Python Conventions
+- Use built-in typing package (`List[str]`, `Dict[str, int]`) over `list`/`dict.
+- Use `X | None` over `Optional[X]`.
+- Use `collections.abc.Iterable` / `Sequence` / `Mapping` over `typing.Iterable` etc.
+- Use `Protocol` for structural typing instead of ABCs when interfaces don't need shared implementation.
+
+## Tooling
+
+Run `mypy --strict` (or `pyright`) in CI. Type hints aren't documentation, they're checked.
+
+If a type genuinely cannot be expressed (e.g. dynamic JSON), use `Any` *with a comment explaining why*.
+
+```python
+# Justified Any — JSON shape varies by Telegram API endpoint version
+def parse_response(payload: Any) -> ParsedResponse: ...
+```
+
+## Class method naming formation
+
+- For internal usage methods in a class the naming convention should be: "_method_name"
+- When possible, use dataclasses decorators.
+- Decorate internal methods with `@staticmethod` when possible (when the method does not use any other class methods)
+
+** Good **
+```python
+@dataclass
+class A:
+    @staticmethod
+    def _internal_usage_method():
+        pass
+
+    def exposed_method(self, something):
+        return self._internal_usage_method()
+```
+
+** Bad **
+```python`
+class A:
+    def internal_method(self):
+        pass
+
+    def exposed_method(self, something):
+        return self.internal_method()
+````
+    

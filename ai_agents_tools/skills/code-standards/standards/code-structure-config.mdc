@@ -1,0 +1,85 @@
+---
+description: All settings, constants, and env loading live in config/, with internal structure mirroring the source tree
+globs: config/**/*.py,**/settings.py,**/constants.py
+---
+
+# Code Structure: Config
+
+`config/` is the single top-level home for all settings, constants, and env var loading. Its **internal structure mirrors the layers and logical units it configures**.
+
+Two properties at once:
+- **One place to look** for anything configurable.
+- **Each unit's config sits next to its peers' configs**, not next to its own internals — so swapping environments or auditing secrets is a single-folder operation.
+
+## Folder Layout
+
+```
+config/
+├── __init__.py                # re-exports Settings, common constants
+├── settings.py                # root pydantic Settings; composes sub-settings
+├── constants.py               # truly global constants (app name, version)
+├── logging.py                 # get_logging_config() for entry points
+├── core/
+│   └── scoring.py             # SCORE_THRESHOLD, MATCH_WEIGHTS
+├── services/
+│   └── notification.py        # NOTIFICATION_BATCH_SIZE, QUIET_HOURS
+└── adapters/
+    ├── telegram.py            # TELEGRAM_API_BASE, DEFAULT_TIMEOUT, MAX_RETRIES
+    ├── jsearch.py
+    └── sqlite.py
+```
+
+**Rule of thumb:** `config/<path>` mirrors `<path>` in the source tree. Configuring `adapters/telegram/` → its config lives at `config/adapters/telegram.py` (or `config/adapters/telegram/` if it grows).
+
+## Good
+
+```python
+# config/adapters/telegram.py
+from typing import Final
+from pydantic_settings import BaseSettings
+
+API_BASE: Final[str] = "https://api.telegram.org"
+DEFAULT_TIMEOUT_SECONDS: Final[int] = 30
+MAX_RETRIES: Final[int] = 3
+
+class TelegramSettings(BaseSettings):
+    token: str
+    default_chat_id: str
+    class Config:
+        env_prefix = "TELEGRAM_"
+
+# config/settings.py
+from config.adapters.telegram import TelegramSettings
+from config.adapters.sqlite import SqliteSettings
+
+class Settings(BaseSettings):
+    telegram: TelegramSettings = TelegramSettings()
+    sqlite: SqliteSettings = SqliteSettings()
+
+# usage at entry-point wiring
+from config import Settings
+from config.adapters import telegram as telegram_config
+
+settings = Settings()
+client = TelegramClient(
+    token=settings.telegram.token,
+    timeout=telegram_config.DEFAULT_TIMEOUT_SECONDS,
+)
+```
+
+## Bad
+
+```python
+# adapters/telegram/client.py ❌
+class TelegramClient:
+    def __init__(self):
+        self._token = os.getenv("TELEGRAM_TOKEN")       # env scattered
+        self._timeout = 30                               # magic number
+        self._base = "https://api.telegram.org"          # hardcoded URL
+        self._retries = 3                                # magic number
+
+# OR equally bad — config co-located with the code it configures
+adapters/telegram/
+├── client.py
+└── config.py                  # ❌ breaks "one place to look" rule
+```

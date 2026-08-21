@@ -1,0 +1,48 @@
+---
+description: Tests mirror the source tree at the layer level only; flatten within layers
+globs: tests/**/*.py
+---
+
+# Code Structure: Tests
+
+Tests group by top-level layer but do **not** replicate every subfolder. Predictable discovery without 5-deep nesting.
+
+## Layout
+
+```
+src/
+└── adapters/
+    └── telegram/
+        ├── client.py
+        └── formatting/
+            └── formatter.py
+
+tests/
+└── adapters/
+    ├── test_telegram_client.py          # not tests/adapters/telegram/test_client.py
+    └── test_telegram_formatter.py
+```
+
+- Unit tests go next to the layer they exercise.
+- Integration tests live in `tests/integration/` and cross layers intentionally.
+- Test file names encode the subpath as a prefix (`test_telegram_client.py`) so they stay searchable.
+
+## Good
+
+```
+tests/adapters/test_telegram_client.py
+tests/adapters/test_telegram_formatter.py
+tests/services/test_job_scorer.py
+tests/services/test_notification_service.py
+tests/integration/test_end_to_end_scoring.py
+```
+
+## Bad
+
+```
+tests/adapters/telegram/formatting/test_formatter.py   # ❌ mirrors every subfolder
+tests/adapters/telegram/__init__.py                    # ❌ empty init chain
+tests/adapters/telegram/test_client.py                 # ❌ same
+```
+
+Empty `__init__.py` chains, hard to browse, and you have to recreate the source structure for every test file.

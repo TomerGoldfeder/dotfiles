@@ -1,0 +1,20 @@
+add_newline = false
+format = "$directory$git_branch$git_status$line_break$character"
+
+[directory]
+style = "bold #fab387"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+format = "on [$symbol$branch]($style) "
+style = "bold white"
+symbol = " "
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold #fab387"
+
+[character]
+success_symbol = "[❯](bold white)"
+error_symbol = "[❯](bold red)"

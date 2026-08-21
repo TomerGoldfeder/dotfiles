@@ -1,0 +1,79 @@
+---
+description: Top-level Python layer structure, folder-per-logical-unit rule, and __init__.py public API
+globs: **/*.py
+alwaysApply: true
+---
+
+# Code Structure: Layout
+
+Foundational structural rules. See `INDEX.md` for layer set and dependency direction.
+
+## Folder-Per-Logical-Unit (Recursive)
+
+A **logical unit** is a coherent concept: one adapter, one service, one bounded piece of the domain. Siblings at any given level must be *the same kind of thing*.
+
+**Rule:** A logical unit is a folder the moment it contains anything other than a single class. A single class gets a single file.
+
+```
+# Stage 1 — one class, one file
+adapters/
+├── jsearch_client.py
+└── telegram_client.py
+
+# Stage 2 — telegram grows; promote to folder
+adapters/
+├── jsearch_client.py
+└── telegram/
+    ├── __init__.py            # re-exports TelegramClient
+    ├── client.py
+    ├── message_formatter.py
+    └── retry_policy.py
+
+# Stage 3 — formatter itself grows; recurse
+adapters/
+├── jsearch_client.py
+└── telegram/
+    ├── __init__.py
+    ├── client.py
+    ├── retry_policy.py
+    └── formatting/
+        ├── __init__.py
+        ├── formatter.py
+        └── markdown_escaper.py
+```
+
+**Good:** `jsearch_client.py` and `telegram/` are siblings — both are "one adapter."
+
+**Bad:** `adapters/telegram_client.py`, `adapters/telegram_formatter.py`, `adapters/telegram_retry.py`, `adapters/jsearch_client.py` flat at the same level. The telegram pieces are internals of one unit, not peers of jsearch.
+
+## Public Interface via `__init__.py`
+
+Each folder-level logical unit exposes its public API through `__init__.py`. Internal files import each other directly; **external callers import from the folder**.
+
+**Good:**
+```python
+# adapters/telegram/__init__.py
+from adapters.telegram.client import TelegramClient
+from adapters.telegram.errors import TelegramSendError
+__all__ = ["TelegramClient", "TelegramSendError"]
+
+# elsewhere
+from adapters.telegram import TelegramClient
+```
+
+**Bad:**
+```python
+from adapters.telegram.client import TelegramClient  # reaches into internals
+```
+
+## Dependency Rule
+
+- `core` imports only stdlib + pure libs (e.g. `pydantic`).
+- `services` imports from `core`; depends on `adapters` *only through protocols*.
+- `adapters` imports from `core` for types; never from `services` or entry-point layers.
+- `api` / `cli` import from `services` and wire concrete `adapters` in.
+- `config` is reachable from anywhere; imports from nowhere else in the project.
+
+**Good:** `services/job_scorer.py` accepts a `Scorer` protocol; `api/routes.py` instantiates `ClaudeScorer` and injects it.
+
+**Bad:** `services/job_scorer.py` does `from adapters.claude_client import ClaudeScorer`. Now swapping the scorer means editing the service.

@@ -1,0 +1,53 @@
+---
+description: CLI, HTTP API, and scheduled-job entry points are thin wrappers over services. No business logic in entry points
+globs: cli/**/*.py,api/**/*.py,**/main.py,**/__main__.py
+---
+
+# Code Structure: Entry Points
+
+Every way a user can invoke the system (CLI, HTTP API, scheduled job, library import) is a **thin wrapper** over a service. Entry-point layers contain *no business logic*.
+
+One place to change → affects all entry points.
+
+## Good
+
+```python
+# cli/commands.py
+@app.command()
+def score_jobs(query: str) -> None:
+    service = build_job_scoring_service()   # wiring
+    result = service.score_all(query)       # delegate
+    typer.echo(result.summary())
+
+# api/routes.py
+@router.post("/score")
+def score_jobs_endpoint(req: ScoreRequest) -> ScoreResponse:
+    service = build_job_scoring_service()
+    result = service.score_all(req.query)
+    return ScoreResponse.from_domain(result)
+```
+
+Both CLI and API call the same `JobScoringService.score_all(...)`.
+
+## Bad
+
+```python
+# cli/commands.py ❌
+@app.command()
+def score_jobs(query):
+    jobs = fetch_from_jsearch(query)          # business logic in CLI
+    for job in jobs:
+        score = claude.score(job)             # …
+        if score.match > 0.7:                 # threshold hardcoded
+            save(job, score)
+```
+
+If the HTTP endpoint needs the same behavior it has to reimplement it — and the two will drift.
+
+## What entry points *do* contain
+
+- **Wiring** — instantiate concrete adapters and inject them into services.
+- **Translation** — request DTOs ↔ domain objects, CLI args ↔ service params.
+- **Presentation** — formatting output for the user (table, JSON, exit codes).
+
+That's it. If you find yourself reaching for a domain function or writing a conditional on business state, it belongs in a service.
