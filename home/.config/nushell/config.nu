@@ -7,6 +7,46 @@
 $env.config.show_banner = false
 $env.config.edit_mode = "vi"
 $env.config.ls.use_ls_colors = true
+
+# macOS Option+Left/Right word jump and Shift+Option word select.
+# Defaults only bind these in emacs mode; this shell uses vi.
+$env.config.keybindings ++= [
+  {
+    name: macos_word_left
+    modifier: alt
+    keycode: left
+    mode: [emacs, vi_normal, vi_insert]
+    event: { edit: movewordleft }
+  }
+  {
+    name: macos_word_right
+    modifier: alt
+    keycode: right
+    mode: [emacs, vi_normal, vi_insert]
+    event: { edit: movewordright }
+  }
+  {
+    name: macos_select_word_left
+    modifier: shift_alt
+    keycode: left
+    mode: [emacs, vi_insert]
+    event: { edit: movewordleft, select: true }
+  }
+  {
+    name: macos_select_word_right
+    modifier: shift_alt
+    keycode: right
+    mode: [emacs, vi_insert]
+    event: { edit: movewordright, select: true }
+  }
+  {
+    name: macos_delete_word
+    modifier: alt
+    keycode: backspace
+    mode: [emacs, vi_normal, vi_insert]
+    event: { edit: backspaceword }
+  }
+]
 $env.config.table.mode = "rounded"
 $env.config.table.index_mode = "always"
 
