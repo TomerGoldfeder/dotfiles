@@ -12,8 +12,15 @@ return {
 	macos_window_background_blur = 30,
 	default_prog = { "/run/current-system/sw/bin/nu" },
 
-	window_background_opacity = 0.5,
+	-- 60% opaque. Neovim must use a transparent Normal highlight or this
+	-- is covered by the colorscheme background.
+	window_background_opacity = 0.6,
 	window_decorations = "RESIZE",
+
+	-- Left Option as Alt so nvim can see Option/Shift+Option chords.
+	send_composed_key_when_left_alt_is_pressed = false,
+	send_composed_key_when_right_alt_is_pressed = true,
+
 	keys = {
 		{
 			key = "q",
@@ -24,6 +31,26 @@ return {
 			key = "'",
 			mods = "CTRL",
 			action = wezterm.action.ClearScrollback("ScrollbackAndViewport"),
+		},
+		{
+			key = "LeftArrow",
+			mods = "OPT|SHIFT",
+			action = wezterm.action.SendKey({ key = "LeftArrow", mods = "ALT|SHIFT" }),
+		},
+		{
+			key = "RightArrow",
+			mods = "OPT|SHIFT",
+			action = wezterm.action.SendKey({ key = "RightArrow", mods = "ALT|SHIFT" }),
+		},
+		{
+			key = "UpArrow",
+			mods = "OPT|SHIFT",
+			action = wezterm.action.SendKey({ key = "UpArrow", mods = "ALT|SHIFT" }),
+		},
+		{
+			key = "DownArrow",
+			mods = "OPT|SHIFT",
+			action = wezterm.action.SendKey({ key = "DownArrow", mods = "ALT|SHIFT" }),
 		},
 	},
 	mouse_bindings = {
