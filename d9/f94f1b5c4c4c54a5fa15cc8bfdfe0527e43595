@@ -1,0 +1,199 @@
+flake.lock
+  s_d5d18fa9b50c55::t_3313fe914f6c48 1-71
+home/.config/nvim/.gitignore
+  s_d5d18fa9b50c55::t_266eeb5413de09 1-8
+home/.config/nvim/.neoconf.json
+  s_d5d18fa9b50c55::t_33ddcfc0a37d1c 1-15
+home/.config/nvim/LICENSE
+  s_d5d18fa9b50c55::t_8998d8c1c12f03 1-201
+home/.config/nvim/README.md
+  s_d5d18fa9b50c55::t_da0ab94ac9392f 1-4
+home/.config/nvim/init.lua
+  s_d5d18fa9b50c55::t_831e368b6d881d 1-2
+home/.config/nvim/lazyvim.json
+  s_d5d18fa9b50c55::t_df5f6b1819635e 1-18
+home/.config/nvim/lua/config/autocmds.lua
+  s_d5d18fa9b50c55::t_a09ed739d92128 1-8
+home/.config/nvim/lua/config/keymaps.lua
+  s_d5d18fa9b50c55::t_e647fcefd0b440 1-3
+home/.config/nvim/lua/config/lazy.lua
+  s_d5d18fa9b50c55::t_94b97df64c85b7 1-53
+home/.config/nvim/lua/config/options.lua
+  s_d5d18fa9b50c55::t_0ad63b74e84169 1-3
+home/.config/nvim/lua/plugins/example.lua
+  s_d5d18fa9b50c55::t_e0a01ef85ace8d 1-197
+home/.config/nvim/stylua.toml
+  s_d5d18fa9b50c55::t_b181b328239b80 1-3
+home/.config/sketchybar/plugins-desktop/spotify.sh
+  s_d5d18fa9b50c55::t_8d8ea79c674095 1-65
+home/.config/sketchybar/plugins-laptop/battery.sh
+  s_d5d18fa9b50c55::t_d071bd273b2781 1-43
+home/.config/sketchybar/plugins-laptop/spotify.sh
+  s_d5d18fa9b50c55::t_45f7753c5f7c8a 1-65
+home/.config/sketchybar/plugins/clock.sh
+  s_d5d18fa9b50c55::t_518d9973b04281 1-3
+home/.config/sketchybar/plugins/volume.sh
+  s_d5d18fa9b50c55::t_20e2f90e5edd8b 1-18
+home/.config/sketchybar/plugins/weather.sh
+  s_d5d18fa9b50c55::t_452c701ecf1399 1-55
+home/.config/tmux/tmux.reset.conf
+  s_d5d18fa9b50c55::t_10f3a644ffbc6e 1-40
+.gitignore
+  s_d5d18fa9b50c55::t_931360c51b6c1e 1-3
+ai_agents_tools/rules/AGENTS.md
+  s_d5d18fa9b50c55::t_49838e9559f5ea 1-30
+ai_agents_tools/skills/code-standards/SKILL.md
+  s_d5d18fa9b50c55::t_1d643c473b0ba9 1-108
+ai_agents_tools/skills/code-standards/standards/INDEX.md
+  s_d5d18fa9b50c55::t_26b8de1cfae426 1-61
+ai_agents_tools/skills/code-standards/standards/code-structure-composition.mdc
+  s_d5d18fa9b50c55::t_f557157b69aecf 1-110
+ai_agents_tools/skills/code-standards/standards/code-structure-config.mdc
+  s_d5d18fa9b50c55::t_50ddfd11c0bed0 1-85
+ai_agents_tools/skills/code-standards/standards/code-structure-development-workflow.mdc
+  s_d5d18fa9b50c55::t_d72b69f24d9a6f 1-16
+ai_agents_tools/skills/code-standards/standards/code-structure-encapsulation.mdc
+  s_d5d18fa9b50c55::t_84ef2edd7e0345 1-102
+ai_agents_tools/skills/code-standards/standards/code-structure-entry-points.mdc
+  s_d5d18fa9b50c55::t_e375851e3be397 1-53
+ai_agents_tools/skills/code-standards/standards/code-structure-file-length.mdc
+  s_d5d18fa9b50c55::t_bbb8cb3853d9ed 1-18
+ai_agents_tools/skills/code-standards/standards/code-structure-layout.mdc
+  s_d5d18fa9b50c55::t_4bc3dbdea8a970 1-79
+ai_agents_tools/skills/code-standards/standards/code-structure-planning.mdc
+  s_d5d18fa9b50c55::t_fd761f86c92339 1-78
+ai_agents_tools/skills/code-standards/standards/code-structure-protocols.mdc
+  s_d5d18fa9b50c55::t_376d2a436b8fd2 1-79
+ai_agents_tools/skills/code-standards/standards/code-structure-solid.mdc
+  s_d5d18fa9b50c55::t_266c30632eb1b3 1-81
+ai_agents_tools/skills/code-standards/standards/code-structure-tests.mdc
+  s_d5d18fa9b50c55::t_45c11e263769f8 1-48
+ai_agents_tools/skills/code-standards/standards/code-structure-typing.mdc
+  s_d5d18fa9b50c55::t_59b7dd3bc33f3d 1-102
+ai_agents_tools/skills/enhanced-workflow/SKILL.md
+  s_d5d18fa9b50c55::t_61814eba8af30f 1-90
+ai_agents_tools/skills/loop/SKILL.md
+  s_d5d18fa9b50c55::t_d7e861956d91fe 1-90
+ai_agents_tools/skills/performance-journaler/SKILL.md
+  s_d5d18fa9b50c55::t_ae9f19139c1322 1-95
+ai_agents_tools/skills/pr-babysitting/SKILL.md
+  s_d5d18fa9b50c55::t_f71860e946df13 1-81
+ai_agents_tools/skills/pytest-coverage-incremental/SKILL.md
+  s_d5d18fa9b50c55::t_1232f912202499 1-93
+ai_agents_tools/skills/pytest-coverage-incremental/reference.md
+  s_d5d18fa9b50c55::t_e96ae3823a0a92 1-36
+ai_agents_tools/skills/pytest-coverage-incremental/scripts/commit-coverage-branch.sh
+  s_d5d18fa9b50c55::t_a28e9551b57ebb 1-45
+ai_agents_tools/skills/repo-navigation/SKILL.md
+  s_d5d18fa9b50c55::t_607a6354775c6e 1-91
+ai_agents_tools/skills/tdd-loop/SKILL.md
+  s_d5d18fa9b50c55::t_7d5bb298e92b04 1-144
+ai_agents_tools/skills/tdd-loop/phases/01-interview.md
+  s_d5d18fa9b50c55::t_23973eb2f24cf8 1-38
+ai_agents_tools/skills/tdd-loop/phases/02-acceptance-tests.md
+  s_d5d18fa9b50c55::t_7dc8a5d3de9e91 1-35
+ai_agents_tools/skills/tdd-loop/phases/03-plan.md
+  s_d5d18fa9b50c55::t_6357c0df0f149c 1-47
+ai_agents_tools/skills/tdd-loop/phases/04-implement.md
+  s_d5d18fa9b50c55::t_29f390f6c51c2b 1-33
+ai_agents_tools/skills/tdd-loop/phases/05-polish.md
+  s_d5d18fa9b50c55::t_7649a3ccb4e20f 1-38
+ai_agents_tools/skills/tdd-loop/phases/06-qa.md
+  s_d5d18fa9b50c55::t_0f74d2bc921f82 1-76
+ai_agents_tools/skills/tdd-loop/templates/STATE.md
+  s_d5d18fa9b50c55::t_3e49d34496cc8d 1-29
+ai_agents_tools/skills/tdd-loop/templates/qa-verdict.json
+  s_d5d18fa9b50c55::t_46dec217e8d049 1-9
+ai_agents_tools/third_party/README.md
+  s_d5d18fa9b50c55::t_a7e814d73e49d2 1-19
+ai_agents_tools/third_party/skill-lock.json
+  s_d5d18fa9b50c55::t_ef5b70069fcfbd 1-16
+ai_agents_tools/third_party/skills/skill-creator/LICENSE.txt
+  s_d5d18fa9b50c55::t_fd626db85193a1 1-202
+ai_agents_tools/third_party/skills/skill-creator/SKILL.md
+  s_d5d18fa9b50c55::t_415c71dbde6662 1-485
+ai_agents_tools/third_party/skills/skill-creator/agents/analyzer.md
+  s_d5d18fa9b50c55::t_8f4fb0740646b6 1-274
+ai_agents_tools/third_party/skills/skill-creator/agents/comparator.md
+  s_d5d18fa9b50c55::t_90a21fc85502f8 1-202
+ai_agents_tools/third_party/skills/skill-creator/agents/grader.md
+  s_d5d18fa9b50c55::t_f968c6b1063821 1-223
+ai_agents_tools/third_party/skills/skill-creator/assets/eval_review.html
+  s_d5d18fa9b50c55::t_5ce8f89bb741aa 1-146
+ai_agents_tools/third_party/skills/skill-creator/eval-viewer/generate_review.py
+  s_d5d18fa9b50c55::t_3800b3a0035ecd 1-471
+ai_agents_tools/third_party/skills/skill-creator/eval-viewer/viewer.html
+  s_d5d18fa9b50c55::t_2220a8d6edaf27 1-1325
+ai_agents_tools/third_party/skills/skill-creator/references/schemas.md
+  s_d5d18fa9b50c55::t_f4f9db89546bf7 1-430
+ai_agents_tools/third_party/skills/skill-creator/scripts/aggregate_benchmark.py
+  s_d5d18fa9b50c55::t_1d923684d29699 1-401
+ai_agents_tools/third_party/skills/skill-creator/scripts/generate_report.py
+  s_d5d18fa9b50c55::t_3e4aa38c34256e 1-326
+ai_agents_tools/third_party/skills/skill-creator/scripts/improve_description.py
+  s_d5d18fa9b50c55::t_7fcc6b79344a38 1-247
+ai_agents_tools/third_party/skills/skill-creator/scripts/package_skill.py
+  s_d5d18fa9b50c55::t_5794cef507edfd 1-136
+ai_agents_tools/third_party/skills/skill-creator/scripts/quick_validate.py
+  s_d5d18fa9b50c55::t_d15e8a3f8a9e40 1-103
+ai_agents_tools/third_party/skills/skill-creator/scripts/run_eval.py
+  s_d5d18fa9b50c55::t_c3133e391441c2 1-310
+ai_agents_tools/third_party/skills/skill-creator/scripts/run_loop.py
+  s_d5d18fa9b50c55::t_3373db40c8235e 1-328
+ai_agents_tools/third_party/skills/skill-creator/scripts/utils.py
+  s_d5d18fa9b50c55::t_77689ef9bc8cee 1-47
+configuration.nix
+  s_d5d18fa9b50c55::t_8e8e2830476d1f 1-109
+flake.nix
+  s_d5d18fa9b50c55::t_0cc5c5e8ac9e1d 1-34
+home.nix
+  s_d5d18fa9b50c55::t_7d6f54ca44bda7 1-102
+home/.config/aerospace/aerospace.toml
+  s_d5d18fa9b50c55::t_ed8b601f6522ea 1-197
+home/.config/borders/bordersrc
+  s_d5d18fa9b50c55::t_320c518df87ab4 1-12
+home/.config/nushell/config.nu
+  s_d5d18fa9b50c55::t_2bec460e11ea4f 1-66
+home/.config/nushell/env.nu
+  s_d5d18fa9b50c55::t_e286df6a72c577 1-44
+home/.config/nvim/lazy-lock.json
+  s_d5d18fa9b50c55::t_b27bef1f6b4dda 1-50
+home/.config/nvim/lua/plugins/render-markdown.lua
+  s_d5d18fa9b50c55::t_2719fb3d32cfae 1-16
+home/.config/sketchybar/plugins/current_space.sh
+  s_d5d18fa9b50c55::t_1db41514daa01a 1-40
+home/.config/sketchybar/plugins/front_app.sh
+  s_d5d18fa9b50c55::t_11c7cc3cf6b7a3 1-84
+home/.config/sketchybar/sketchybarrc
+  s_d5d18fa9b50c55::t_90ed09c8378345 1-16
+home/.config/sketchybar/sketchybarrc-desktop
+  s_d5d18fa9b50c55::t_a3790dfaf1cd8e 1-91
+home/.config/sketchybar/sketchybarrc-laptop
+  s_d5d18fa9b50c55::t_a87a623334dab6 1-136
+home/.config/starship.toml
+  s_d5d18fa9b50c55::t_b8b52b6547299a 1-20
+home/.config/tmux/tmux.conf
+  s_d5d18fa9b50c55::t_d0c3c619a21deb 1-79
+home/.config/wezterm/wezterm.lua
+  s_d5d18fa9b50c55::t_bb6c9fb999d064 1-37
+rebuild.sh
+  s_d5d18fa9b50c55::t_83882411a881af 1-5
+secrets/env.sh.example
+  s_d5d18fa9b50c55::t_15323de7707ef4 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "d9f94f1b5c4c4c54a5fa15cc8bfdfe0527e43595",
+  "prompts": {},
+  "sessions": {
+    "s_d5d18fa9b50c55": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3956d51f-bd54-48ea-8197-9fd2d0d372f4",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
