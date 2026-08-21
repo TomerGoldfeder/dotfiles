@@ -1,0 +1,19 @@
+bootstrap.sh
+  s_d5d18fa9b50c55::t_1fc9c00e514d30 1-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "a035dcfcac6ee8a347f7abc286cf3a89e03546df",
+  "prompts": {},
+  "sessions": {
+    "s_d5d18fa9b50c55": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3956d51f-bd54-48ea-8197-9fd2d0d372f4",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
