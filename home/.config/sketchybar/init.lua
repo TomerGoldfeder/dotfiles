@@ -44,6 +44,7 @@ local defaults = {
   modules = {
     logo = { enabled = true },
     spaces = { enabled = true },
+    windows = { enabled = true },
     menus = { enabled = true },
     front_app = { enabled = true },
     calendar = { enabled = true },

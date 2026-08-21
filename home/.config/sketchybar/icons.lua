@@ -5,6 +5,7 @@ local icons = {
   clipboard = '',
   brew = '󰏗 ',
   brew_check = '',
+  windows = '󰖯',
 
   switch = {
     on = '󱨥',

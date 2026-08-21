@@ -15,6 +15,9 @@ end
 if is_enabled('spaces') then
   safe_require('items.left.spaces')
 end
+if is_enabled('windows') then
+  safe_require('items.left.windows')
+end
 if is_enabled('front_app') then
   safe_require('items.left.front_app')
 end
