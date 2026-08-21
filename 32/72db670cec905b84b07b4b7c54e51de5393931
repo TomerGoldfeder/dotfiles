@@ -1,0 +1,30 @@
+home/.config/nvim/lua/config/keymaps.lua
+  s_d591d709becd94::t_92ee6f8439ffe0 12-15
+  s_d591d709becd94::t_5baa00a2191fed 4-11,21
+  s_d591d709becd94::t_d8c4d3f6896fb9 16-20
+home/.config/tmux/tmux.conf
+  s_d591d709becd94::t_32ea746b033242 91-114
+  s_d591d709becd94::t_6404ff52963b2f 28-31
+home/.config/wezterm/wezterm.lua
+  s_d591d709becd94::t_321c12c706485a 69-73
+  s_d591d709becd94::t_4d64111be2d7a4 20-21,36-48,52,57,62,67-68
+home/.config/nushell/config.nu
+  s_d591d709becd94::t_5498b2df3914da 10-41,49
+  s_d591d709becd94::t_76e671446bcb9c 42-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "3272db670cec905b84b07b4b7c54e51de5393931",
+  "prompts": {},
+  "sessions": {
+    "s_d591d709becd94": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "a84d3bea-3d66-4f06-8928-4b005e3b7cc4",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
