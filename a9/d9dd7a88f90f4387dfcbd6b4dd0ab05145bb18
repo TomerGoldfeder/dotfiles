@@ -1,0 +1,31 @@
+home/.config/nvim/lua/config/autocmds.lua
+  s_d5d18fa9b50c55::t_976929b3298961 3-4,11-12,14
+  s_d5d18fa9b50c55::t_b4372a40c6ba8d 5-10,13,15-16
+home/.config/nvim/lua/plugins/colorscheme.lua
+  s_d5d18fa9b50c55::t_e066b06bc11e18 1-24
+home/.config/wezterm/wezterm.lua
+  s_d5d18fa9b50c55::t_49815fb2de3383 15-17,19-23,35-54
+home/.config/tmux/tmux.conf
+  s_d5d18fa9b50c55::t_1cc12f46fee568 10-13
+  s_d5d18fa9b50c55::t_f1fe76fe0fa8e2 84-86
+home/.config/aerospace/aerospace.toml
+  s_d5d18fa9b50c55::t_f11f7a526f4fb5 126-131
+home/.config/nvim/lua/config/keymaps.lua
+  s_d5d18fa9b50c55::t_c2b0cc1d94e64b 3-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "a9d9dd7a88f90f4387dfcbd6b4dd0ab05145bb18",
+  "prompts": {},
+  "sessions": {
+    "s_d5d18fa9b50c55": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3956d51f-bd54-48ea-8197-9fd2d0d372f4",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
