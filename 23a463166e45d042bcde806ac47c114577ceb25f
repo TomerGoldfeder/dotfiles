@@ -1,0 +1,21 @@
+home/.config/nvim/lua/plugins/git.lua
+  s_e33ab74fb42f4f::t_22a960bbf83e3b 22-33
+  s_e33ab74fb42f4f::t_0a3560b0b822c8 20-21
+  s_e33ab74fb42f4f::t_e73705a21c6530 34-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "23a463166e45d042bcde806ac47c114577ceb25f",
+  "prompts": {},
+  "sessions": {
+    "s_e33ab74fb42f4f": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1e052c25-3bf9-4838-a01c-9c2da8ee3734",
+        "model": "default"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}

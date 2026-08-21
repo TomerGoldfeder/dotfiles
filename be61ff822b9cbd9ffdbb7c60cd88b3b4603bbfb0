@@ -1,0 +1,26 @@
+ai_agents_tools/rules/AGENTS.md
+  h_d5cb918de7058b 12,23-30
+configuration.nix
+  h_d5cb918de7058b 50-51
+home/.config/nvim/lazy-lock.json
+  h_d5cb918de7058b 6,8,12
+home/.config/nvim/lua/plugins/markdown-preview.lua
+  h_d5cb918de7058b 1-15
+home/.config/nvim/lua/plugins/render-markdown.lua
+  h_d5cb918de7058b 1-10
+home/.config/nvim/lua/plugins/treesitter.lua
+  h_d5cb918de7058b 1-14
+home/.config/opencode/tui.json
+  h_d5cb918de7058b 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "be61ff822b9cbd9ffdbb7c60cd88b3b4603bbfb0",
+  "prompts": {},
+  "humans": {
+    "h_d5cb918de7058b": {
+      "author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
