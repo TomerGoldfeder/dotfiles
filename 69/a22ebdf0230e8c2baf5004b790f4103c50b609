@@ -1,0 +1,119 @@
+home/.config/sketchybar/helpers/menus/makefile
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-5
+home/.config/sketchybar/items/right/battery.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-275
+home/.config/sketchybar/items/right/cpu.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-24
+home/.config/sketchybar/items/right/network.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-70
+home/.config/sketchybar/sketchybarrc
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1,3-5
+home/.config/sketchybar/helpers/event_providers/network_load/network_load.c
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-42
+home/.config/sketchybar/items/window_managers/aerospace.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-383
+home/.config/sketchybar/README.md
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-148
+home/.config/sketchybar/items/init.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-2
+home/.config/aerospace/aerospace.toml
+  s_d5d18fa9b50c55::t_bb387d61f04f8a 7,11
+home/.config/sketchybar/helpers/event_providers/cpu_load/makefile
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-5
+home/.config/sketchybar/items/right/toggle_stats.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-68
+home/.config/sketchybar/items/right/volume.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-206
+home/.config/sketchybar/helpers/event_providers/cpu_load/cpu_load.c
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-41
+home/.config/sketchybar/helpers/event_providers/makefile
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-3
+home/.config/sketchybar/helpers/menus/menus.c
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-248
+home/.config/sketchybar/helpers/event_providers/network_load/makefile
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-5
+home/.config/sketchybar/stylua.toml
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-6
+home/.config/sketchybar/items/right/memory.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-22
+home/.config/sketchybar/helpers/widget_utils.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-65
+home/.config/sketchybar/items/right/init.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-68
+home/.config/sketchybar/items/window_managers/macos_native.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-103
+home/.config/sketchybar/init.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-228
+home/.config/sketchybar/settings.lua
+  s_d5d18fa9b50c55::t_c6ac7c639ca2e6 1-5
+home.nix
+  s_d5d18fa9b50c55::t_a6c2086dbfab37 1
+  s_d5d18fa9b50c55::t_11e11c64bde1e9 65-78
+home/.config/sketchybar/helpers/event_providers/cpu_load/cpu.h
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-58
+configuration.nix
+  s_d5d18fa9b50c55::t_77314bb9b1a39b 84-86
+  s_d5d18fa9b50c55::t_a7e7f2d95ce30c 105-107
+home/.config/sketchybar/.gitignore
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 3-34
+  s_d5d18fa9b50c55::t_a37cbac51516aa 1-2
+home/.config/sketchybar/helpers/.gitignore
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1
+home/.config/sketchybar/items/left/spaces.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-39
+home/.config/sketchybar/items/left/menus.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-76
+home/.config/sketchybar/items/music/init.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-380
+home/.config/sketchybar/items/right/calendar.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-33
+home/.config/sketchybar/items/right/wifi.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-313
+home/.config/sketchybar/install.sh
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-99
+home/.config/sketchybar/items/left/logo.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-18
+home/.config/sketchybar/helpers/event_providers/sketchybar.h
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-122
+home/.config/sketchybar/helpers/init.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-6
+  s_d5d18fa9b50c55::t_dfe9f01eaa7542 7-8
+home/.config/sketchybar/colors.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-50
+home/.config/sketchybar/helpers/spaces_util/sbar_util.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-129
+home/.config/sketchybar/items/left/init.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-23
+home/.config/sketchybar/items/left/front_app.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-68
+home/.config/sketchybar/items/music/media-control.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-47
+home/.config/sketchybar/items/right/brew.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-305
+home/.config/sketchybar/helpers/makefile
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-3
+home/.config/sketchybar/icons.lua
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-71
+home/.config/sketchybar/helpers/event_providers/network_load/network.h
+  s_d5d18fa9b50c55::t_c5feb0b724f7a5 1-90
+home/.config/sketchybar/helpers/spaces_util/icon_map.lua
+  s_d5d18fa9b50c55::t_782fa341dc9ef3 1-859
+home/.config/nvim/lazy-lock.json
+  s_d5d18fa9b50c55::t_c293be77c25a6e 9,25,42,46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "69a22ebdf0230e8c2baf5004b790f4103c50b609",
+  "prompts": {},
+  "sessions": {
+    "s_d5d18fa9b50c55": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3956d51f-bd54-48ea-8197-9fd2d0d372f4",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
