@@ -81,6 +81,9 @@
     onActivation.extraFlags = [ "--force" ];
     brews = [
       "tmux"
+      "lua"
+      "switchaudio-osx"
+      "media-control"
       {
         # Do not start_service/restart_service here: darwin-rebuild runs as
         # root and `launchctl bootstrap user/…` then fails with I/O error 5.
@@ -99,7 +102,9 @@
     casks = [
       "wezterm"
       "nikitabobko/tap/aerospace"
-      "font-jetbrains-mono-nerd-font" # SketchyBar (neutonfoo) + WezTerm icons
+      "font-jetbrains-mono-nerd-font"
+      "font-maple-mono-nf" # SketchyBar (phucisstupid)
+      "font-sketchybar-app-font"
       # Root-owned apps (they self-update). Listed so zap does not try to
       # delete them — Homebrew cannot remove root CodeResources files.
       "google-chrome"

@@ -1,4 +1,4 @@
-{ config, user, ... }:
+{ config, lib, user, ... }:
 
 let
   # rebuild.sh keeps this symlink pointed at the repo.
@@ -61,6 +61,20 @@ in
       force = true;
     };
   };
+
+  # SbarLua + C helpers for the Lua SketchyBar config (phucisstupid).
+  home.activation.sketchybarLua = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+    if [ ! -f "$HOME/.local/share/sketchybar_lua/sketchybar.so" ]; then
+      tmp=$(mktemp -d)
+      git clone --depth 1 https://github.com/FelixKratz/SbarLua.git "$tmp/SbarLua"
+      make -C "$tmp/SbarLua" install
+      rm -rf "$tmp"
+    fi
+    if [ -d "$HOME/.config/sketchybar/helpers" ]; then
+      make -C "$HOME/.config/sketchybar/helpers"
+    fi
+  '';
 
   programs.zsh = {
     enable = true;
