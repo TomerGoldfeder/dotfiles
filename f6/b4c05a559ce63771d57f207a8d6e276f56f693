@@ -1,0 +1,42 @@
+home/.config/tmux/tmux.conf
+  s_890cf3d4a0afcc::t_9e0c55a8e30041 94-101
+ai_agents_tools/skills/nix-install/SKILL.md
+  s_890cf3d4a0afcc::t_503b29d9336c81 1-47,49-62,64,83-86,88-94
+  s_890cf3d4a0afcc::t_13fd5843dc4111 68,70-71
+  s_890cf3d4a0afcc::t_34030442caadaf 63,65-67,69,72-82,87
+  s_890cf3d4a0afcc::t_afb6468141fb0d 48
+home.nix
+  s_890cf3d4a0afcc::t_dbe66ec0bc6565 8-10,12-25
+  s_890cf3d4a0afcc::t_4259e611f7dfed 11
+  s_890cf3d4a0afcc::t_4408ae909e9897 65-68
+  s_890cf3d4a0afcc::t_f67299350fb6c7 87-90
+  s_890cf3d4a0afcc::t_749eab547a9f52 36
+  s_890cf3d4a0afcc::t_27203418fcd92d 6-7
+  s_890cf3d4a0afcc::t_80f3dea0bba0ea 113-115
+configuration.nix
+  s_890cf3d4a0afcc::t_255bbef0310d71 88
+  s_890cf3d4a0afcc::t_3b078b436705c7 87
+home/.config/nushell/config.nu
+  s_890cf3d4a0afcc::t_188b10acc3f9ef 26-31
+home/.config/tmux/tmux.reset.conf
+  s_890cf3d4a0afcc::t_970f3feeb912e6 11-17
+  s_890cf3d4a0afcc::t_edefae16a937e1 18
+home/.config/tuicr/config.toml
+  s_890cf3d4a0afcc::t_57e99fa411831a 1-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "f6b4c05a559ce63771d57f207a8d6e276f56f693",
+  "prompts": {},
+  "sessions": {
+    "s_890cf3d4a0afcc": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "06f71547-4c92-463b-b1cf-774d73ee53da",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
