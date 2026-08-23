@@ -23,7 +23,12 @@ $env.config.keybindings ++= [
     modifier: alt
     keycode: right
     mode: [emacs, vi_normal, vi_insert]
-    event: { edit: movewordright }
+    event: {
+      until: [
+        { send: historyhintwordcomplete }
+        { edit: movewordright }
+      ]
+    }
   }
   {
     name: macos_select_word_left

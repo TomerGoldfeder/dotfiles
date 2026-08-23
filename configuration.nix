@@ -84,6 +84,8 @@
       "lua"
       "switchaudio-osx"
       "media-control"
+      "glab"
+      "tuicr" # code-review TUI (homebrew-core)
       {
         # Do not start_service/restart_service here: darwin-rebuild runs as
         # root and `launchctl bootstrap user/…` then fails with I/O error 5.

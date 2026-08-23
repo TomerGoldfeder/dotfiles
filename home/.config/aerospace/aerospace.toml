@@ -5,10 +5,14 @@ after-startup-command = [
 ]
 
 # Notify Sketchybar about workspace / focus changes
-exec-on-workspace-change = ['/bin/bash', '-c',
-  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
 ]
-on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_focus_change']
+on-focus-changed = [
+  'exec-and-forget sketchybar --trigger aerospace_focus_change',
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -71,23 +75,11 @@ preset = 'qwerty'
 # omerxx used 350px side insets for an ultrawide "main" monitor. This machine
 # is a laptop + two 24" Dells, so those insets made the built-in display tiny.
 inner.horizontal = 10
-outer.left =  [
-  { monitor."^Built-in.*$" = 8 },
-  12
-]
-outer.right = [
-  { monitor."^Built-in.*$" = 8 },
-  12
-]
-outer.bottom = [
-  { monitor."^Built-in.*$" = 8 },
-  16
-]
+outer.left = [{ monitor."^Built-in.*$" = 8 }, 12]
+outer.right = [{ monitor."^Built-in.*$" = 8 }, 12]
+outer.bottom = [{ monitor."^Built-in.*$" = 8 }, 16]
 # SketchyBar is 40px; keep outer.top above that so tiled windows do not cover it.
-outer.top = [
-  { monitor."^Built-in.*$" = 50 },
-  50
-]
+outer.top = [{ monitor."^Built-in.*$" = 50 }, 50]
 
 
 # 'main' binding mode declaration
@@ -177,13 +169,7 @@ alt-shift-enter = 'mode apps'
 
 # alt-t = 'exec-and-forget open -a /Applications/Telegram.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
-alt-b = 'exec-and-forget open -a /Applications/Brain.fm.app'
-alt-s = 'exec-and-forget open -a /Applications/Slack.app'
-alt-q = 'exec-and-forget open -a "/System/Applications/QuickTime Player.app"'
 alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
-alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
-alt-e = 'exec-and-forget open -a "/Applications/Final Cut Pro.app"'
-alt-z = 'exec-and-forget open -a /Applications/Zen.app'
 
 
 # 'service' binding mode declaration.
@@ -191,7 +177,10 @@ alt-z = 'exec-and-forget open -a /Applications/Zen.app'
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+f = [
+  'layout floating tiling',
+  'mode main',
+] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
 [mode.apps.binding]
@@ -199,12 +188,18 @@ alt-w = ['exec-and-forget open -a /Applications/WezTerm.app', 'mode main']
 
 [mode.window-picker.binding]
 esc = ['exec-and-forget sketchybar --trigger window_picker_close', 'mode main']
-alt-space = ['exec-and-forget sketchybar --trigger window_picker_close', 'mode main']
+alt-space = [
+  'exec-and-forget sketchybar --trigger window_picker_close',
+  'mode main',
+]
 j = 'exec-and-forget sketchybar --trigger window_picker_nav DIR=next'
 k = 'exec-and-forget sketchybar --trigger window_picker_nav DIR=prev'
 down = 'exec-and-forget sketchybar --trigger window_picker_nav DIR=next'
 up = 'exec-and-forget sketchybar --trigger window_picker_nav DIR=prev'
-enter = ['exec-and-forget sketchybar --trigger window_picker_select', 'mode main']
+enter = [
+  'exec-and-forget sketchybar --trigger window_picker_select',
+  'mode main',
+]
 
 [workspace-to-monitor-force-assignment]
 1 = '^Built-in.*$'

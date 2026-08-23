@@ -3,6 +3,26 @@
 let
   # rebuild.sh keeps this symlink pointed at the repo.
   dotfiles = "${config.home.homeDirectory}/.dotfiles";
+  # Canonical skills live under ai_agents_tools/. Linked into Cursor,
+  # Claude Code, and ~/.agents so a new skill is one directory + one attr.
+  agentSkillPaths = {
+    nix-install = "skills/nix-install";
+  };
+  agentSkillHomes = [ ".cursor/skills" ".agents/skills" ".claude/skills" ];
+  agentSkillFiles = builtins.listToAttrs (
+    builtins.concatMap
+      (
+        skill:
+        map (home: {
+          name = "${home}/${skill}";
+          value = {
+            source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/${agentSkillPaths.${skill}}";
+            force = true;
+          };
+        }) agentSkillHomes
+      )
+      (builtins.attrNames agentSkillPaths)
+  );
 in
 
 {
@@ -13,7 +33,7 @@ in
   fonts.fontconfig.enable = true;
 
   # Edit-in-place: the real file stays in the repo, ~/.config just points at it.
-  home.file = {
+  home.file = agentSkillFiles // {
     ".config/wezterm" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
       force = true;
@@ -42,6 +62,10 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/borders";
       force = true;
     };
+    ".config/tuicr" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/tuicr";
+      force = true;
+    };
     # macOS nu reads ~/Library/Application Support/nushell (not ~/.config)
     # unless XDG_CONFIG_HOME is set. History stays in Application Support.
     ".config/nushell/config.nu" = {
@@ -58,6 +82,10 @@ in
     };
     "Library/Application Support/nushell/env.nu" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nushell/env.nu";
+      force = true;
+    };
+    ".claude/CLAUDE.md" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
       force = true;
     };
   };
@@ -82,8 +110,9 @@ in
     syntaxHighlighting.enable = true;  # commands turn green when valid
     initContent = ''
       bindkey '^f' autosuggest-accept
-      bindkey "^[[1;3C" forward-word   # Option + Right
-      bindkey "^[[1;3D" backward-word  # Option + Left
+      # Option+Right: accept one word of the ghost suggestion (not the whole line).
+      bindkey "^[[1;3C" forward-word
+      bindkey "^[[1;3D" backward-word
 
       # Dotfiles secrets (GITHUB_TOKEN, etc.) — edit secrets/env.sh locally.
       if [[ -f "${dotfiles}/secrets/env.sh" ]]; then
