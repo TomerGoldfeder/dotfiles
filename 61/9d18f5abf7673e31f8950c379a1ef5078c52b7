@@ -1,0 +1,32 @@
+home.nix
+  s_d5d18fa9b50c55::t_b394b48db294bc 9-11,13-18
+  s_d5d18fa9b50c55::t_c6a7435c88f848 96-105
+home/.config/aerospace/aerospace.toml
+  s_eeb6c6dfc90dd7::t_8f21a275e20423 2-13
+  s_eeb6c6dfc90dd7::t_67af3aa3ebcf2a 230-231
+  s_eeb6c6dfc90dd7::t_0a85c5809428b0 162-166,173-177,181-184
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "619d18f5abf7673e31f8950c379a1ef5078c52b7",
+  "prompts": {},
+  "sessions": {
+    "s_d5d18fa9b50c55": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3956d51f-bd54-48ea-8197-9fd2d0d372f4",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_eeb6c6dfc90dd7": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fb7586e2-038c-43cb-8677-d4fb9b16107c",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
