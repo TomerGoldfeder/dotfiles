@@ -1,0 +1,36 @@
+home.nix
+  s_c087704e6afcc0::t_0c674943c73be9 17
+  s_c087704e6afcc0::t_6c7f8db5f21a47 111-120
+ai_agents_tools/third_party/skills/caveman/README.md
+  s_c087704e6afcc0::t_d26774431bdb35 1-52
+ai_agents_tools/third_party/skills/caveman/LICENSE
+  s_c087704e6afcc0::t_d26774431bdb35 1-27
+ai_agents_tools/rules/AGENTS.md
+  s_c087704e6afcc0::t_4da9d131c25a1c 5-9
+ai_agents_tools/third_party/skills/caveman/SKILL.md
+  s_c087704e6afcc0::t_d26774431bdb35 1-90
+ai_agents_tools/third_party/README.md
+  s_c087704e6afcc0::t_b54ed9ed396eae 6-29
+ai_agents_tools/third_party/skill-lock.json
+  s_c087704e6afcc0::t_42974de0d4b4e4 4-14
+ai_agents_tools/third_party/skills/caveman/caveman-activate.md
+  s_c087704e6afcc0::t_d26774431bdb35 1-15
+ai_agents_tools/rules/caveman.md
+  s_c087704e6afcc0::t_95bfbac0fcb2da 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "b135ac4a43cb3aff944d70161a536b982b10766b",
+  "prompts": {},
+  "sessions": {
+    "s_c087704e6afcc0": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "44e16884-16c1-4e3e-9fc9-9bf95e3274d0",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
