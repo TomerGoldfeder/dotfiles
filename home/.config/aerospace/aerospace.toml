@@ -1,4 +1,16 @@
 after-startup-command = [
+  # Initial layout only (not pinned). After this, move-workspace-to-monitor works.
+  # Left-to-right: 1 = left Dell, 2 = laptop, 3 = right Dell.
+  'move-workspace-to-monitor --workspace 1 built-in',
+  'move-workspace-to-monitor --workspace 2 -- 1',
+  'move-workspace-to-monitor --workspace 3 -- 1',
+  'move-workspace-to-monitor --workspace 4 -- 3',
+  'move-workspace-to-monitor --workspace 5 -- 3',
+  'move-workspace-to-monitor --workspace 6 built-in',
+  'move-workspace-to-monitor --workspace 7 built-in',
+  'move-workspace-to-monitor --workspace 8 built-in',
+  'move-workspace-to-monitor --workspace 9 built-in',
+  'workspace 1',
   'exec-and-forget sketchybar',
   # JankyBorders: highlight the focused window. No args → ~/.config/borders/bordersrc
   'exec-and-forget borders',
@@ -147,15 +159,29 @@ alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = 'move-node-to-workspace 1 --focus-follows-window'
 alt-shift-2 = 'move-node-to-workspace 2 --focus-follows-window'
 alt-shift-3 = 'move-node-to-workspace 3 --focus-follows-window'
 alt-shift-4 = 'move-node-to-workspace 4 --focus-follows-window'
+alt-shift-5 = 'move-node-to-workspace 5 --focus-follows-window'
+alt-shift-6 = 'move-node-to-workspace 6 --focus-follows-window'
+alt-shift-7 = 'move-node-to-workspace 7 --focus-follows-window'
+alt-shift-8 = 'move-node-to-workspace 8 --focus-follows-window'
+alt-shift-9 = 'move-node-to-workspace 9 --focus-follows-window'
 
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+# Send focused workspace to a specific screen (left Dell / laptop / right Dell).
+alt-ctrl-1 = 'move-workspace-to-monitor -- 1'
+alt-ctrl-2 = 'move-workspace-to-monitor built-in'
+alt-ctrl-3 = 'move-workspace-to-monitor -- 3'
 
 # SketchyBar window picker: list all windows, j/k highlight, enter focuses.
 alt-space = [
@@ -201,10 +227,5 @@ enter = [
   'mode main',
 ]
 
-[workspace-to-monitor-force-assignment]
-1 = '^Built-in.*$'
-2 = '^DELL U.*$'
-3 = '^DELL S.*$'
-#     4 = '^dell$'
-#     5 = 'main'
-#     6 = '^elgato$'
+# No workspace-to-monitor-force-assignment: that command is a no-op for pinned
+# workspaces. Login placement lives in after-startup-command instead.

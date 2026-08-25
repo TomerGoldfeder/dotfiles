@@ -6,7 +6,16 @@ let
   # Canonical skills live under ai_agents_tools/. Linked into Cursor,
   # Claude Code, and ~/.agents so a new skill is one directory + one attr.
   agentSkillPaths = {
+    code-standards = "skills/code-standards";
+    enhanced-workflow = "skills/enhanced-workflow";
+    loop = "skills/loop";
     nix-install = "skills/nix-install";
+    performance-journaler = "skills/performance-journaler";
+    pr-babysitting = "skills/pr-babysitting";
+    pytest-coverage-incremental = "skills/pytest-coverage-incremental";
+    repo-navigation = "skills/repo-navigation";
+    skill-creator = "third_party/skills/skill-creator";
+    tdd-loop = "skills/tdd-loop";
   };
   agentSkillHomes = [ ".cursor/skills" ".agents/skills" ".claude/skills" ];
   agentSkillFiles = builtins.listToAttrs (
@@ -82,6 +91,16 @@ in
     };
     "Library/Application Support/nushell/env.nu" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nushell/env.nu";
+      force = true;
+    };
+    # Rules: same SOT file, Cursor wants .mdc, Agents wants AGENTS.md.
+    # Claude already reads ~/.claude/CLAUDE.md — leave that alone.
+    ".cursor/rules/AGENTS.mdc" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
+      force = true;
+    };
+    ".agents/rules/AGENTS.md" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
       force = true;
     };
     ".claude/CLAUDE.md" = {
