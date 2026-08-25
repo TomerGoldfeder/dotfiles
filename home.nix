@@ -14,6 +14,7 @@ let
     pr-babysitting = "skills/pr-babysitting";
     pytest-coverage-incremental = "skills/pytest-coverage-incremental";
     repo-navigation = "skills/repo-navigation";
+    caveman = "third_party/skills/caveman";
     skill-creator = "third_party/skills/skill-creator";
     tdd-loop = "skills/tdd-loop";
   };
@@ -105,6 +106,16 @@ in
     };
     ".claude/CLAUDE.md" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
+      force = true;
+    };
+    # Caveman always-on. Cursor skills are discover-only (no alwaysApply);
+    # official always-on path is a rule file (caveman --with-init).
+    ".cursor/rules/caveman.mdc" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/caveman.md";
+      force = true;
+    };
+    ".agents/rules/caveman.md" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/caveman.md";
       force = true;
     };
   };

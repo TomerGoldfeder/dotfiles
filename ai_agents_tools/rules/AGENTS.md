@@ -2,6 +2,11 @@
 alwaysApply: true
 ---
 
+# Caveman first
+Before any other work: apply the `caveman` skill (default **full**). Then follow the rest of this file.
+Cursor/Agents also inject the always-on `caveman` rule. Switch: `/caveman lite|full|ultra|off`. Stop: "stop caveman" or "normal mode".
+Code, commits, PRs, docs: write normal prose.
+
 # General mindset
     1. DO NOT BE EAGER and rush into "doing", thinking and following the rules are important as they can clarify any ambiguities.
     2. YOU MUST challenge and search for evidance before you agree OR make any determinated statements.
