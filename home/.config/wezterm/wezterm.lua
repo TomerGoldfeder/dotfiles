@@ -10,14 +10,14 @@ return {
 		"Symbols Nerd Font Mono",
 	}),
 	macos_window_background_blur = 30,
-	default_prog = { "/run/current-system/sw/bin/nu" },
+	default_prog = { "/bin/zsh", "-l" },
 
 	-- 60% opaque. Neovim must use a transparent Normal highlight or this
 	-- is covered by the colorscheme background.
 	window_background_opacity = 0.6,
 	window_decorations = "RESIZE",
 
-	-- Left Option as Alt so nvim/nu can see Option chords. Right Option
+	-- Left Option as Alt so nvim/zsh can see Option chords. Right Option
 	-- still composes characters (e.g. Option-n → ñ).
 	send_composed_key_when_left_alt_is_pressed = false,
 	send_composed_key_when_right_alt_is_pressed = true,
@@ -33,7 +33,7 @@ return {
 			mods = "CTRL",
 			action = wezterm.action.ClearScrollback("ScrollbackAndViewport"),
 		},
-		-- xterm CSI with modifiers, so tmux (xterm-keys) and nvim/nu see
+		-- xterm CSI with modifiers, so tmux (xterm-keys) and nvim/zsh see
 		-- Alt+Arrow / Alt+Shift+Arrow instead of composed glyphs or \eOD.
 		-- 3 = Alt, 4 = Alt+Shift. See wezterm#253.
 		{

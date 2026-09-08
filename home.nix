@@ -1,4 +1,4 @@
-{ config, lib, user, ... }:
+{ config, lib, user, features, ... }:
 
 let
   # rebuild.sh keeps this symlink pointed at the repo.
@@ -76,22 +76,8 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/tuicr";
       force = true;
     };
-    # macOS nu reads ~/Library/Application Support/nushell (not ~/.config)
-    # unless XDG_CONFIG_HOME is set. History stays in Application Support.
-    ".config/nushell/config.nu" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nushell/config.nu";
-      force = true;
-    };
-    ".config/nushell/env.nu" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nushell/env.nu";
-      force = true;
-    };
-    "Library/Application Support/nushell/config.nu" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nushell/config.nu";
-      force = true;
-    };
-    "Library/Application Support/nushell/env.nu" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nushell/env.nu";
+    ".config/bb" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/bb";
       force = true;
     };
     # Rules: same SOT file, Cursor wants .mdc, Agents wants AGENTS.md.
@@ -134,6 +120,30 @@ in
     fi
   '';
 
+  # Desired bb plugins + setup (theme, etc.). No-op if bb.app is not running.
+  home.activation.syncBbPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="/run/current-system/sw/bin:/opt/homebrew/bin:/usr/bin:/bin:$PATH"
+    if [ -f "$HOME/.config/bb/sync.sh" ]; then
+      bash "$HOME/.config/bb/sync.sh" || echo "bb-sync: failed (non-fatal for rebuild)"
+    fi
+  '';
+
+  # Flag off: apply start-at-login = false if the GUI is up, then quit it.
+  # Also drop leftover login agents from when toml used to set start-at-login.
+  home.activation.disableAerospace = lib.mkIf (!features.aerospace) (
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      uid="$(id -u)"
+      if /usr/bin/pgrep -xq AeroSpace; then
+        /opt/homebrew/bin/aerospace reload-config 2>/dev/null || true
+      fi
+      /usr/bin/killall AeroSpace 2>/dev/null || true
+      for label in bobko.aerospace bobko.aero.space; do
+        /bin/launchctl bootout "gui/$uid/$label" 2>/dev/null || true
+        rm -f "$HOME/Library/LaunchAgents/''${label}.plist"
+      done
+    ''
+  );
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;      # ghost text from history
@@ -159,15 +169,45 @@ in
    '';
     shellAliases = {
       ".." = "cd ..";
+      l = "ls -la";
+      ll = "ls -l";
+      lsa = "ls -a";
+      lt = "eza --tree --level=2 --long --icons --git";
+      v = "nvim";
+      vim = "nvim";
+      vi = "nvim";
+      as = "aerospace";
+      oc = "opencode";
       add = "git add .";
       commit = "git commit -m ";
       push = "git push";
       pull = "git pull";
       gd = "git diff --name-only";
-      oc = "opencode";
-      vim = "nvim";
-      vi = "nvim";
-      lsa = "ls -a";
+      gc = "git commit -m";
+      gca = "git commit -a -m";
+      gp = "git push origin HEAD";
+      gpu = "git pull origin";
+      gst = "git status";
+      gdiff = "git diff";
+      gco = "git checkout";
+      gb = "git branch";
+      gba = "git branch -a";
+      gadd = "git add";
+      ga = "git add -p";
+      gcoall = "git checkout -- .";
+      gr = "git remote";
+      gre = "git reset";
+      k = "kubectl";
+      ka = "kubectl apply -f";
+      kg = "kubectl get";
+      kd = "kubectl describe";
+      kdel = "kubectl delete";
+      kgpo = "kubectl get pod";
+      kgd = "kubectl get deployments";
+      kc = "kubectx";
+      kns = "kubens";
+      kl = "kubectl logs -f";
+      ke = "kubectl exec -it";
     };
   };
 

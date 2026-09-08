@@ -26,8 +26,9 @@ on-focus-changed = [
   'exec-and-forget sketchybar --trigger aerospace_focus_change',
 ]
 
-# Start AeroSpace at login
-start-at-login = true
+# Nix LaunchAgent starts AeroSpace when features.aerospace is true.
+# Keep false here so the app does not also register its own login item.
+start-at-login = false
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true

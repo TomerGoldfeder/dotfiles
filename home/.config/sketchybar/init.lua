@@ -108,7 +108,9 @@ if config.modules then
   end
 end
 
-WINDOW_MANAGER = config.window_manager
+-- Nix SketchyBar LaunchAgent sets this from features.aerospace.
+local env_wm = os.getenv('DOTFILES_WINDOW_MANAGER')
+WINDOW_MANAGER = (env_wm and env_wm ~= '') and env_wm or config.window_manager
 PRESET = config.bar_preset
 PRESET_OPTIONS = config.bar_presets
 FONT = {

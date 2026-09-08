@@ -13,17 +13,18 @@
   outputs = { self, nix-darwin, home-manager, nixpkgs }:
     let
       user = "tomergo";
+      features = import ./features.nix;
     in
     {
       darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {
-        specialArgs = { inherit user; };
+        specialArgs = { inherit user features; };
         modules = [
           ./configuration.nix
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit user; };
+            home-manager.extraSpecialArgs = { inherit user features; };
             # Distinct from leftover ~/.zshrc.backup so HM can move colliding files.
             home-manager.backupFileExtension = "hm-backup";
             home-manager.users.${user} = import ./home.nix;

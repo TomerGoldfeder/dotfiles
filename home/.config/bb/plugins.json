@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    {
+      "id": "ayu",
+      "source": "git:https://github.com/vburojevic/bb-plugin-ayu.git",
+      "setup": [
+        "theme set plugin:ayu:ayu-mirage"
+      ]
+    },
+    {
+      "id": "bb-sidebar",
+      "source": "git:https://github.com/yusuf8834/bb-sidebar.git"
+    }
+  ]
+}

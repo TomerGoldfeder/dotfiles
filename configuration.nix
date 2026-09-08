@@ -1,4 +1,4 @@
-{ user, pkgs, ... }:
+{ user, pkgs, lib, features, ... }:
 
 {
   # Determinate already manages the Nix daemon, so nix-darwin shouldn't.
@@ -29,13 +29,27 @@
     neovim
     starship
     eza
-    nushell
     # LazyVim lang.markdown lints via nvim-lint; mason cannot install these
     # without npm. Put the binaries on PATH instead of :MasonInstall.
     markdownlint-cli2
     markdown-toc
     nodejs
     jq # SketchyBar weather + Spotify plugins
+    kubectl
+    # Bundled CLI inside bb.app — not in nixpkgs. Wrapper so `bb` is on PATH
+    # for scripts and non-interactive shells, not only a zsh alias.
+    (writeShellScriptBin "bb" ''
+      bb_bin="/Applications/bb.app/Contents/Resources/app.asar.unpacked/node_modules/bb-app/host-daemon/dist/bb"
+      if [ ! -x "$bb_bin" ]; then
+        echo "bb CLI not found at $bb_bin (is bb.app installed?)" >&2
+        echo "Headless alternative: npx --yes --allow-scripts=better-sqlite3,node-pty,@parcel/watcher bb-app@latest" >&2
+        exit 127
+      fi
+      exec "$bb_bin" "$@"
+    '')
+    (writeShellScriptBin "bb-sync" ''
+      exec bash "$HOME/.config/bb/sync.sh" "$@"
+    '')
   ];
 
   fonts.packages = with pkgs; [
@@ -58,7 +72,16 @@
       EnvironmentVariables = {
         PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:/usr/sbin:/usr/bin:/bin:/sbin";
         LANG = "en_US.UTF-8";
+        DOTFILES_WINDOW_MANAGER = if features.aerospace then "aerospace" else "macos_native";
       };
+    };
+  };
+  # `open` exits after launching the GUI; KeepAlive would spam. Flag off: no agent.
+  launchd.user.agents.aerospace = lib.mkIf features.aerospace {
+    serviceConfig = {
+      ProgramArguments = [ "/usr/bin/open" "-a" "AeroSpace" ];
+      RunAtLoad = true;
+      KeepAlive = false;
     };
   };
   launchd.user.agents.borders = {
@@ -102,6 +125,7 @@
       "FelixKratz/formulae"
     ];
     casks = [
+      "bb" # getbb.app desktop (arm64). CLI on PATH is the wrapper above.
       "wezterm"
       "nikitabobko/tap/aerospace"
       "font-jetbrains-mono-nerd-font"
