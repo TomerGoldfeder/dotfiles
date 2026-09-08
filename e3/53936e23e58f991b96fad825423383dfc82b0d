@@ -1,0 +1,75 @@
+home/.config/sketchybar/init.lua
+  s_f23d1727023263::t_fab3fc6a4a592e 111-113
+home/.config/bb/plugins.json
+  s_327cb936dd5631::t_54f462b9ec4597 9-12
+  s_327cb936dd5631::t_f63389ccdc982f 1-8,13-15
+home/.config/bb/sync.sh
+  s_327cb936dd5631::t_10c581d3138780 1-71,73-74,78-80
+  s_327cb936dd5631::t_bcd8cfb85cf48d 72,75-77
+features.nix
+  s_f23d1727023263::t_9dd7b8cd94f2f6 1-5
+home.nix
+  s_327cb936dd5631::t_0f4f82f9907a06 79-80
+  s_327cb936dd5631::t_9fc51f2ce6c267 123-130
+  s_eeb6c6dfc90dd7::t_9438fdcd2354f2 172-180,186-210
+  s_f23d1727023263::t_816dc4e4d62368 1
+  s_f23d1727023263::t_3139eb2d4bf9d4 131-146
+home/.config/wezterm/wezterm.lua
+  s_eeb6c6dfc90dd7::t_de1315984ccafc 13
+  s_eeb6c6dfc90dd7::t_ea8adc1ec07d6a 20
+  s_eeb6c6dfc90dd7::t_46206c5bfdaf83 36
+home/.config/aerospace/aerospace.toml
+  s_f23d1727023263::t_b2ff4901f00542 29-31
+home/.config/sketchybar/settings.lua
+  s_f23d1727023263::t_5d4dd15fe719f5 2-4
+flake.nix
+  s_f23d1727023263::t_fb74b215b6efea 16,20,27
+docs/superpowers/specs/2026-09-08-aerospace-feature-flag-design.md
+  s_f23d1727023263::t_709bdd23ef5ea8 1-25
+configuration.nix
+  s_327cb936dd5631::t_4af1327fdec532 39-44,46-48,52
+  s_327cb936dd5631::t_caf054a2ded563 128
+  s_327cb936dd5631::t_9189e5102ef637 45,49-51
+  s_eeb6c6dfc90dd7::t_b1b00191b67f33 38
+  s_f23d1727023263::t_1d8ea4b077140d 1
+  s_f23d1727023263::t_8035b01962bfe0 75,79-84
+  s_327cb936dd5631::t_79d0e958331cc7 85-86
+home/.config/tmux/tmux.conf
+  s_eeb6c6dfc90dd7::t_2493696afb299d 92
+  s_eeb6c6dfc90dd7::t_65e9176c2c99d9 30
+  s_eeb6c6dfc90dd7::t_12025193f5c04f 11-12,14
+  s_eeb6c6dfc90dd7::t_d91ab97925f143 90-91
+  s_eeb6c6dfc90dd7::t_4c0951b24d799d 10,13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "e353936e23e58f991b96fad825423383dfc82b0d",
+  "prompts": {},
+  "sessions": {
+    "s_327cb936dd5631": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "5045f312-dc13-4890-9224-17508ffeeefd",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_eeb6c6dfc90dd7": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fb7586e2-038c-43cb-8677-d4fb9b16107c",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_f23d1727023263": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "b975092c-14ae-4cae-9f08-ebbc6adf55af",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
