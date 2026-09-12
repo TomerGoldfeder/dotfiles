@@ -1,0 +1,61 @@
+ai_agents_tools/skills/dag-harness/SKILL.md
+  s_16392d746c0a86::t_9c700f92c3d091 1-173
+home/.config/bb/sync.sh
+  s_327cb936dd5631::t_287cc6f45cd3e5 68-73
+home.nix
+  s_c9fe21d48a939d::t_1a8e2721285f28 125-134
+  s_16392d746c0a86::t_a879113f2ed695 20
+  s_c9fe21d48a939d::t_e27ef586afb259 22
+home/.config/bb/plugins.json
+  s_327cb936dd5631::t_89e3b67f854a9c 13-16
+  s_327cb936dd5631::t_0335987b0e5cb0 17-20
+  s_327cb936dd5631::t_1693c2e771d36a 21-25
+ai_agents_tools/skills/dag-harness/dag_harness/__init__.py
+  s_16392d746c0a86::t_9ae790dffa7a96 1-15
+ai_agents_tools/skills/dag-harness/dag_harness/classifier.py
+  s_16392d746c0a86::t_548c6529803ea6 1-62
+ai_agents_tools/skills/dag-harness/dag_harness/compiler.py
+  s_16392d746c0a86::t_d8ba4cc0cc724d 1-188
+ai_agents_tools/skills/dag-harness/dag_harness/harness.py
+  s_c9fe21d48a939d::t_cb10e1af6c3477 1-136
+ai_agents_tools/skills/dag-harness/dag_harness/middleware.py
+  s_16392d746c0a86::t_42b7c3a66b47bb 1-79
+ai_agents_tools/skills/dag-harness/dag_harness/models.py
+  s_16392d746c0a86::t_e951e7e69c92ca 1-296
+ai_agents_tools/skills/dag-harness/dag_harness/nodes.py
+  s_16392d746c0a86::t_6effcb98f51bee 1-257
+ai_agents_tools/skills/dag-harness/dag_harness/templates.py
+  s_16392d746c0a86::t_7ff86fbbe16b19 1-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "13620bff6274a156e1683fe53f4c994d25ac984d",
+  "prompts": {},
+  "sessions": {
+    "s_16392d746c0a86": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8dfd1c06-82be-49fb-950b-1aa631c9e8d5",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_327cb936dd5631": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "5045f312-dc13-4890-9224-17508ffeeefd",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_c9fe21d48a939d": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8046f5c5-c771-4373-b06f-6789f6875df0",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
