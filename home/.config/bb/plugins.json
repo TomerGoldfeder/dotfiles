@@ -10,6 +10,19 @@
     {
       "id": "bb-sidebar",
       "source": "git:https://github.com/yusuf8834/bb-sidebar.git"
+    },
+    {
+      "id": "files-editor",
+      "source": "git:https://github.com/abdoutelb/bb-plugin-files-editor.git"
+    },
+    {
+      "id": "bots",
+      "source": "git:https://github.com/prakashchokalingam/bb-plugin-bots.git"
+    },
+    {
+      "id": "agent-checklists",
+      "source": "git:https://github.com/patleeman/bb-plugins.git",
+      "subdirectory": "packages/bb-plugin-agent-checklists"
     }
   ]
 }

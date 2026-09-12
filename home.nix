@@ -17,7 +17,9 @@ let
     caveman = "third_party/skills/caveman";
     skill-creator = "third_party/skills/skill-creator";
     tdd-loop = "skills/tdd-loop";
+    dag-harness = "skills/dag-harness";
   };
+  # Providers that follow symlinks — managed by home.file as symlinks.
   agentSkillHomes = [ ".cursor/skills" ".agents/skills" ".claude/skills" ];
   agentSkillFiles = builtins.listToAttrs (
     builtins.concatMap
@@ -118,6 +120,16 @@ in
     if [ -d "$HOME/.config/sketchybar/helpers" ]; then
       make -C "$HOME/.config/sketchybar/helpers"
     fi
+  '';
+
+  # bb doesn't follow symlinks in ~/.bb/skills/ — copy instead of link.
+  home.activation.syncBbSkills = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    bb_skills="$HOME/.bb/skills"
+    mkdir -p "$bb_skills"
+    ${builtins.concatStringsSep "\n    " (map (skill: ''
+      rm -rf "$bb_skills/${skill}"
+      cp -RL "${dotfiles}/ai_agents_tools/${agentSkillPaths.${skill}}" "$bb_skills/${skill}"
+    '') (builtins.attrNames agentSkillPaths))}
   '';
 
   # Desired bb plugins + setup (theme, etc.). No-op if bb.app is not running.

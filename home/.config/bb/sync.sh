@@ -65,7 +65,12 @@ while [[ "$i" -lt "$COUNT" ]]; do
     echo "bb-sync: $id already installed"
   else
     echo "bb-sync: install $id from $source"
-    "$BB_BIN" plugin install "$source" --yes
+    install_args=("$source" --yes)
+    subdirectory="$(jq -r '.subdirectory // empty' <<<"$plugin")"
+    if [[ -n "$subdirectory" ]]; then
+      install_args+=(--subdirectory "$subdirectory")
+    fi
+    "$BB_BIN" plugin install "${install_args[@]}"
     LIST="$("$BB_BIN" plugin list --json)"
   fi
 
