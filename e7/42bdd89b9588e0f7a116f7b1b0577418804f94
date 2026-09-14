@@ -1,0 +1,116 @@
+.superpowers/sdd/task-3-brief.md
+  s_082dc5cf8a7a37::t_4abb8cbb6f2eb7 7
+ai_agents_tools/skills/agentic-harness/nodes/journaler.md
+  s_1fd48a91415253::t_f0298801b79bf3 1-7,9,11,14-16,26,28,30,32,34,36-37
+  s_1fd48a91415253::t_6fda7be48e1578 8,10,12-13,17-25,27,29,31,33,35
+.superpowers/sdd/task-1-report.md
+  s_082dc5cf8a7a37::t_5fbe3fc451d80e 15
+  s_082dc5cf8a7a37::t_d94442b699645b 11
+ai_agents_tools/skills/agentic-harness/nodes/classifier.md
+  s_1fd48a91415253::t_161556ba23bcbc 26
+ai_agents_tools/skills/agentic-harness/graphs/coding.md
+  s_1fd48a91415253::t_bd1a0bc53f1320 29,31
+  s_1fd48a91415253::t_9de9ee432b6038 15
+ai_agents_tools/skills/agentic-harness/nodes/planner.md
+  s_1fd48a91415253::t_ec28136925ed13 14
+home.nix
+  s_9d4a877fc24ee0::t_fc9a46960a091c 1,19-22
+  s_9d4a877fc24ee0::t_52d7b47ce53379 38-49
+ai_agents_tools/skills/agentic-harness/nodes/worker.md
+  h_d5cb918de7058b 6-17,23
+ai_agents_tools/skills/agentic-harness/nodes/qa.md
+  h_d5cb918de7058b 6-15,20-21,23-25,27
+  h_d5cb918de7058b 22
+ai_agents_tools/skills/nix-install/SKILL.md
+  s_51d332170f08a8::t_17cfbed4b4d011 33-34
+  s_51d332170f08a8::t_d5d43291791440 60-61
+  s_51d332170f08a8::t_186cd6af3452da 37
+  s_51d332170f08a8::t_6077d9c67ffcfa 49-51
+.superpowers/sdd/task-2-report.md
+  s_082dc5cf8a7a37::t_edbceeb39f0ef8 11
+ai_agents_tools/skills/agentic-harness/nodes/explorer.md
+  h_d5cb918de7058b 6-14,19-25
+  h_d5cb918de7058b 27
+ai_agents_tools/rules/AGENTS.md
+  h_d5cb918de7058b 33-34
+flake.nix
+  s_bb6d3efb001110::t_b7f8458ed5a413 11-13,17,31
+  s_bb6d3efb001110::t_bd546f887735f9 14
+.superpowers/sdd/task-3-report.md
+  s_082dc5cf8a7a37::t_3d5019a44dee35 11
+  s_082dc5cf8a7a37::t_c635a06c4f26b8 15
+ai_agents_tools/skills/agentic-harness/INDEX.md
+  s_1fd48a91415253::t_aa7a7d8f76a778 22
+  s_1fd48a91415253::t_0395d8f11fe89b 10
+ai_agents_tools/skills/agentic-harness/SKILL.md
+  s_1fd48a91415253::t_01e089255dd04c 43
+  s_1fd48a91415253::t_e00a9b6fd76a79 45-47
+  h_d5cb918de7058b 7
+  s_47fe48e3089535::t_ea79bb10c72b8b 8
+  s_1fd48a91415253::t_cccac71f5e770b 51
+  s_1fd48a91415253::t_1ce3f7a1cecf2b 5
+  h_d5cb918de7058b 6
+flake.lock
+  s_bb6d3efb001110::t_bf600a9570ce2c 3-18,79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e742bdd89b9588e0f7a116f7b1b0577418804f94",
+  "prompts": {},
+  "humans": {
+    "h_d5cb918de7058b": {
+      "author": "tomergo <tomergo@mobileye.com>"
+    }
+  },
+  "sessions": {
+    "s_082dc5cf8a7a37": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f67b2177-baac-4d94-a33e-4427bd928576",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_1fd48a91415253": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "731f0c6d-098e-4887-8a50-9c1c1a22c0f2",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_47fe48e3089535": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "74534563-5367-442b-94a3-8b8f5c621c31",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_51d332170f08a8": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "424dfa0a-7073-4ece-921f-4b2b28604c01",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_9d4a877fc24ee0": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "5c402796-2bbc-4baf-b1c6-3d4399e4b651",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_bb6d3efb001110": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1fa5747d-f9f0-4284-a102-e85e5547e6aa",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
