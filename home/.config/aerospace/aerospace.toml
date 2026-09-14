@@ -11,7 +11,8 @@ after-startup-command = [
   'move-workspace-to-monitor --workspace 8 built-in',
   'move-workspace-to-monitor --workspace 9 built-in',
   'workspace 1',
-  'exec-and-forget sketchybar',
+  # SketchyBar start is Nix launchd.user.agents.sketchybar (features.sketchybar).
+  # Do not exec it here: aerospace-on + sketchybar-off would spawn the bar.
   # JankyBorders: highlight the focused window. No args → ~/.config/borders/bordersrc
   'exec-and-forget borders',
 ]

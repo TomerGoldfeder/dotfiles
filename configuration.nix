@@ -13,7 +13,7 @@
   system.stateVersion = 6;
 
   system.defaults = {
-    NSGlobalDomain._HIHideMenuBar = true; # SketchyBar replaces the menu bar
+    NSGlobalDomain._HIHideMenuBar = features.sketchybar; # bar replaces menu bar when enabled
     finder.CreateDesktop = false;
     trackpad.Clicking = true;
   };
@@ -36,20 +36,6 @@
     nodejs
     jq # SketchyBar weather + Spotify plugins
     kubectl
-    # Bundled CLI inside bb.app — not in nixpkgs. Wrapper so `bb` is on PATH
-    # for scripts and non-interactive shells, not only a zsh alias.
-    (writeShellScriptBin "bb" ''
-      bb_bin="/Applications/bb.app/Contents/Resources/app.asar.unpacked/node_modules/bb-app/host-daemon/dist/bb"
-      if [ ! -x "$bb_bin" ]; then
-        echo "bb CLI not found at $bb_bin (is bb.app installed?)" >&2
-        echo "Headless alternative: npx --yes --allow-scripts=better-sqlite3,node-pty,@parcel/watcher bb-app@latest" >&2
-        exit 127
-      fi
-      exec "$bb_bin" "$@"
-    '')
-    (writeShellScriptBin "bb-sync" ''
-      exec bash "$HOME/.config/bb/sync.sh" "$@"
-    '')
   ];
 
   fonts.packages = with pkgs; [
@@ -64,7 +50,7 @@
   # Start SketchyBar / JankyBorders in the Aqua session. Homebrew
   # `brew services` cannot do this during darwin-rebuild (root → user
   # launchctl bootstrap → error 5).
-  launchd.user.agents.sketchybar = {
+  launchd.user.agents.sketchybar = lib.mkIf features.sketchybar {
     serviceConfig = {
       ProgramArguments = [ "/opt/homebrew/bin/sketchybar" ];
       KeepAlive = true;
@@ -125,7 +111,6 @@
       "FelixKratz/formulae"
     ];
     casks = [
-      "bb" # getbb.app desktop (arm64). CLI on PATH is the wrapper above.
       "wezterm"
       "nikitabobko/tap/aerospace"
       "font-jetbrains-mono-nerd-font"

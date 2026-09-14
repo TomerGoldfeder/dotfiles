@@ -6,6 +6,7 @@ let
   # Canonical skills live under ai_agents_tools/. Linked into Cursor,
   # Claude Code, and ~/.agents so a new skill is one directory + one attr.
   agentSkillPaths = {
+    agentic-harness = "skills/agentic-harness";
     code-standards = "skills/code-standards";
     enhanced-workflow = "skills/enhanced-workflow";
     loop = "skills/loop";
@@ -17,7 +18,6 @@ let
     caveman = "third_party/skills/caveman";
     skill-creator = "third_party/skills/skill-creator";
     tdd-loop = "skills/tdd-loop";
-    dag-harness = "skills/dag-harness";
   };
   # Providers that follow symlinks — managed by home.file as symlinks.
   agentSkillHomes = [ ".cursor/skills" ".agents/skills" ".claude/skills" ];
@@ -78,10 +78,6 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/tuicr";
       force = true;
     };
-    ".config/bb" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/bb";
-      force = true;
-    };
     # Rules: same SOT file, Cursor wants .mdc, Agents wants AGENTS.md.
     # Claude already reads ~/.claude/CLAUDE.md — leave that alone.
     ".cursor/rules/AGENTS.mdc" = {
@@ -109,7 +105,7 @@ in
   };
 
   # SbarLua + C helpers for the Lua SketchyBar config (phucisstupid).
-  home.activation.sketchybarLua = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.sketchybarLua = lib.mkIf features.sketchybar (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     export PATH="/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
     if [ ! -f "$HOME/.local/share/sketchybar_lua/sketchybar.so" ]; then
       tmp=$(mktemp -d)
@@ -120,25 +116,16 @@ in
     if [ -d "$HOME/.config/sketchybar/helpers" ]; then
       make -C "$HOME/.config/sketchybar/helpers"
     fi
-  '';
+  '');
 
-  # bb doesn't follow symlinks in ~/.bb/skills/ — copy instead of link.
-  home.activation.syncBbSkills = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    bb_skills="$HOME/.bb/skills"
-    mkdir -p "$bb_skills"
-    ${builtins.concatStringsSep "\n    " (map (skill: ''
-      rm -rf "$bb_skills/${skill}"
-      cp -RL "${dotfiles}/ai_agents_tools/${agentSkillPaths.${skill}}" "$bb_skills/${skill}"
-    '') (builtins.attrNames agentSkillPaths))}
-  '';
-
-  # Desired bb plugins + setup (theme, etc.). No-op if bb.app is not running.
-  home.activation.syncBbPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    export PATH="/run/current-system/sw/bin:/opt/homebrew/bin:/usr/bin:/bin:$PATH"
-    if [ -f "$HOME/.config/bb/sync.sh" ]; then
-      bash "$HOME/.config/bb/sync.sh" || echo "bb-sync: failed (non-fatal for rebuild)"
-    fi
-  '';
+  # Flag off: unload KeepAlive agent then quit, else it respawns.
+  home.activation.disableSketchybar = lib.mkIf (!features.sketchybar) (
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      uid="$(id -u)"
+      /bin/launchctl bootout "gui/$uid/org.nixos.sketchybar" 2>/dev/null || true
+      /usr/bin/killall sketchybar 2>/dev/null || true
+    ''
+  );
 
   # Flag off: apply start-at-login = false if the GUI is up, then quit it.
   # Also drop leftover login agents from when toml used to set start-at-login.
