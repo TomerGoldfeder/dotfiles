@@ -1,4 +1,4 @@
-{ config, lib, user, features, ... }:
+{ config, lib, user, features, caveman, ... }:
 
 let
   # rebuild.sh keeps this symlink pointed at the repo.
@@ -8,16 +8,17 @@ let
   agentSkillPaths = {
     agentic-harness = "skills/agentic-harness";
     code-standards = "skills/code-standards";
-    enhanced-workflow = "skills/enhanced-workflow";
     loop = "skills/loop";
     nix-install = "skills/nix-install";
     performance-journaler = "skills/performance-journaler";
     pr-babysitting = "skills/pr-babysitting";
     pytest-coverage-incremental = "skills/pytest-coverage-incremental";
     repo-navigation = "skills/repo-navigation";
-    caveman = "third_party/skills/caveman";
-    skill-creator = "third_party/skills/skill-creator";
     tdd-loop = "skills/tdd-loop";
+  };
+  # Flake-input skills: store path, not edit-in-place.
+  agentSkillStorePaths = {
+    caveman = "${caveman}/skills/caveman";
   };
   # Providers that follow symlinks — managed by home.file as symlinks.
   agentSkillHomes = [ ".cursor/skills" ".agents/skills" ".claude/skills" ];
@@ -34,6 +35,18 @@ let
         }) agentSkillHomes
       )
       (builtins.attrNames agentSkillPaths)
+    ++ builtins.concatMap
+      (
+        skill:
+        map (home: {
+          name = "${home}/${skill}";
+          value = {
+            source = agentSkillStorePaths.${skill};
+            force = true;
+          };
+        }) agentSkillHomes
+      )
+      (builtins.attrNames agentSkillStorePaths)
   );
 in
 

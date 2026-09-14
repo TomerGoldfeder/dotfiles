@@ -8,7 +8,7 @@ DONE
 
 Created `ai_agents_tools/skills/agentic-harness/` from the plan Task 2 file bodies (verbatim transcription). Markdown only. No Python. No extra files. Did not commit. Did not edit `AGENTS.md` or `home.nix`.
 
-Using skill: enhanced-workflow (Phase 1 — startup). Using skill: repo-navigation. Using skill: code-standards. Read enhanced-workflow. Brainstorming: design already locked in Task 1 spec + plan; this task was transcription, not a new design.
+Using skill: agentic-harness (Phase 1 — startup). Using skill: repo-navigation. Using skill: code-standards. Read agentic-harness. Brainstorming: design already locked in Task 1 spec + plan; this task was transcription, not a new design.
 
 ## Files created
 

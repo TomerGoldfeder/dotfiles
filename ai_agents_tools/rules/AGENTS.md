@@ -30,8 +30,5 @@ Code, commits, PRs, docs: write normal prose.
 > **This section ONLY apply to when you are about to write/edit/explore code**
 
 > [!TIP]
-> - ** REQUIRED ** - before WRITING or EDITING ANY or EXPLORING code - load the enhanced-workflow skill and follow it to the letter. **non-negotiable**!
-> - ** REQUIRED ** - confirm that you have read the enhanced-workflow and state "Read enhanced-workflow". **non-negotiable**!
-
-When the task is a feature, refactor, or other multi-step code change, and the user did not explicitly name `tdd-loop` or `enhanced-workflow`, load and follow the `agentic-harness` skill. That skill replaces `enhanced-workflow` for that task. If the user names `tdd-loop` or `enhanced-workflow`, those win. Trivial one-line edits do not require `agentic-harness`.
-
+> - ** REQUIRED ** - before WRITING or EDITING ANY or EXPLORING code - load the agentic-harness skill and follow it to the letter. **non-negotiable**!
+> - ** REQUIRED ** - confirm that you have read the agentic-harness and state "Read agentic-harness". **non-negotiable**!

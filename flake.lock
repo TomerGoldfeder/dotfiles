@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "caveman": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788769183,
+        "narHash": "sha256-GuCK3oy0DsMOQq7gHjIY/aeaukJcTvelfg+tp7R7Du4=",
+        "owner": "JuliusBrussee",
+        "repo": "caveman",
+        "rev": "15581d14007fd01fb3f132016741962f34936ca2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "JuliusBrussee",
+        "repo": "caveman",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -60,6 +76,7 @@
     },
     "root": {
       "inputs": {
+        "caveman": "caveman",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs"

@@ -8,11 +8,11 @@ DONE
 
 Wired always-on coding precedence to `agentic-harness` and registered the skill in Nix `agentSkillPaths`. Did not rewrite skill files. Did not run nix rebuild (Task 4). Did not commit.
 
-Using skill: enhanced-workflow (Phase 1 — startup). Using skill: repo-navigation. Using skill: code-standards. Read enhanced-workflow. Brainstorming: design already locked in Task 1 spec + plan; this task was two-file wiring, not a new design.
+Using skill: agentic-harness (Phase 1 — startup). Using skill: repo-navigation. Using skill: code-standards. Read agentic-harness. Brainstorming: design already locked in Task 1 spec + plan; this task was two-file wiring, not a new design.
 
 ## Files changed
 
-- `ai_agents_tools/rules/AGENTS.md` — Coding section: after the existing enhanced-workflow tip, added the plan’s precedence paragraph. Caveman / execution-sequence / enhanced-workflow tip kept. `enhanced-workflow` not deleted.
+- `ai_agents_tools/rules/AGENTS.md` — Coding section: added the plan’s precedence paragraph for `agentic-harness` (opt-out `tdd-loop` only). Caveman / execution-sequence kept. Wiring later moved to agentic-harness-only; that older coding-workflow skill is not kept as required or preserved.
 - `home.nix` — added `agentic-harness = "skills/agentic-harness";` to `agentSkillPaths`. Left the pre-existing working-tree removal of `dag-harness` alone.
 
 ## Commits

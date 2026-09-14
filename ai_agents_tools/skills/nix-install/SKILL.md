@@ -30,10 +30,11 @@ Then edit the **repo** (via `~/.dotfiles` → clone), not the live `~/.config` c
 | `configuration.nix` | System PATH (`environment.systemPackages`), Nix fonts, Homebrew `brews` / `casks` / `taps`, LaunchAgents |
 | `home.nix` | User files (`mkOutOfStoreSymlink`), zsh, home-manager activation, Cursor/agent skill links |
 | `home/.config/<app>/` | Live app config (WezTerm, nvim, tmux, AeroSpace, SketchyBar, …) |
-| `ai_agents_tools/skills/<name>/` | Agent skills (this file's hierarchy) |
+| `ai_agents_tools/skills/<name>/` | First-party agent skills (this file's hierarchy). Upstream skills are flake inputs, not copies here. |
+| `ai_agents_tools/rules/` | Always-on Cursor/agent rules (caveman rule is separate from the caveman skill). |
 | `secrets/env.sh` | Tokens. Gitignored. Never commit. |
 
-`flake.nix` is only the username, flake inputs, and `darwinConfigurations.mac`. Do not dump packages there.
+`flake.nix` is only the username, flake inputs, and `darwinConfigurations.mac`. Do not dump packages there. Flake **inputs** for third-party agent skills are allowed (see item 7).
 
 ## Where the package goes
 
@@ -45,7 +46,9 @@ Prefer **nixpkgs** over Homebrew when the package exists for `aarch64-darwin`.
 4. **Brew formula** (not in nixpkgs, or required as a brew binary like SketchyBar) → `homebrew.brews`. Use the `{ name = "..."; trusted = true; }` attr for `FelixKratz/formulae/*`. **Do not** `start_service` / `restart_service` — root `darwin-rebuild` cannot bootstrap user LaunchAgents (error 5). Use `launchd.user.agents` instead (see sketchybar/borders).
 5. **Root-owned self-updating apps** (Chrome, Docker Desktop) → still list them in `casks` so `zap` does not try to uninstall them.
 6. **App config** → files under `home/.config/<app>/`, then a `home.file` `mkOutOfStoreSymlink` in `home.nix` pointing at `${dotfiles}/home/.config/...`.
-7. **New agent skill** → `ai_agents_tools/skills/<name>/SKILL.md`, then add `<name> = "skills/<name>";` to `agentSkillPaths` in `home.nix` (symlinks `~/.cursor/skills`, `~/.agents/skills`, and `~/.claude/skills`).
+7. **New agent skill** — two sources; never copy upstream trees into this repo:
+   - **First-party skill:** `ai_agents_tools/skills/<name>/SKILL.md`, then `agentSkillPaths.<name> = "skills/<name>";` in `home.nix` (out-of-store symlink into `~/.cursor/skills`, `~/.agents/skills`, and `~/.claude/skills`).
+   - **Third-party / upstream skill:** add a flake input in `flake.nix` (`github:owner/repo`, plus a ref if you need a pin). `inherit` that input in `home-manager.extraSpecialArgs`. Put an absolute store path in `agentSkillStorePaths` (e.g. `"${input}/skills/<name>"`). Wire `home.file` with plain `source` + `force = true` for the three skill homes — do not wrap the store path in `mkOutOfStoreSymlink`. Bump with `nix flake update <input>`. If upstream has no `flake.nix`, set `input.flake = false` (as with `caveman`). Do **not** copy into `ai_agents_tools/third_party/` or `ai_agents_tools/skills/`.
 8. **Secret / token** → `secrets/env.sh` (copy from `secrets/env.sh.example` if needed). Not Nix.
 
 If the user wants a GUI service (SketchyBar, JankyBorders), add the formula **and** the `launchd.user.agents` block; do not `brew services start`.
@@ -54,7 +57,8 @@ If the user wants a GUI service (SketchyBar, JankyBorders), add the formula **an
 
 - Leave `brew install …` as the only step.
 - Install into `/usr/local` or `~/.local` except for documented exceptions (SbarLua under `~/.local/share/sketchybar_lua` via `home.activation`).
-- Put packages in `flake.nix`.
+- Put packages in `flake.nix` (skill **inputs** are allowed).
+- Vendor upstream skills under `ai_agents_tools/third_party/` or copy them into `ai_agents_tools/skills/`.
 - Edit `~/.config/...` as source of truth; edit `home/.config/...` in the repo.
 - Commit `secrets/env.sh`.
 

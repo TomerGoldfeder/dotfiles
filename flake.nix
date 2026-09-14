@@ -8,9 +8,13 @@
 
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # bump with `nix flake update caveman`
+    caveman.url = "github:JuliusBrussee/caveman";
+    caveman.flake = false;
   };
 
-  outputs = { self, nix-darwin, home-manager, nixpkgs }:
+  outputs = { self, nix-darwin, home-manager, nixpkgs, caveman }:
     let
       user = "tomergo";
       features = import ./features.nix;
@@ -24,7 +28,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit user features; };
+            home-manager.extraSpecialArgs = { inherit user features caveman; };
             # Distinct from leftover ~/.zshrc.backup so HM can move colliding files.
             home-manager.backupFileExtension = "hm-backup";
             home-manager.users.${user} = import ./home.nix;

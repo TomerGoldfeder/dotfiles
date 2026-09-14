@@ -12,6 +12,7 @@ Order:
 2. One `worker` per planned task.
 3. `qa`
 4. `promoter`
+5. `journaler`
 
 ## Hard
 
@@ -25,5 +26,6 @@ Order:
 4. `qa`
 5. `critic`
 6. `promoter`
+7. `journaler`
 
-Planner may add extra worker tasks after explorer. Classifier's initial DAG may be refined by the planner node; orchestrator then executes the **planner's** DAG for remaining work (replace worker list, keep qa/critic/promoter unless planner says otherwise). Write the updated graph to `DAG.md`.
+Planner may add extra worker tasks after explorer. Classifier's initial DAG may be refined by the planner node; orchestrator then executes the **planner's** DAG for remaining work (replace worker list, keep qa/critic/promoter/journaler unless planner says otherwise). Write the updated graph to `DAG.md`.
