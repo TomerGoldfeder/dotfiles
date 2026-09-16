@@ -14,6 +14,7 @@ let
     pr-babysitting = "skills/pr-babysitting";
     pytest-coverage-incremental = "skills/pytest-coverage-incremental";
     repo-navigation = "skills/repo-navigation";
+    second-brain = "skills/second-brain";
     tdd-loop = "skills/tdd-loop";
   };
   # Flake-input skills: store path, not edit-in-place.
@@ -116,6 +117,60 @@ in
       force = true;
     };
   };
+
+  # Create-once seed for ~/.second_brain_vault. If the directory already
+  # exists, leave it alone (never clobber wiki/schema/index/log).
+  home.activation.secondBrainVault = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -d "$HOME/.second_brain_vault" ]; then
+      mkdir -p \
+        "$HOME/.second_brain_vault/raw" \
+        "$HOME/.second_brain_vault/wiki" \
+        "$HOME/.second_brain_vault/schema" \
+        "$HOME/.second_brain_vault/.obsidian"
+
+      cat > "$HOME/.second_brain_vault/schema/AGENTS.md" << 'EOF'
+# Second-brain vault contracts
+
+Layers:
+- `raw/` — immutable ingest sources; agents never mutate
+- `wiki/` — LLM-owned pages (create, update, link)
+- `schema/` — contracts and lint rules for ingest / query / lint
+
+Rules:
+- Query starts at `index.md`, then follow wikilinks into `wiki/`
+- Append `log.md` with `## [YYYY-MM-DD] op | title`
+- Never write secrets, tokens, or env files into the vault
+EOF
+
+      cat > "$HOME/.second_brain_vault/index.md" << 'EOF'
+# Catalog
+
+Query entry point. List wiki pages and topics here as the vault grows.
+
+## Pages
+
+_None yet._
+EOF
+
+      cat > "$HOME/.second_brain_vault/log.md" << 'EOF'
+# Log
+
+Chronological record of vault operations.
+
+Entry form:
+
+```
+## [YYYY-MM-DD] op | title
+```
+
+Examples: `ingest`, `query`, `lint`, `compile`.
+EOF
+
+      cat > "$HOME/.second_brain_vault/.obsidian/app.json" << 'EOF'
+{}
+EOF
+    fi
+  '';
 
   # SbarLua + C helpers for the Lua SketchyBar config (phucisstupid).
   home.activation.sketchybarLua = lib.mkIf features.sketchybar (lib.hm.dag.entryAfter [ "writeBoundary" ] ''

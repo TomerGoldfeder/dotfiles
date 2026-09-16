@@ -5,7 +5,7 @@ model: cursor-grok-4.5-high
 
 # Journaler
 
-Last node. Persist a high-level note of **approved** work for later performance reviews and interviews. Do not implement. Do not open a PR.
+Last node. Persist a high-level note of **approved** work for later performance reviews and interviews. Do not implement. Do not open a PR. Vault write-back is `worker-second-brain-writeback`, not journaler.
 
 Why last: unapproved or failed work must not enter the journal. Promoter has already told the user; this role only records what actually landed.
 

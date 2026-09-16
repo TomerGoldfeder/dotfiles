@@ -23,6 +23,6 @@ Write `classifier.json` and `DAG.md` in the run directory you were given.
 - `rationale`: one or two sentences
 - `dag.nodes[]`: `id`, `role`, `title`, `depends_on` (array of ids), `notes`
 
-Roles allowed: explorer, planner, worker, qa, critic, promoter, journaler. Follow the easy/hard templates (journaler last, after promoter). Split workers into separate nodes when there are multiple tasks.
+Roles allowed: explorer, planner, worker, qa, critic, promoter, journaler. Do not invent roles. Follow `graphs/coding.md` templates **including** `explorer-second-brain` (`role: explorer`) and `worker-second-brain-writeback` (`role: worker`). Two explorer nodes are two **ids** with the same role `explorer` (vault query vs repo). Do not emit `role: second-brain`. Journaler last, after promoter. Split **implementation** workers into separate nodes when there are multiple tasks; write-back stays a single last worker after qa (easy) or critic (hard).
 
 `DAG.md` is a human-readable list or mermaid of the same graph. The parent will show it to the user before running it.

@@ -38,11 +38,13 @@ Write `classifier.json`, `DAG.md`, and `nodes/<id>.md` there. Create dirs if mis
 3. Walk `dag.nodes` in serial topological order (`depends_on` must exist and introduce no cycles; if cycle, stop and report).
 4. For each node, spawn a subagent:
    - Prompt = that role's markdown + the node record + run-dir paths + summaries of dependency nodes.
-   - Model = role frontmatter `model`, except the **first worker** in the DAG uses `cursor-grok-4.5-high`.
+   - Model = role frontmatter `model`, except the **first implementation worker** uses `cursor-grok-4.5-high`. That is the first node with `role: worker` whose `id` is **not** `worker-second-brain-writeback`. Write-back is last among workers and must not steal this override.
    - Explorer may use an explore-style subagent; other roles use a general-purpose subagent.
    - **journaler**: also attach `performance-journaler/SKILL.md`.
+   - **explorer-second-brain** or **worker-second-brain-writeback**: also attach `second-brain/SKILL.md` (same pattern as journaler + performance-journaler).
    - After it finishes, write `nodes/<id>.md` and report a short summary to the user.
-5. After a **critic** node with `verdict: fail`, route to `route_to` (explorer, planner, or worker). If `target_node_id` is set, re-run that worker (and later dependents: qa, critic). Do not run promoter or journaler until critic passes, or until reroute budget is exhausted. Increment `critic_reroutes`. After 3 reroutes, run promoter, then journaler (journaler must not persist; work was not approved), then stop and report remaining findings. Do not loop forever.
+5. After a **critic** node with `verdict: fail`, route to `route_to` (explorer, planner, or worker). Skip **all** subsequent nodes except the reroute targets — not only promoter and journaler. That includes `worker-second-brain-writeback` (no vault persist on fail). If `route_to` is `explorer` and `target_node_id` is unset, re-run the **repo** explorer (`id: explorer`), not `explorer-second-brain`. If `target_node_id` is set, re-run that node (and later dependents: qa, critic; write-back only if critic later passes). Increment `critic_reroutes`. After 3 reroutes, run promoter, then journaler (journaler must not persist; work was not approved); **skip write-back**. Stop and report remaining findings. Do not loop forever.
+   Do not run `worker-second-brain-writeback` unless the quality gate passed (easy: QA pass; hard: critic `verdict: pass`).
 6. **Promoter** is last user-facing step. Always write user-facing communication in the parent chat. Branch/commit/push/open PR only if the original user request asked for a PR or MR. Then put the PR URL at the end.
 7. **Journaler** is last on every graph, after promoter. Persist only approved work (see `nodes/journaler.md`).
 

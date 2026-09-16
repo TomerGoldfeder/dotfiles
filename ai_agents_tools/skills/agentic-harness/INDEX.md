@@ -21,7 +21,7 @@ Later families (research, etc.) get a row here and a file under `graphs/`. Do no
 | promoter | nodes/promoter.md | cursor-grok-4.5-high | communicate; PR only if asked |
 | journaler | nodes/journaler.md | cursor-grok-4.5-high | last; journal only approved work |
 
-Orchestrator override: first `role: worker` node uses `cursor-grok-4.5-high`.
+Orchestrator override: first implementation worker uses `cursor-grok-4.5-high` (first `role: worker` whose `id` is not `worker-second-brain-writeback`). See `SKILL.md`.
 
 YAML `model:` on a node file overrides the default for that role (first-worker override still wins for the first worker).
 
