@@ -1,0 +1,61 @@
+ai_agents_tools/skills/agentic-harness/SKILL.md
+  s_41ff882310dbc5::t_f60c77f69539b8 41,44,46-47
+ai_agents_tools/skills/agentic-harness/nodes/classifier.md
+  s_41ff882310dbc5::t_2cb4a514190783 26
+ai_agents_tools/skills/agentic-harness/nodes/journaler.md
+  s_41ff882310dbc5::t_2bde736f6bf264 8
+home.nix
+  s_b7c0644403f8c9::t_478c8c661d2abb 121-165,167-174
+  s_59e39f3e2aced5::t_4954489ea82a3c 166
+  s_59e39f3e2aced5::t_47edc22cedf26f 17
+ai_agents_tools/skills/agentic-harness/nodes/explorer.md
+  s_41ff882310dbc5::t_17eeba380ff5a4 17,19-23,26,29
+ai_agents_tools/skills/agentic-harness/INDEX.md
+  s_41ff882310dbc5::t_6e70f19521a3b8 24
+ai_agents_tools/skills/second-brain/SKILL.md
+  s_edceb0c104f017::t_8700d911965149 14,16,18,20,22,28-32,34,36,40,42,46,48,50,52,54,58,60,62,66,72,74,78,84-87,89,93
+  s_edceb0c104f017::t_54325963fe0c2d 1-13,15,17,19,21,23-27,33,35,37-39,41,43-45,47,49,51,53,55-57,59,61,63-65,67-71,73,75-77,79-81,88,90-92
+  s_41ff882310dbc5::t_b7a42aa8b00e5f 82-83
+ai_agents_tools/skills/agentic-harness/graphs/coding.md
+  s_41ff882310dbc5::t_652212c0bbdb2f 5-10,13,17-23,31-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "938ae5a84cf9894c03eab5b007e3527e2116c037",
+  "prompts": {},
+  "sessions": {
+    "s_41ff882310dbc5": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "e6aaa8fa-54a8-4089-91de-e313dd5d0916",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_59e39f3e2aced5": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "a095d5ad-c693-4952-a38d-afd34abe0767",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_b7c0644403f8c9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fbd93117-3260-4c41-9272-d1fdfee752a4",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_edceb0c104f017": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "57482115-dcd2-4e58-a1cd-f92cf41a33c7",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
