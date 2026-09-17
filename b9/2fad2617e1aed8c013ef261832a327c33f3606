@@ -1,0 +1,23 @@
+home.nix
+  s_8fbd4b624b8942::t_280f2ce9bf0a09 1
+  s_8fbd4b624b8942::t_8eff53a77de2ce 236-239
+configuration.nix
+  s_8fbd4b624b8942::t_d63a26c73aab66 27-28,42
+  s_8fbd4b624b8942::t_528b8aaccdf531 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b92fad2617e1aed8c013ef261832a327c33f3606",
+  "prompts": {},
+  "sessions": {
+    "s_8fbd4b624b8942": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "67434982-c23f-44d3-b9f8-ea76d69e5b46",
+        "model": "grok-4.6"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
