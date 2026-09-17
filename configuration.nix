@@ -24,6 +24,9 @@
     export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
   '';
   environment.variables.LANG = "en_US.UTF-8";
+  # Spark 3.1 / PySpark: local JVM. ~/.oh-my-zsh/custom/java.zsh still
+  # points at missing Temurin 8; home.nix re-exports this after that file.
+  environment.variables.JAVA_HOME = "${pkgs.jdk8.home}";
 
   environment.systemPackages = with pkgs; [
     neovim
@@ -36,6 +39,7 @@
     nodejs
     jq # SketchyBar weather + Spotify plugins
     kubectl
+    jdk8 # Zulu 8; Spark 3.1.3 (Java 8 or 11). Native aarch64, not Temurin cask.
   ];
 
   fonts.packages = with pkgs; [

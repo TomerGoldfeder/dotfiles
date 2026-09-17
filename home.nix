@@ -1,4 +1,4 @@
-{ config, lib, user, features, caveman, ... }:
+{ config, lib, pkgs, user, features, caveman, ... }:
 
 let
   # rebuild.sh keeps this symlink pointed at the repo.
@@ -232,6 +232,10 @@ EOF
         source "$_token_file"
       done
       unset _token_file
+
+      # java.zsh exports a missing Temurin 8 path. Prefer the nix-darwin JDK.
+      export JAVA_HOME="${pkgs.jdk8.home}"
+      export PATH="$JAVA_HOME/bin:$PATH"
 
    '';
     shellAliases = {
