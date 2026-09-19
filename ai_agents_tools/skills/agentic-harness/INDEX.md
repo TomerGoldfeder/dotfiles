@@ -23,6 +23,8 @@ Later families (research, etc.) get a row here and a file under `graphs/`. Do no
 
 Orchestrator override: first implementation worker uses `cursor-grok-4.5-high` (first `role: worker` whose `id` is not `worker-second-brain-writeback`). See `SKILL.md`.
 
+Spawn path: if `HERDR_ENV=1`, attach `herdr/SKILL.md` and spawn via herdr CLI; otherwise Cursor Task / subagent and **do not** attach herdr. Details: `SKILL.md` algorithm step 4.
+
 YAML `model:` on a node file overrides the default for that role (first-worker override still wins for the first worker).
 
 ## State

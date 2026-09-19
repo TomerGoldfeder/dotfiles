@@ -6,6 +6,8 @@ return {
 	font_size = 16.0,
 	font = wezterm.font_with_fallback({
 		"JetBrainsMono Nerd Font",
+		-- herdr-radar PUA logos; without this, CoreText picks STIX Math (φ/λ junk)
+		"Herdr Agent Icons Max",
 		"JetBrains Mono",
 		"Symbols Nerd Font Mono",
 	}),
@@ -23,6 +25,11 @@ return {
 	send_composed_key_when_right_alt_is_pressed = true,
 
 	keys = {
+		-- Pass cmd+r through to Herdr (reviewr). Default WezTerm binds SUPER+r
+		-- to ReloadConfiguration; that never reaches the pane.
+		{ key = "r", mods = "CMD", action = wezterm.action.DisableDefaultAssignment },
+		{ key = "phys:R", mods = "CMD", action = wezterm.action.DisableDefaultAssignment },
+		{ key = "r", mods = "CMD|SHIFT", action = wezterm.action.ReloadConfiguration },
 		{
 			key = "q",
 			mods = "CTRL",

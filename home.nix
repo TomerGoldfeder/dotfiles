@@ -1,28 +1,23 @@
-{ config, lib, pkgs, user, features, caveman, ... }:
+{ config, lib, pkgs, user, herdr, ... }:
 
 let
   # rebuild.sh keeps this symlink pointed at the repo.
   dotfiles = "${config.home.homeDirectory}/.dotfiles";
-  # Canonical skills live under ai_agents_tools/. Linked into Cursor,
-  # Claude Code, and ~/.agents so a new skill is one directory + one attr.
-  agentSkillPaths = {
-    agentic-harness = "skills/agentic-harness";
-    code-standards = "skills/code-standards";
-    loop = "skills/loop";
-    nix-install = "skills/nix-install";
-    performance-journaler = "skills/performance-journaler";
-    pr-babysitting = "skills/pr-babysitting";
-    pytest-coverage-incremental = "skills/pytest-coverage-incremental";
-    repo-navigation = "skills/repo-navigation";
-    second-brain = "skills/second-brain";
-    tdd-loop = "skills/tdd-loop";
-  };
-  # Flake-input skills: store path, not edit-in-place.
-  agentSkillStorePaths = {
-    caveman = "${caveman}/skills/caveman";
-  };
-  # Providers that follow symlinks — managed by home.file as symlinks.
-  agentSkillHomes = [ ".cursor/skills" ".agents/skills" ".claude/skills" ];
+  # Canonical skills live under ai_agents_tools/skills/. Linked into every
+  # agent home that follows Agent Skills — drop a directory, rebuild.
+  agentSkillsDir = ./ai_agents_tools/skills;
+  agentSkillEntries = builtins.readDir agentSkillsDir;
+  agentSkillNames = builtins.filter
+    (name: agentSkillEntries.${name} == "directory")
+    (builtins.attrNames agentSkillEntries);
+  # Cursor / Claude Code / Agents / OpenCode / Pi
+  agentSkillHomes = [
+    ".cursor/skills"
+    ".agents/skills"
+    ".claude/skills"
+    ".config/opencode/skills"
+    ".pi/agent/skills"
+  ];
   agentSkillFiles = builtins.listToAttrs (
     builtins.concatMap
       (
@@ -30,25 +25,57 @@ let
         map (home: {
           name = "${home}/${skill}";
           value = {
-            source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/${agentSkillPaths.${skill}}";
+            source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/skills/${skill}";
             force = true;
           };
         }) agentSkillHomes
       )
-      (builtins.attrNames agentSkillPaths)
-    ++ builtins.concatMap
+      agentSkillNames
+  );
+  # Flake-input skill trees (store paths). Basename = skill name. Plain
+  # source + force — not mkOutOfStoreSymlink. Example: herdr.
+  agentSkillStorePaths = [ "${herdr}/skills/herdr" ];
+  agentSkillStoreFiles = builtins.listToAttrs (
+    builtins.concatMap
       (
-        skill:
+        storePath:
+        let
+          # Attribute names must not carry store context from the path.
+          skill = builtins.unsafeDiscardStringContext (baseNameOf storePath);
+        in
         map (home: {
           name = "${home}/${skill}";
           value = {
-            source = agentSkillStorePaths.${skill};
+            source = storePath;
             force = true;
           };
         }) agentSkillHomes
       )
-      (builtins.attrNames agentSkillStorePaths)
+      agentSkillStorePaths
   );
+  # Same AGENTS.md SOT; each harness wants its own path/name.
+  agentRuleFiles = {
+    ".cursor/rules/AGENTS.mdc" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
+      force = true;
+    };
+    ".agents/rules/AGENTS.md" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
+      force = true;
+    };
+    ".claude/CLAUDE.md" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
+      force = true;
+    };
+    ".config/opencode/AGENTS.md" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
+      force = true;
+    };
+    ".pi/agent/AGENTS.md" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
+      force = true;
+    };
+  };
 in
 
 {
@@ -59,7 +86,7 @@ in
   fonts.fontconfig.enable = true;
 
   # Edit-in-place: the real file stays in the repo, ~/.config just points at it.
-  home.file = agentSkillFiles // {
+  home.file = agentSkillFiles // agentSkillStoreFiles // agentRuleFiles // {
     ".config/wezterm" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
       force = true;
@@ -76,44 +103,16 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
       force = true;
     };
-    ".config/aerospace" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/aerospace";
-      force = true;
-    };
-    ".config/sketchybar" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/sketchybar";
-      force = true;
-    };
-    ".config/borders" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/borders";
-      force = true;
-    };
     ".config/tuicr" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/tuicr";
       force = true;
     };
-    # Rules: same SOT file, Cursor wants .mdc, Agents wants AGENTS.md.
-    # Claude already reads ~/.claude/CLAUDE.md — leave that alone.
-    ".cursor/rules/AGENTS.mdc" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
+    ".config/herdr/config.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/config.toml";
       force = true;
     };
-    ".agents/rules/AGENTS.md" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
-      force = true;
-    };
-    ".claude/CLAUDE.md" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/AGENTS.md";
-      force = true;
-    };
-    # Caveman always-on. Cursor skills are discover-only (no alwaysApply);
-    # official always-on path is a rule file (caveman --with-init).
-    ".cursor/rules/caveman.mdc" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/caveman.md";
-      force = true;
-    };
-    ".agents/rules/caveman.md" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/rules/caveman.md";
+    ".config/herdr/plugins.list" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/plugins.list";
       force = true;
     };
   };
@@ -122,94 +121,32 @@ in
   # exists, leave it alone (never clobber wiki/schema/index/log).
   home.activation.secondBrainVault = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ ! -d "$HOME/.second_brain_vault" ]; then
-      mkdir -p \
-        "$HOME/.second_brain_vault/raw" \
-        "$HOME/.second_brain_vault/wiki" \
-        "$HOME/.second_brain_vault/schema" \
-        "$HOME/.second_brain_vault/.obsidian"
-
-      cat > "$HOME/.second_brain_vault/schema/AGENTS.md" << 'EOF'
-# Second-brain vault contracts
-
-Layers:
-- `raw/` — immutable ingest sources; agents never mutate
-- `wiki/` — LLM-owned pages (create, update, link)
-- `schema/` — contracts and lint rules for ingest / query / lint
-
-Rules:
-- Query starts at `index.md`, then follow wikilinks into `wiki/`
-- Append `log.md` with `## [YYYY-MM-DD] op | title`
-- Never write secrets, tokens, or env files into the vault
-EOF
-
-      cat > "$HOME/.second_brain_vault/index.md" << 'EOF'
-# Catalog
-
-Query entry point. List wiki pages and topics here as the vault grows.
-
-## Pages
-
-_None yet._
-EOF
-
-      cat > "$HOME/.second_brain_vault/log.md" << 'EOF'
-# Log
-
-Chronological record of vault operations.
-
-Entry form:
-
-```
-## [YYYY-MM-DD] op | title
-```
-
-Examples: `ingest`, `query`, `lint`, `compile`.
-EOF
-
-      cat > "$HOME/.second_brain_vault/.obsidian/app.json" << 'EOF'
-{}
-EOF
+      cp -R "${dotfiles}/ai_agents_tools/skills/second-brain/vault-seed" \
+        "$HOME/.second_brain_vault"
+      find "$HOME/.second_brain_vault" -name .gitkeep -delete
     fi
   '';
 
-  # SbarLua + C helpers for the Lua SketchyBar config (phucisstupid).
-  home.activation.sketchybarLua = lib.mkIf features.sketchybar (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    export PATH="/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-    if [ ! -f "$HOME/.local/share/sketchybar_lua/sketchybar.so" ]; then
-      tmp=$(mktemp -d)
-      git clone --depth 1 https://github.com/FelixKratz/SbarLua.git "$tmp/SbarLua"
-      make -C "$tmp/SbarLua" install
-      rm -rf "$tmp"
+  # Ensure listed Herdr plugins are installed (idempotent reinstall).
+  home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="/run/current-system/sw/bin:/opt/homebrew/bin:$PATH"
+    list="${dotfiles}/home/.config/herdr/plugins.list"
+    if [ ! -f "$list" ]; then
+      echo "herdr plugins list missing: $list" >&2
+      exit 1
     fi
-    if [ -d "$HOME/.config/sketchybar/helpers" ]; then
-      make -C "$HOME/.config/sketchybar/helpers"
+    if ! command -v herdr >/dev/null; then
+      echo "herdr not on PATH during activation; skip plugin install" >&2
+      exit 1
     fi
-  '');
-
-  # Flag off: unload KeepAlive agent then quit, else it respawns.
-  home.activation.disableSketchybar = lib.mkIf (!features.sketchybar) (
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      uid="$(id -u)"
-      /bin/launchctl bootout "gui/$uid/org.nixos.sketchybar" 2>/dev/null || true
-      /usr/bin/killall sketchybar 2>/dev/null || true
-    ''
-  );
-
-  # Flag off: apply start-at-login = false if the GUI is up, then quit it.
-  # Also drop leftover login agents from when toml used to set start-at-login.
-  home.activation.disableAerospace = lib.mkIf (!features.aerospace) (
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      uid="$(id -u)"
-      if /usr/bin/pgrep -xq AeroSpace; then
-        /opt/homebrew/bin/aerospace reload-config 2>/dev/null || true
-      fi
-      /usr/bin/killall AeroSpace 2>/dev/null || true
-      for label in bobko.aerospace bobko.aero.space; do
-        /bin/launchctl bootout "gui/$uid/$label" 2>/dev/null || true
-        rm -f "$HOME/Library/LaunchAgents/''${label}.plist"
-      done
-    ''
-  );
+    while IFS= read -r plugin || [ -n "$plugin" ]; do
+      case "$plugin" in
+        ""|\#*) continue ;;
+      esac
+      echo "herdr plugin install $plugin"
+      herdr plugin install "$plugin" --yes
+    done < "$list"
+  '';
 
   programs.zsh = {
     enable = true;
@@ -240,34 +177,28 @@ EOF
    '';
     shellAliases = {
       ".." = "cd ..";
-      l = "ls -la";
+      # listing dirs
+      lsa = "ls -la";
       ll = "ls -l";
-      lsa = "ls -a";
-      lt = "eza --tree --level=2 --long --icons --git";
+      # neovim 
       v = "nvim";
       vim = "nvim";
       vi = "nvim";
-      as = "aerospace";
+      # agents init
       oc = "opencode";
+      ca = "cursor-agent";
+      cc = "claude";
+      # pr review
+      tt = "tuicr tui";
       add = "git add .";
       commit = "git commit -m ";
       push = "git push";
       pull = "git pull";
       gd = "git diff --name-only";
-      gc = "git commit -m";
-      gca = "git commit -a -m";
-      gp = "git push origin HEAD";
-      gpu = "git pull origin";
       gst = "git status";
-      gdiff = "git diff";
       gco = "git checkout";
       gb = "git branch";
       gba = "git branch -a";
-      gadd = "git add";
-      ga = "git add -p";
-      gcoall = "git checkout -- .";
-      gr = "git remote";
-      gre = "git reset";
       k = "kubectl";
       ka = "kubectl apply -f";
       kg = "kubectl get";

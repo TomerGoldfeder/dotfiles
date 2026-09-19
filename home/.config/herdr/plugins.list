@@ -1,0 +1,8 @@
+# Herdr plugins installed on every darwin-rebuild (home.activation).
+# One GitHub owner/repo[/subdir] per line. Blank lines and # comments ignored.
+speardragon/herdr-plugin-manager
+cloudmanic/herdr-plus
+persiyanov/herdr-reviewr
+hhdebb/herdr-radar
+mr04vv/herdr-pane-navigator
+JanTvrdik/herdr-command-palette

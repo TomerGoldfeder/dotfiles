@@ -1,4 +1,4 @@
-{ user, pkgs, lib, features, ... }:
+{ user, pkgs, herdr, ... }:
 
 {
   # Determinate already manages the Nix daemon, so nix-darwin shouldn't.
@@ -13,7 +13,6 @@
   system.stateVersion = 6;
 
   system.defaults = {
-    NSGlobalDomain._HIHideMenuBar = features.sketchybar; # bar replaces menu bar when enabled
     finder.CreateDesktop = false;
     trackpad.Clicking = true;
   };
@@ -28,19 +27,20 @@
   # points at missing Temurin 8; home.nix re-exports this after that file.
   environment.variables.JAVA_HOME = "${pkgs.jdk8.home}";
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     neovim
     starship
-    eza
+    fzf # herdr pane-navigator (and other TUIs)
     # LazyVim lang.markdown lints via nvim-lint; mason cannot install these
     # without npm. Put the binaries on PATH instead of :MasonInstall.
     markdownlint-cli2
     markdown-toc
     nodejs
-    jq # SketchyBar weather + Spotify plugins
     kubectl
     jdk8 # Zulu 8; Spark 3.1.3 (Java 8 or 11). Native aarch64, not Temurin cask.
-  ];
+    cargo # herdr plugin install builds Rust plugins from source
+    rustc
+  ]) ++ [ herdr.packages.${pkgs.system}.default ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -51,42 +51,6 @@
     eval "$(starship init zsh)"
   '';
 
-  # Start SketchyBar / JankyBorders in the Aqua session. Homebrew
-  # `brew services` cannot do this during darwin-rebuild (root → user
-  # launchctl bootstrap → error 5).
-  launchd.user.agents.sketchybar = lib.mkIf features.sketchybar {
-    serviceConfig = {
-      ProgramArguments = [ "/opt/homebrew/bin/sketchybar" ];
-      KeepAlive = true;
-      RunAtLoad = true;
-      EnvironmentVariables = {
-        PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:/usr/sbin:/usr/bin:/bin:/sbin";
-        LANG = "en_US.UTF-8";
-        DOTFILES_WINDOW_MANAGER = if features.aerospace then "aerospace" else "macos_native";
-      };
-    };
-  };
-  # `open` exits after launching the GUI; KeepAlive would spam. Flag off: no agent.
-  launchd.user.agents.aerospace = lib.mkIf features.aerospace {
-    serviceConfig = {
-      ProgramArguments = [ "/usr/bin/open" "-a" "AeroSpace" ];
-      RunAtLoad = true;
-      KeepAlive = false;
-    };
-  };
-  launchd.user.agents.borders = {
-    serviceConfig = {
-      # No args → borders executes ~/.config/borders/bordersrc
-      ProgramArguments = [ "/opt/homebrew/bin/borders" ];
-      KeepAlive = true;
-      RunAtLoad = true;
-      EnvironmentVariables = {
-        PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin";
-        LANG = "en_US.UTF-8";
-      };
-    };
-  };
-
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
@@ -94,32 +58,17 @@
     onActivation.extraFlags = [ "--force" ];
     brews = [
       "tmux"
-      "lua"
-      "switchaudio-osx"
-      "media-control"
       "glab"
       "tuicr" # code-review TUI (homebrew-core)
-      {
-        # Do not start_service/restart_service here: darwin-rebuild runs as
-        # root and `launchctl bootstrap user/…` then fails with I/O error 5.
-        name = "FelixKratz/formulae/sketchybar";
-        trusted = true;
-      }
-      {
-        name = "FelixKratz/formulae/borders";
-        trusted = true;
-      }
-    ];
-    taps = [
-      "nikitabobko/tap"
-      "FelixKratz/formulae"
+      "opencode"
+      "pi-coding-agent"
+      "fzf" # pane-navigator; also in systemPackages — brew covers herdr PATH until rebuild
     ];
     casks = [
       "wezterm"
-      "nikitabobko/tap/aerospace"
       "font-jetbrains-mono-nerd-font"
-      "font-maple-mono-nf" # SketchyBar (phucisstupid)
-      "font-sketchybar-app-font"
+      "claude-code"
+      "cursor-cli"
       # Root-owned apps (they self-update). Listed so zap does not try to
       # delete them — Homebrew cannot remove root CodeResources files.
       "google-chrome"

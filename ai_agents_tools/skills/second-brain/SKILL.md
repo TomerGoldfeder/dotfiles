@@ -15,7 +15,7 @@ Karpathy LLM-wiki on disk. Vault durable; chat ephemeral.
 
 Announce once: `Using skill: second-brain`
 
-**Root:** `$HOME/.second_brain_vault` (`~/.second_brain_vault`). Nix activation seeds it; agents do not mkdir the vault.
+**Root:** `$HOME/.second_brain_vault` (`~/.second_brain_vault`). Nix activation create-once-copies `vault-seed/` from this skill; agents do not mkdir the vault.
 
 **Cheap skip:** dir missing, or `index.md` missing / stub-only (no real pages). Say so. Do not invent pages.
 

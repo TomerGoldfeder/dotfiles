@@ -9,26 +9,24 @@
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # bump with `nix flake update caveman`
-    caveman.url = "github:JuliusBrussee/caveman";
-    caveman.flake = false;
+    # bump with `nix flake update herdr`
+    herdr.url = "github:herdrdev/herdr/v0.9.1";
   };
 
-  outputs = { self, nix-darwin, home-manager, nixpkgs, caveman }:
+  outputs = { self, nix-darwin, home-manager, nixpkgs, herdr }:
     let
       user = "tomergo";
-      features = import ./features.nix;
     in
     {
       darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {
-        specialArgs = { inherit user features; };
+        specialArgs = { inherit user herdr; };
         modules = [
           ./configuration.nix
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit user features caveman; };
+            home-manager.extraSpecialArgs = { inherit user herdr; };
             # Distinct from leftover ~/.zshrc.backup so HM can move colliding files.
             home-manager.backupFileExtension = "hm-backup";
             home-manager.users.${user} = import ./home.nix;

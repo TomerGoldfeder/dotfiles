@@ -4,9 +4,8 @@ description: >-
   Installs CLIs, GUI apps, fonts, Homebrew formulae/casks, and editor tooling
   into this nix-darwin dotfiles repo instead of ad-hoc brew/nix-env/npm/mason.
   Use whenever the user asks to install, add, brew, cask, or put something on
-  PATH; wants a Mac app, font, or SketchyBar/AeroSpace helper; or says a tool
-  is missing after a rebuild. Do not use for project npm/pip/cargo deps inside
-  an application repo.
+  PATH; wants a Mac app or font; or says a tool is missing after a rebuild.
+  Do not use for project npm/pip/cargo deps inside an application repo.
 ---
 
 # Install into Nix (dotfiles)
@@ -28,10 +27,11 @@ Then edit the **repo** (via `~/.dotfiles` → clone), not the live `~/.config` c
 | Path | What goes here |
 |------|----------------|
 | `configuration.nix` | System PATH (`environment.systemPackages`), Nix fonts, Homebrew `brews` / `casks` / `taps`, LaunchAgents |
-| `home.nix` | User files (`mkOutOfStoreSymlink`), zsh, home-manager activation, Cursor/agent skill links |
-| `home/.config/<app>/` | Live app config (WezTerm, nvim, tmux, AeroSpace, SketchyBar, …) |
-| `ai_agents_tools/skills/<name>/` | First-party agent skills (this file's hierarchy). Upstream skills are flake inputs, not copies here. |
-| `ai_agents_tools/rules/` | Always-on Cursor/agent rules (caveman rule is separate from the caveman skill). |
+| `home.nix` | User files (`mkOutOfStoreSymlink`), zsh, home-manager activation, agent skill/rule links — first-party globs + flake-input store skills (Cursor, Claude, Agents, OpenCode, Pi) |
+| `home/.config/herdr/plugins.list` | Herdr plugins (`owner/repo`). Installed on rebuild via `herdr plugin install … --yes`. |
+| `home/.config/<app>/` | Live app config (WezTerm, nvim, tmux, …) |
+| `ai_agents_tools/skills/<name>/` | First-party agent skills (this file's hierarchy). Auto-discovered into every agent skill home. Upstream skills are flake inputs, not copies here. |
+| `ai_agents_tools/rules/` | Always-on rules. `AGENTS.md` is symlinked into each harness's global rules path. |
 | `secrets/env.sh` | Tokens. Gitignored. Never commit. |
 
 `flake.nix` is only the username, flake inputs, and `darwinConfigurations.mac`. Do not dump packages there. Flake **inputs** for third-party agent skills are allowed (see item 7).
@@ -42,21 +42,21 @@ Prefer **nixpkgs** over Homebrew when the package exists for `aarch64-darwin`.
 
 1. **CLI on PATH** (nvim, jq, eza, node, linters) → `configuration.nix` `environment.systemPackages`.
 2. **Nerd Font from nixpkgs** → `configuration.nix` `fonts.packages`.
-3. **Mac GUI app / extra font cask** → `homebrew.casks`. Add a `homebrew.taps` entry if the cask is tapped (e.g. `nikitabobko/tap/aerospace`).
-4. **Brew formula** (not in nixpkgs, or required as a brew binary like SketchyBar) → `homebrew.brews`. Use the `{ name = "..."; trusted = true; }` attr for `FelixKratz/formulae/*`. **Do not** `start_service` / `restart_service` — root `darwin-rebuild` cannot bootstrap user LaunchAgents (error 5). Use `launchd.user.agents` instead (see sketchybar/borders).
+3. **Mac GUI app / extra font cask** → `homebrew.casks`. Add a `homebrew.taps` entry if the cask needs a tap.
+4. **Brew formula** (not in nixpkgs, or required as a brew binary) → `homebrew.brews`. Use the `{ name = "..."; trusted = true; }` attr for tapped formulae that need it. **Do not** `start_service` / `restart_service` — root `darwin-rebuild` cannot bootstrap user LaunchAgents (error 5). Use `launchd.user.agents` instead when a GUI helper must start at login.
 5. **Root-owned self-updating apps** (Chrome, Docker Desktop) → still list them in `casks` so `zap` does not try to uninstall them.
 6. **App config** → files under `home/.config/<app>/`, then a `home.file` `mkOutOfStoreSymlink` in `home.nix` pointing at `${dotfiles}/home/.config/...`.
 7. **New agent skill** — two sources; never copy upstream trees into this repo:
-   - **First-party skill:** `ai_agents_tools/skills/<name>/SKILL.md`, then `agentSkillPaths.<name> = "skills/<name>";` in `home.nix` (out-of-store symlink into `~/.cursor/skills`, `~/.agents/skills`, and `~/.claude/skills`).
-   - **Third-party / upstream skill:** add a flake input in `flake.nix` (`github:owner/repo`, plus a ref if you need a pin). `inherit` that input in `home-manager.extraSpecialArgs`. Put an absolute store path in `agentSkillStorePaths` (e.g. `"${input}/skills/<name>"`). Wire `home.file` with plain `source` + `force = true` for the three skill homes — do not wrap the store path in `mkOutOfStoreSymlink`. Bump with `nix flake update <input>`. If upstream has no `flake.nix`, set `input.flake = false` (as with `caveman`). Do **not** copy into `ai_agents_tools/third_party/` or `ai_agents_tools/skills/`.
+   - **First-party skill:** add `ai_agents_tools/skills/<name>/SKILL.md`. `home.nix` auto-discovers directories under that path and out-of-store-symlinks them into the five skill homes: Cursor (`.cursor/skills`), Claude Code (`.claude/skills`), Agents (`.agents/skills`), OpenCode (`.config/opencode/skills`), and Pi (`.pi/agent/skills`) — no list edit. Global rules SOT is `ai_agents_tools/rules/AGENTS.md` (linked as `.cursor/rules/AGENTS.mdc`, `.agents/rules/AGENTS.md`, `.claude/CLAUDE.md`, `.config/opencode/AGENTS.md`, `.pi/agent/AGENTS.md`).
+   - **Third-party / upstream skill:** add a flake input in `flake.nix` (`github:owner/repo`, plus a ref if you need a pin). `inherit` that input in `home-manager.extraSpecialArgs`. Append an absolute store path to `agentSkillStorePaths` in `home.nix` (e.g. `"${input}/skills/<name>"` — worked example: `"${herdr}/skills/herdr"`). `home.nix` wires plain `source` + `force = true` into the same five skill homes; do not wrap the store path in `mkOutOfStoreSymlink`, and never use `herdr.packages.${pkgs.system}.default` as a skill `source`. Bump with `nix flake update <input>` (herdr: `nix flake update herdr`). If upstream has no `flake.nix`, set `input.flake = false`. Do **not** copy into `ai_agents_tools/third_party/` or `ai_agents_tools/skills/`.
 8. **Secret / token** → `secrets/env.sh` (copy from `secrets/env.sh.example` if needed). Not Nix.
 
-If the user wants a GUI service (SketchyBar, JankyBorders), add the formula **and** the `launchd.user.agents` block; do not `brew services start`.
+If the user wants a GUI service at login, add the formula/cask **and** a `launchd.user.agents` block; do not `brew services start`.
 
 ## Do not
 
 - Leave `brew install …` as the only step.
-- Install into `/usr/local` or `~/.local` except for documented exceptions (SbarLua under `~/.local/share/sketchybar_lua` via `home.activation`).
+- Install into `/usr/local` or `~/.local` as the durable install path.
 - Put packages in `flake.nix` (skill **inputs** are allowed).
 - Vendor upstream skills under `ai_agents_tools/third_party/` or copy them into `ai_agents_tools/skills/`.
 - Edit `~/.config/...` as source of truth; edit `home/.config/...` in the repo.
@@ -94,5 +94,5 @@ That runs `darwin-rebuild switch --flake ~/.dotfiles#mac`. Do not claim the tool
 
 - “Install fd” → nixpkgs `fd` in `environment.systemPackages`.
 - “Install WezTerm” → already a cask; if missing, `homebrew.casks`.
-- “Install a SketchyBar helper formula” → `homebrew.brews` + tap if needed; no brew services.
+- “Add a Herdr plugin” → append `owner/repo` to `home/.config/herdr/plugins.list`; rebuild runs `herdr plugin install … --yes`.
 - “Add a Neovim plugin config” → `home/.config/nvim/...`, not a Nix package unless the plugin needs a binary on PATH.
