@@ -1,0 +1,39 @@
+home/.config/sketchybar/plugins/icon_map.sh
+  s_1b255bb728cb73::t_26b720bd4ff059 1-1834
+home/.config/sketchybar/plugins/front_app.sh
+  s_78414038d37fff::t_779afbd08d9980 1-6
+home/.config/sketchybar/items/spaces.sh
+  s_78414038d37fff::t_9fdf8ad7cae21b 16,23-27
+home/.config/sketchybar/sketchybarrc
+  s_78414038d37fff::t_d526d76e3ac43c 25
+home/.config/aerospace/aerospace.toml
+  s_78414038d37fff::t_01c000b520ff8b 83-102
+home/.config/sketchybar/plugins/aerospacer.sh
+  s_78414038d37fff::t_2ef4f9654e3467 4-32,35-39,41-44
+home/.config/sketchybar/items/front_app.sh
+  s_78414038d37fff::t_03abc48dc5e2f8 1-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e2e928543a1bbc80074d08524bc12a318388ea82",
+  "prompts": {},
+  "sessions": {
+    "s_1b255bb728cb73": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "43e30580-0745-408d-b530-d4fb2c14f49a",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_78414038d37fff": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8ed840ca-548b-4900-97b6-9a061b9a7a35",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
