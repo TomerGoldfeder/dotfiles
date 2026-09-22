@@ -29,6 +29,7 @@ Then edit the **repo** (via `~/.dotfiles` → clone), not the live `~/.config` c
 | `configuration.nix` | System PATH (`environment.systemPackages`), Nix fonts, Homebrew `brews` / `casks` / `taps`, LaunchAgents |
 | `home.nix` | User files (`mkOutOfStoreSymlink`), zsh, home-manager activation, agent skill/rule links — first-party globs + flake-input store skills (Cursor, Claude, Agents, OpenCode, Pi) |
 | `home/.config/herdr/plugins.list` | Herdr plugins (`owner/repo`). Installed on rebuild via `herdr plugin install … --yes`. |
+| `home/.config/herdr/int_plugins.list` | Local Herdr plugins (path relative to `home/.config/herdr/`). Linked on rebuild via `herdr plugin link`. |
 | `home/.config/<app>/` | Live app config (WezTerm, nvim, tmux, …) |
 | `ai_agents_tools/skills/<name>/` | First-party agent skills (this file's hierarchy). Auto-discovered into every agent skill home. Upstream skills are flake inputs, not copies here. |
 | `ai_agents_tools/rules/` | Always-on rules. `AGENTS.md` is symlinked into each harness's global rules path. |
@@ -95,4 +96,5 @@ That runs `darwin-rebuild switch --flake ~/.dotfiles#mac`. Do not claim the tool
 - “Install fd” → nixpkgs `fd` in `environment.systemPackages`.
 - “Install WezTerm” → already a cask; if missing, `homebrew.casks`.
 - “Add a Herdr plugin” → append `owner/repo` to `home/.config/herdr/plugins.list`; rebuild runs `herdr plugin install … --yes`.
+- “Add an internal Herdr plugin” → append a path relative to `home/.config/herdr/` to `home/.config/herdr/int_plugins.list`; rebuild runs `herdr plugin link`.
 - “Add a Neovim plugin config” → `home/.config/nvim/...`, not a Nix package unless the plugin needs a binary on PATH.

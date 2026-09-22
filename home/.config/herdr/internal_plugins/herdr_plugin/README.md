@@ -48,7 +48,9 @@ Press `ctrl+b t` (or whatever key you bound) from inside any tab.
 
 | Key | Does |
 |---|---|
-| `↑`/`↓`, `j`/`k` | move selection |
+| `↑`/`↓`, `j`/`k` | move pane selection (list focus) or scroll preview (preview focus) |
+| `tab`, `→`, `l` | focus the preview pane (loads recent scrollback) |
+| `←`, `h` | focus the pane list |
 | `enter` | focus that pane in herdr, close the popup |
 | `q`, `esc`, `ctrl+c` | close, change nothing |
 
@@ -59,15 +61,17 @@ The list resyncs every ~4s (new/closed panes) and the preview refreshes every
 
 - Reads `HERDR_TAB_ID`, injected by herdr into the popup process, to know
   which tab to list.
-- One `layout.export` call over herdr's local Unix socket returns the tab's
-  full pane tree; leaf `pane` nodes become the list.
-- The preview polls `pane.read` (`source: visible`) for the selected pane on
-  a timer.
+- One `layout.export` call over herdr's local Unix socket returns
+  `{type: layout_export, layout: {root, focused_pane_id, ...}}`. Leaf `pane`
+  nodes under `layout.root` become the list.
+- The preview polls `pane.read` (`source: recent_unwrapped`), hard-wraps to the
+  preview column width, and bottom-fills the right pane.
 - Enter calls `pane.focus` with the pane's id, then the popup closes because
   its process exits (herdr closes any popup when its command exits).
 
 No CLI subprocess calls in the render loop — everything after startup goes
-over the socket directly, so the refresh stays cheap.
+over the socket directly, so the refresh stays cheap. Herdr closes the socket
+after each request, so the client opens a fresh connection per call.
 
 ## Known limitation
 

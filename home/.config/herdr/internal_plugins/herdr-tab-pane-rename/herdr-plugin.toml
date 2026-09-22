@@ -1,0 +1,10 @@
+id = "tomer.tab-pane-rename"
+name = "Tab Pane Rename"
+version = "0.1.0"
+min_herdr_version = "0.7.4"
+description = "On pane.created, prefix the pane label with the custom tab name"
+platforms = ["linux", "macos"]
+
+[[events]]
+on = "pane.created"
+command = ["python3", "on_pane_created.py"]

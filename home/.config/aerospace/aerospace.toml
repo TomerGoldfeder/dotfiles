@@ -34,8 +34,8 @@ inner.horizontal = 10
 outer.left = 12
 outer.right = 12
 outer.bottom = 16
-# Reserve space for SketchyBar (height 36 + margin/y_offset).
-outer.top = 50
+# Reserve space for SketchyBar (height 39 + y_offset 10 + margin 10).
+outer.top = 60
 
 # Monitors left-to-right: 1 = left Dell, 2 = laptop (built-in), 3 = right Dell.
 # Durable assignment — applies on reload-config (after-startup-command does not).

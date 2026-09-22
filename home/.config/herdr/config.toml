@@ -51,6 +51,8 @@ focus_pane_left = "prefix+left"
 focus_pane_down = "prefix+down"
 focus_pane_up = "prefix+up"
 focus_pane_right = "prefix+right"
+# Jump back to the previously focused pane. `l` is free: right-focus is the arrow.
+last_pane = "prefix+l"
 
 # Pane resize — shift+arrows after prefix
 resize_pane_left = "prefix+shift+left"

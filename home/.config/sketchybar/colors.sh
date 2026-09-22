@@ -1,23 +1,23 @@
 #!/bin/bash
 
-# Pe8er palette helpers (Dracula). Bar surface at 60% opacity.
-DRACULA=(
-  blue "#6272A4"
-  teal "#69FF94"
-  cyan "#8BE9FD"
-  grey "#44475A"
-  green "#50FA7B"
-  yellow "#F1FA8C"
-  orange "#FFB86C"
-  red "#FF5555"
-  purple "#BD93F9"
-  maroon "#FF79C6"
-  black "#282A36"
-  trueblack "#1c1c1c"
-  white "#F8F8F2"
+# Catppuccin Macchiato (FelixKratz @ e6288b3). getcolor kept for plugins.
+CATPPUCCIN=(
+  blue "#8aadf4"
+  teal "#8bd5ca"
+  cyan "#8aadf4"
+  grey "#939ab7"
+  green "#a6da95"
+  yellow "#eed49f"
+  orange "#f5a97f"
+  red "#ed8796"
+  purple "#c6a0f6"
+  maroon "#c6a0f6"
+  black "#24273a"
+  trueblack "#181926"
+  white "#cad3f5"
 )
 
-COLORS=("${DRACULA[@]}")
+COLORS=("${CATPPUCCIN[@]}")
 
 PERCENT2HEX() {
   printf "0x%02X\n" "$(( $1 * 255 / 100 ))"
@@ -43,12 +43,29 @@ getcolor() {
   echo "$(PERCENT2HEX "$opacity")${hex:1}"
 }
 
-BAR_SURFACE=$(getcolor black 60)
-BAR_COLOR=$(getcolor black 75)
-HIGHLIGHT=$(getcolor cyan)
-HIGHLIGHT_25=$(getcolor cyan 25)
-ICON_COLOR=$(getcolor white)
+export BLACK=0xff181926
+export WHITE=0xffcad3f5
+export RED=0xffed8796
+export GREEN=0xffa6da95
+export BLUE=0xff8aadf4
+export YELLOW=0xffeed49f
+export ORANGE=0xfff5a97f
+export MAGENTA=0xffc6a0f6
+export GREY=0xff939ab7
+export TRANSPARENT=0x00000000
+
+export BAR_COLOR=0xa024273a
+export BAR_SURFACE="$BAR_COLOR"
+export BACKGROUND_1=0x903c3e4f
+export BACKGROUND_2=0x90494d64
+export POPUP_BACKGROUND_COLOR=0xff24273a
+export POPUP_BORDER_COLOR="$WHITE"
+
+export HIGHLIGHT="$RED"
+export HIGHLIGHT_25
+HIGHLIGHT_25=$(getcolor red 25)
+export ICON_COLOR="$WHITE"
+export ICON_COLOR_INACTIVE
 ICON_COLOR_INACTIVE=$(getcolor white 25)
+export LABEL_COLOR
 LABEL_COLOR=$(getcolor white 75)
-POPUP_BACKGROUND_COLOR=$(getcolor black 75)
-TRANSPARENT=$(getcolor black 0)

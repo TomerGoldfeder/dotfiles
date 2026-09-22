@@ -1,0 +1,4 @@
+# Herdr internal plugins linked on every darwin-rebuild (home.activation).
+# One path per line, relative to home/.config/herdr/. Blank lines and # comments ignored.
+internal_plugins/herdr_plugin
+internal_plugins/herdr-tab-pane-rename

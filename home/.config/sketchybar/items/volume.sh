@@ -5,19 +5,25 @@ volume_slider=(
   icon.drawing=off
   label.drawing=off
   padding_left=8
-  slider.background.color="$(getcolor white 25)"
-  slider.background.corner_radius=8
-  slider.background.height=6
-  slider.highlight_color="$HIGHLIGHT"
+  slider.background.color="$BACKGROUND_2"
+  slider.background.corner_radius=3
+  slider.background.height=5
+  slider.highlight_color="$BLUE"
   script="$PLUGIN_DIR/volume.sh"
 )
 
 volume_icon=(
   click_script="$PLUGIN_DIR/volume_click.sh"
   icon="$ICON_VOLUME_100"
-  icon.font="$ICON_FONT:Regular:13.0"
+  icon.font="$ICON_FONT:Regular:14.0"
   icon.padding_left="$CLUSTER_GAP"
   label.drawing=off
+)
+
+status_bracket=(
+  background.color="$BACKGROUND_1"
+  background.border_color="$BACKGROUND_2"
+  background.border_width=2
 )
 
 sketchybar \
@@ -26,3 +32,6 @@ sketchybar \
   --subscribe volume volume_change mouse.clicked \
   --add item volume_icon right \
   --set volume_icon "${volume_icon[@]}"
+
+sketchybar --add bracket status wifi bluetooth battery volume_icon \
+  --set status "${status_bracket[@]}"

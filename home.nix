@@ -115,6 +115,10 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/plugins.list";
       force = true;
     };
+    ".config/herdr/int_plugins.list" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/int_plugins.list";
+      force = true;
+    };
     ".config/aerospace/aerospace.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/aerospace/aerospace.toml";
       force = true;
@@ -174,6 +178,21 @@ in
         echo "herdr plugin install failed: $plugin (continuing)" >&2
       }
     done < "$list"
+    int_list="${dotfiles}/home/.config/herdr/int_plugins.list"
+    herdr_config="${dotfiles}/home/.config/herdr"
+    if [ ! -f "$int_list" ]; then
+      echo "herdr internal plugins list missing: $int_list" >&2
+      exit 1
+    fi
+    while IFS= read -r plugin || [ -n "$plugin" ]; do
+      case "$plugin" in
+        ""|\#*) continue ;;
+      esac
+      echo "herdr plugin link $herdr_config/$plugin"
+      herdr plugin link "$herdr_config/$plugin" || {
+        echo "herdr plugin link failed: $plugin (continuing)" >&2
+      }
+    done < "$int_list"
   '';
 
   # Ctrl-R history widget. Integration also binds Tab; fzf-tab is sourced
