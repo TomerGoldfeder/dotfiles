@@ -1,0 +1,63 @@
+configuration.nix
+  s_a77fac92d5e954::t_6cca76a7f561b6 78-81
+  s_3a9b7aaa349f3c::t_376f878b412a3c 3-6
+  s_a77fac92d5e954::t_13d0db3cd20df3 112-129
+  s_3a9b7aaa349f3c::t_fe28cba8758ef4 47-50
+home/bin/aerospace-cheatsheet/default.nix
+  s_3a9b7aaa349f3c::t_fcad960a904e78 1-34
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/SupportPaths.swift
+  s_3a9b7aaa349f3c::t_a7e1fb42c98e03 1-18
+docs/superpowers/plans/2026-09-23-aerospace-cheatsheet.md
+  s_3a9b7aaa349f3c::t_875199acf76079 9-13
+  s_3a9b7aaa349f3c::t_21eb0fbe68cee2 1-8
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/BindingRow.swift
+  s_3a9b7aaa349f3c::t_03b5a4d45577e0 85-88,90
+  s_3a9b7aaa349f3c::t_a39ef9deb2ba34 112-139
+  s_3a9b7aaa349f3c::t_d3a3798abc201f 1-84,89,91-111,140-156
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/PanelController.swift
+  s_3a9b7aaa349f3c::t_e745d35c77bf33 121-134
+  s_3a9b7aaa349f3c::t_54f803cfdd805a 192-211
+  s_3a9b7aaa349f3c::t_d9d88a37dee687 1-120,135-191,212-357
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/IPC.swift
+  s_3a9b7aaa349f3c::t_d278fa8fe1ff32 92
+  s_3a9b7aaa349f3c::t_90f8d641527860 10-23
+  s_3a9b7aaa349f3c::t_e8a4968e525107 81
+  s_3a9b7aaa349f3c::t_70a4315cc4e19e 29
+  s_3a9b7aaa349f3c::t_8d0c17567f7144 100
+  s_3a9b7aaa349f3c::t_4a3f93540eb550 131-132,142
+  s_3a9b7aaa349f3c::t_751e3d1fae5028 1-9,24-28,30-80,82-88,90-91,93-99,101-129,133-141,143-184
+  s_3a9b7aaa349f3c::t_1bb303f8aa3f81 89
+  s_3a9b7aaa349f3c::t_9561a0f93ed18c 130
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/AppDelegate.swift
+  s_3a9b7aaa349f3c::t_43d86ac3dea30f 1-31
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/main.swift
+  s_3a9b7aaa349f3c::t_bd3add0a1407eb 1-17
+home/.config/aerospace/aerospace.toml
+  s_3a9b7aaa349f3c::t_8852521fa1df7f 115
+  s_a77fac92d5e954::t_55e16186ada560 2
+  s_a77fac92d5e954::t_fe24ec2cc7291a 1,3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9f51459ab702a04eeb3349d560255fc1e158e6cd",
+  "prompts": {},
+  "sessions": {
+    "s_3a9b7aaa349f3c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f98d6763-1db4-4657-bbd2-0411398c8eea",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_a77fac92d5e954": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fee3acfb-d875-4cad-a8f6-ed9139a8a056",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
