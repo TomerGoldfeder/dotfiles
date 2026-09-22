@@ -63,10 +63,20 @@
       "opencode"
       "pi-coding-agent"
       "fzf" # pane-navigator; also in systemPackages — brew covers herdr PATH until rebuild
+      {
+        name = "FelixKratz/formulae/sketchybar";
+        trusted = true;
+      }
+    ];
+    taps = [
+      "nikitabobko/tap"
+      "FelixKratz/formulae"
     ];
     casks = [
       "wezterm"
+      "nikitabobko/tap/aerospace"
       "font-jetbrains-mono-nerd-font"
+      "font-sketchybar-app-font"
       "claude-code"
       "cursor-cli"
       # Root-owned apps (they self-update). Listed so zap does not try to
@@ -74,5 +84,17 @@
       "google-chrome"
       "docker-desktop"
     ];
+  };
+
+  launchd.user.agents.sketchybar = {
+    serviceConfig = {
+      ProgramArguments = [ "/opt/homebrew/bin/sketchybar" ];
+      KeepAlive = true;
+      RunAtLoad = true;
+      EnvironmentVariables = {
+        PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:/usr/sbin:/usr/bin:/bin:/sbin";
+        LANG = "en_US.UTF-8";
+      };
+    };
   };
 }

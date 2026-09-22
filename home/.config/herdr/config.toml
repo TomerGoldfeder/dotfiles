@@ -94,6 +94,13 @@ type = "plugin_action"
 command = "persiyanov.reviewr.toggle"
 description = "toggle reviewr"
 
+[[keys.command]]
+key = "prefix+H"
+type = "plugin_action"
+command = "tomer.tab-panes.open"
+description = "Show panes in this tab"
+
+
 # >>> herdr-radar theme block
 [theme.custom]
 active_row_bg = "#414868"

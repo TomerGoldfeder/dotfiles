@@ -115,6 +115,22 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/plugins.list";
       force = true;
     };
+    ".config/aerospace/aerospace.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/aerospace/aerospace.toml";
+      force = true;
+    };
+    ".config/sketchybar" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/sketchybar";
+      force = true;
+    };
+    # compinit only autoloads a file named _git. The bash script must sit
+    # beside it; git-completion.zsh looks there first.
+    ".zsh/completions/_git" = {
+      source = "${pkgs.git}/share/git/contrib/completion/git-completion.zsh";
+    };
+    ".zsh/completions/git-completion.bash" = {
+      source = "${pkgs.git}/share/git/contrib/completion/git-completion.bash";
+    };
   };
 
   # Create-once seed for ~/.second_brain_vault. If the directory already
@@ -127,8 +143,17 @@ in
     fi
   '';
 
+  # Load SketchyBar after ~/.config/sketchybar symlink exists (launchd may
+  # have started the daemon earlier with no config).
+  home.activation.sketchybarConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+    if command -v sketchybar >/dev/null && [ -x "$HOME/.config/sketchybar/sketchybarrc" ]; then
+      sketchybar --reload
+    fi
+  '';
+
   # Ensure listed Herdr plugins are installed (idempotent reinstall).
-  home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     export PATH="/run/current-system/sw/bin:/opt/homebrew/bin:$PATH"
     list="${dotfiles}/home/.config/herdr/plugins.list"
     if [ ! -f "$list" ]; then
@@ -144,15 +169,35 @@ in
         ""|\#*) continue ;;
       esac
       echo "herdr plugin install $plugin"
-      herdr plugin install "$plugin" --yes
+      # Herdr server may be down during darwin-rebuild; do not block HM symlinks.
+      herdr plugin install "$plugin" --yes || {
+        echo "herdr plugin install failed: $plugin (continuing)" >&2
+      }
     done < "$list"
   '';
+
+  # Ctrl-R history widget. Integration also binds Tab; fzf-tab is sourced
+  # later (order 950) so Tab stays the completion menu.
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;      # ghost text from history
     syntaxHighlighting.enable = true;  # commands turn green when valid
-    initContent = ''
+    initContent = lib.mkMerge [
+      (lib.mkOrder 400 ''
+        # Before compinit, so `git <Tab>` can complete subcommands.
+        fpath=("''${HOME}/.zsh/completions" $fpath)
+      '')
+      (lib.mkOrder 950 ''
+        zstyle ':completion:*:descriptions' format '[%d]'
+        zstyle ':completion:*' menu no
+        source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+      '')
+      ''
       bindkey '^f' autosuggest-accept
       # Option+Right: accept one word of the ghost suggestion (not the whole line).
       bindkey "^[[1;3C" forward-word
@@ -173,13 +218,13 @@ in
       # java.zsh exports a missing Temurin 8 path. Prefer the nix-darwin JDK.
       export JAVA_HOME="${pkgs.jdk8.home}"
       export PATH="$JAVA_HOME/bin:$PATH"
-
-   '';
+      ''
+    ];
     shellAliases = {
       ".." = "cd ..";
       # listing dirs
+      ls = "ls --color";
       lsa = "ls -la";
-      ll = "ls -l";
       # neovim 
       v = "nvim";
       vim = "nvim";

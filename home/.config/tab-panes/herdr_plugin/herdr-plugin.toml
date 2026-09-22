@@ -1,0 +1,24 @@
+id = "tomer.tab-panes"
+name = "Tab Panes"
+version = "0.1.0"
+min_herdr_version = "0.7.4"
+description = "Popup: every pane in the current tab, with a live preview"
+platforms = ["linux", "macos"]
+
+# The picker itself. Always opens as a session-modal popup.
+[[panes]]
+id = "picker"
+title = "Tab Panes"
+platforms = ["linux", "macos"]
+placement = "popup"
+width = "85%"
+height = "75%"
+command = ["python3", "picker.py"]
+
+# Bind a key to this action; its only job is to open the pane above.
+[[actions]]
+id = "open"
+title = "Show tab panes"
+contexts = ["pane", "tab", "workspace"]
+platforms = ["linux", "macos"]
+command = ["python3", "open_action.py"]

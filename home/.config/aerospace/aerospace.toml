@@ -1,0 +1,127 @@
+after-startup-command = ['exec-and-forget sketchybar', 'workspace 1']
+
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
+]
+
+start-at-login = false
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
+accordion-padding = 300
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
+
+[key-mapping]
+preset = 'qwerty'
+
+[gaps]
+# Laptop + two 24" Dells — not ultrawide side insets.
+inner.horizontal = 10
+outer.left = 12
+outer.right = 12
+outer.bottom = 16
+# Reserve space for SketchyBar (height 36 + margin/y_offset).
+outer.top = 50
+
+# Monitors left-to-right: 1 = left Dell, 2 = laptop (built-in), 3 = right Dell.
+# Durable assignment — applies on reload-config (after-startup-command does not).
+[workspace-to-monitor-force-assignment]
+1 = 'built-in' # laptop
+2 = 1          # left Dell
+3 = 1          # left Dell
+4 = 3          # right Dell
+5 = 3          # right Dell
+
+[mode.main.binding]
+
+alt-ctrl-shift-f = 'fullscreen'
+alt-ctrl-f = 'layout floating tiling'
+
+# join-with used to be alt-shift-arrows, which stole macOS
+# Shift+Option+Left/Right word selection in every app.
+alt-ctrl-h = 'join-with left'
+alt-ctrl-j = 'join-with down'
+alt-ctrl-k = 'join-with up'
+alt-ctrl-l = 'join-with right'
+
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+
+alt-shift-1 = 'move-node-to-workspace 1 --focus-follows-window'
+alt-shift-2 = 'move-node-to-workspace 2 --focus-follows-window'
+alt-shift-3 = 'move-node-to-workspace 3 --focus-follows-window'
+alt-shift-4 = 'move-node-to-workspace 4 --focus-follows-window'
+alt-shift-5 = 'move-node-to-workspace 5 --focus-follows-window'
+
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+alt-space = [
+  'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_open.sh"',
+  'mode switcher',
+]
+
+# Send focused workspace to a specific screen (left Dell / laptop / right Dell).
+alt-ctrl-1 = 'move-workspace-to-monitor -- 1'
+alt-ctrl-2 = 'move-workspace-to-monitor built-in'
+alt-ctrl-3 = 'move-workspace-to-monitor -- 3'
+
+alt-shift-semicolon = 'mode service'
+
+alt-shift-enter = 'mode apps'
+alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
+
+[mode.switcher.binding]
+esc = [
+  'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_close.sh"',
+  'mode main',
+]
+up = 'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_nav.sh prev"'
+down = 'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_nav.sh next"'
+enter = [
+  'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_nav.sh focus"',
+  'mode main',
+]
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+
+[mode.apps.binding]
+esc = 'mode main'
+alt-w = ['exec-and-forget open -a /Applications/WezTerm.app', 'mode main']
