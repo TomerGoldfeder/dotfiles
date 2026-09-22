@@ -13,13 +13,18 @@ for sid in $(aerospace list-workspaces --all 2>/dev/null); do
   fi
 
   sketchybar --add item "space.$sid" left \
-    --subscribe "space.$sid" aerospace_workspace_change \
+    --subscribe "space.$sid" aerospace_workspace_change front_app_switched \
     --set "space.$sid" \
       icon="$sid" \
       icon.font="$FONT:Bold:12.0" \
       icon.highlight_color="$HIGHLIGHT" \
       icon.padding_left="$pad_left" \
       icon.padding_right=8 \
+      label.font="sketchybar-app-font:Regular:16.0" \
+      label.y_offset=-1 \
+      label.padding_right=20 \
+      label.drawing=on \
+      update_freq=5 \
       click_script="aerospace workspace $sid" \
       script="$PLUGIN_DIR/aerospacer.sh $sid"
 done

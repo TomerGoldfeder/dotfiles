@@ -22,6 +22,7 @@ sketchybar --add event aerospace_workspace_change
 # Left: apple → aerospace workspaces
 source "$ITEM_DIR/apple.sh"
 source "$ITEM_DIR/spaces.sh"
+source "$ITEM_DIR/front_app.sh"
 source "$ITEM_DIR/window_switcher.sh"
 
 # Right: first sourced = rightmost on screen → date … volume

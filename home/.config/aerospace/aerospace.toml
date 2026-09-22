@@ -80,11 +80,26 @@ alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 
-alt-shift-1 = 'move-node-to-workspace 1 --focus-follows-window'
-alt-shift-2 = 'move-node-to-workspace 2 --focus-follows-window'
-alt-shift-3 = 'move-node-to-workspace 3 --focus-follows-window'
-alt-shift-4 = 'move-node-to-workspace 4 --focus-follows-window'
-alt-shift-5 = 'move-node-to-workspace 5 --focus-follows-window'
+alt-shift-1 = [
+  'move-node-to-workspace 1 --focus-follows-window',
+  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+]
+alt-shift-2 = [
+  'move-node-to-workspace 2 --focus-follows-window',
+  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+]
+alt-shift-3 = [
+  'move-node-to-workspace 3 --focus-follows-window',
+  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+]
+alt-shift-4 = [
+  'move-node-to-workspace 4 --focus-follows-window',
+  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+]
+alt-shift-5 = [
+  'move-node-to-workspace 5 --focus-follows-window',
+  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+]
 
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
