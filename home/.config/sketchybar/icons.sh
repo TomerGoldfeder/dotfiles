@@ -1,11 +1,23 @@
 #!/bin/bash
 
-# Nerd Font glyphs — reliable in SketchyBar (SF Symbol codepoints often render as ☐?).
+# Nerd Font glyphs (Material Design / Symbols Nerd Font).
+# https://www.nerdfonts.com/cheat-sheet
 ICON_APPLE=󰀵
-ICON_WIFI_ON=󰖩
-ICON_WIFI_OFF=󰖪
+ICON_WIFI_ON=󰤨
+ICON_WIFI_OFF=󰤮
+ICON_WIFI_DISCONNECTED=󰤯
+ICON_WIFI_IP=󰩠
+ICON_WIFI_SETTINGS=󰒓
 ICON_BT_ON=󰂯
+ICON_BT_CONNECTED=󰂱
 ICON_BT_OFF=󰂲
+ICON_SETTINGS=󰒓
+ICON_SLEEP=󰒲
+ICON_LOCK=󰌾
+ICON_REFRESH=󰑐
+ICON_INFO=󰋼
+ICON_POWER=󰐥
+ICON_COPY=󰆏
 
 ICON_VOLUME_100=󰕾
 ICON_VOLUME_66=󰖀

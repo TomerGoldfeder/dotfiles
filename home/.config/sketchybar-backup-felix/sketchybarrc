@@ -1,0 +1,42 @@
+#!/bin/bash
+
+CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
+export CONFIG_DIR
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEM_DIR="$CONFIG_DIR/items"
+
+source "$CONFIG_DIR/globalstyles.sh"
+
+launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist >/dev/null 2>&1 &
+
+sketchybar --bar "${bar[@]}" --default "${item_defaults[@]}"
+
+APP_FONT="$HOME/Library/Fonts/sketchybar-app-font.ttf"
+if [ -f "$APP_FONT" ]; then
+  sketchybar --load-font "$APP_FONT"
+fi
+
+# Custom event for AeroSpace — must exist before workspace items subscribe.
+sketchybar --add event aerospace_workspace_change
+
+# Left: apple → aerospace workspaces
+source "$ITEM_DIR/apple.sh"
+source "$ITEM_DIR/spaces.sh"
+source "$ITEM_DIR/front_app.sh"
+source "$ITEM_DIR/window_switcher.sh"
+
+# Right: first sourced = rightmost on screen → date … volume
+source "$ITEM_DIR/date.sh"
+source "$ITEM_DIR/wifi.sh"
+source "$ITEM_DIR/battery.sh"
+source "$ITEM_DIR/bluetooth.sh"
+source "$ITEM_DIR/volume.sh"
+
+sketchybar --hotload on
+
+FOCUSED="$(aerospace list-workspaces --focused 2>/dev/null | tr -d '[:space:]')"
+if [ -n "$FOCUSED" ]; then
+  sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$FOCUSED"
+fi
+
+sketchybar --update

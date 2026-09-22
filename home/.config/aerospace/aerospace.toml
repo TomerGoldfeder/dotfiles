@@ -104,11 +104,6 @@ alt-shift-5 = [
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-alt-space = [
-  'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_open.sh"',
-  'mode switcher',
-]
-
 # Send focused workspace to a specific screen (left Dell / laptop / right Dell).
 alt-ctrl-1 = 'move-workspace-to-monitor -- 1'
 alt-ctrl-2 = 'move-workspace-to-monitor built-in'
@@ -118,18 +113,6 @@ alt-shift-semicolon = 'mode service'
 
 alt-shift-enter = 'mode apps'
 alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
-
-[mode.switcher.binding]
-esc = [
-  'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_close.sh"',
-  'mode main',
-]
-up = 'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_nav.sh prev"'
-down = 'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_nav.sh next"'
-enter = [
-  'exec-and-forget /bin/bash -lc "$HOME/.config/sketchybar/plugins/window_switcher_nav.sh focus"',
-  'mode main',
-]
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']

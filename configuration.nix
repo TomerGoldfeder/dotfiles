@@ -44,6 +44,7 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only # SketchyBar + future nerd glyphs (Symbols Nerd Font)
   ];
 
   programs.zsh.enable = true;

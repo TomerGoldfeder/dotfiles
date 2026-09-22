@@ -3,10 +3,9 @@
 source "$CONFIG_DIR/icons.sh"
 source "$CONFIG_DIR/colors.sh"
 
-PADDINGS=12
+PADDINGS=3
 FONT="JetBrainsMono Nerd Font"
-# Dedicated nerd icon face (nix: nerd-fonts.symbols-only). Labels stay JetBrainsMono.
-ICON_FONT="Symbols Nerd Font"
+ICON_FONT="$FONT"
 CLUSTER_GAP=8
 
 bar=(
@@ -41,35 +40,19 @@ item_defaults=(
 )
 
 menu_defaults=(
-  popup.blur_radius=30
+  popup.blur_radius=20
   popup.background.color="$POPUP_BACKGROUND_COLOR"
-  popup.background.corner_radius=12
-  popup.background.border_width=1
-  popup.background.border_color="$BACKGROUND_2"
-  popup.background.shadow.drawing=on
+  popup.background.corner_radius=9
+  popup.background.border_width=2
+  popup.background.border_color="$POPUP_BORDER_COLOR"
 )
 
 menu_item_defaults=(
-  label.font="$FONT:Medium:13.0"
-  label.color="$WHITE"
-  icon.font="$ICON_FONT:Regular:16.0"
-  icon.color="$BLUE"
-  icon.padding_left=6
-  icon.padding_right=10
-  padding_left=10
-  padding_right=16
+  label.font="$FONT:Regular:13.0"
+  icon.font="$ICON_FONT:Regular:14.0"
+  padding_left="$PADDINGS"
+  padding_right="$PADDINGS"
+  icon.padding_right=8
+  icon.color="$HIGHLIGHT"
   background.color="$TRANSPARENT"
-  background.drawing=off
-  background.height=30
-)
-
-popup_separator=(
-  icon.drawing=off
-  label.drawing=off
-  background.drawing=on
-  background.color="$BACKGROUND_2"
-  background.height=1
-  width=240
-  padding_left=12
-  padding_right=12
 )

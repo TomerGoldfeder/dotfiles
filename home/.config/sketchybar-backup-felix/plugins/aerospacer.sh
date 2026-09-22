@@ -1,11 +1,7 @@
 #!/bin/bash
 
+source "$CONFIG_DIR/colors.sh"
 source "$CONFIG_DIR/plugins/icon_map.sh"
-
-FOCUSED_BG=0xfff5a97f
-FOCUSED_FG=0xff24273a
-UNFOCUSED_BG=0x66494d64
-UNFOCUSED_FG=0xffcad3f5
 
 if [ -z "${FOCUSED_WORKSPACE:-}" ]; then
   FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused 2>/dev/null | tr -d '[:space:]')"
@@ -37,15 +33,13 @@ fi
 
 if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
   sketchybar --set "$NAME" \
-    icon.color="$FOCUSED_FG" \
-    background.color="$FOCUSED_BG" \
+    icon.highlight=on icon.color="$HIGHLIGHT" \
     label="$label" \
     --animate tanh 20 \
     --set "$NAME" label.width=0
 else
   sketchybar --set "$NAME" \
-    icon.color="$UNFOCUSED_FG" \
-    background.color="$UNFOCUSED_BG" \
+    icon.highlight=off icon.color="$ICON_COLOR_INACTIVE" \
     label="$label" \
     label.width=dynamic
 fi
