@@ -1,5 +1,9 @@
 { user, pkgs, herdr, ... }:
 
+let
+  aerospace-cheatsheet = pkgs.callPackage ./home/bin/aerospace-cheatsheet { };
+in
+
 {
   # Determinate already manages the Nix daemon, so nix-darwin shouldn't.
   nix.enable = false;
@@ -40,7 +44,10 @@
     jdk8 # Zulu 8; Spark 3.1.3 (Java 8 or 11). Native aarch64, not Temurin cask.
     cargo # herdr plugin install builds Rust plugins from source
     rustc
-  ]) ++ [ herdr.packages.${pkgs.system}.default ];
+  ]) ++ [
+    herdr.packages.${pkgs.system}.default
+    aerospace-cheatsheet
+  ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -68,6 +75,10 @@
         name = "FelixKratz/formulae/sketchybar";
         trusted = true;
       }
+      {
+        name = "FelixKratz/formulae/borders";
+        trusted = true;
+      }
     ];
     taps = [
       "nikitabobko/tap"
@@ -90,6 +101,24 @@
   launchd.user.agents.sketchybar = {
     serviceConfig = {
       ProgramArguments = [ "/opt/homebrew/bin/sketchybar" ];
+      KeepAlive = true;
+      RunAtLoad = true;
+      EnvironmentVariables = {
+        PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:/usr/sbin:/usr/bin:/bin:/sbin";
+        LANG = "en_US.UTF-8";
+      };
+    };
+  };
+
+  launchd.user.agents.borders = {
+    serviceConfig = {
+      ProgramArguments = [
+        "/opt/homebrew/bin/borders"
+        "active_color=0xffe1e3e4"
+        "inactive_color=0xff494d64"
+        "width=5.0"
+        "ax_focus=on"
+      ];
       KeepAlive = true;
       RunAtLoad = true;
       EnvironmentVariables = {
