@@ -1,0 +1,29 @@
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/PanelController.swift
+  s_3a9b7aaa349f3c::t_7a7b6e2d4cf2b3 121-129
+  s_3a9b7aaa349f3c::t_918c20ee237d85 23,29,33-35,37-41,52-54
+  s_3a9b7aaa349f3c::t_d688b4139e30d1 74-77,80-84,86,93-94,98
+  s_3a9b7aaa349f3c::t_4ced7ade45f81e 130-131
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/AppDelegate.swift
+  s_3a9b7aaa349f3c::t_810c884cda643d 3-6,15,20-39
+  s_3a9b7aaa349f3c::t_0aa27c2584771a 40
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/IPC.swift
+  s_3a9b7aaa349f3c::t_b2b7193fbb4292 25-28,31,43-59,167
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/main.swift
+  s_3a9b7aaa349f3c::t_d49d5c14d2cedc 11-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8fb64f4666d2d6c36d271d2b24fa831e327f761c",
+  "prompts": {},
+  "sessions": {
+    "s_3a9b7aaa349f3c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f98d6763-1db4-4657-bbd2-0411398c8eea",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
