@@ -112,17 +112,12 @@ in
 
   launchd.user.agents.borders = {
     serviceConfig = {
-      ProgramArguments = [
-        "/opt/homebrew/bin/borders"
-        "active_color=0xffe1e3e4"
-        "inactive_color=0xff494d64"
-        "width=5.0"
-        "ax_focus=on"
-      ];
+      # No args → borders executes ~/.config/borders/bordersrc
+      ProgramArguments = [ "/opt/homebrew/bin/borders" ];
       KeepAlive = true;
       RunAtLoad = true;
       EnvironmentVariables = {
-        PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:/usr/sbin:/usr/bin:/bin:/sbin";
+        PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin";
         LANG = "en_US.UTF-8";
       };
     };

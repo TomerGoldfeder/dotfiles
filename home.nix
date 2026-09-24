@@ -123,6 +123,10 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/aerospace/aerospace.toml";
       force = true;
     };
+    ".config/borders" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/borders";
+      force = true;
+    };
     ".config/sketchybar" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/sketchybar";
       force = true;

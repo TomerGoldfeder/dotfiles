@@ -1,5 +1,7 @@
 after-startup-command = [
-  'exec-and-forget /opt/homebrew/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 ax_focus=on',
+  'exec-and-forget sketchybar',
+  # JankyBorders: highlight the focused window. No args → ~/.config/borders/bordersrc
+  'exec-and-forget borders',
 ]
 
 exec-on-workspace-change = [
