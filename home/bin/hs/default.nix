@@ -1,7 +1,7 @@
 { lib, buildGoModule }:
 
 buildGoModule {
-  pname = "hs";
+  pname = "h";
   version = "0.1.0";
   src = ./.;
 
@@ -9,9 +9,13 @@ buildGoModule {
 
   ldflags = [ "-s" "-w" ];
 
+  postInstall = ''
+    mv $out/bin/hs $out/bin/h
+  '';
+
   meta = with lib; {
     description = "Herdr session picker (glyph command-palette + spinner)";
-    mainProgram = "hs";
+    mainProgram = "h";
     platforms = platforms.unix;
   };
 }

@@ -280,6 +280,8 @@ in
       kns = "kubens";
       kl = "kubectl logs -f";
       ke = "kubectl exec -it";
+      # Herdr session CLI (list, attach, stop, delete)
+      hs = "herdr session";
     };
   };
 

@@ -1,4 +1,4 @@
-// hs — Herdr session picker built from glyph command-palette + spinner templates.
+// h — Herdr session picker built from glyph command-palette + spinner templates.
 package main
 
 import (
@@ -193,7 +193,7 @@ func (m model) View() string {
 			BorderForeground(m.theme.BorderStrong).
 			Padding(1, 2).
 			Width(56)
-		body := errStyle.Render("hs: " + m.err + "\n\nesc to close")
+		body := errStyle.Render("h: " + m.err + "\n\nesc to close")
 		return lipgloss.Place(
 			m.width, m.height,
 			lipgloss.Center, lipgloss.Center,
@@ -279,7 +279,7 @@ func sessionMatcher(cmd commandpalette.Command, query string) int {
 func main() {
 	m, err := tea.NewProgram(newModel(), tea.WithAltScreen()).Run()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "hs: %v\n", err)
+		fmt.Fprintf(os.Stderr, "h: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -293,7 +293,7 @@ func main() {
 	attach.Stdout = os.Stdout
 	attach.Stderr = os.Stderr
 	if err := attach.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "hs: attach %s: %v\n", final.selected, err)
+		fmt.Fprintf(os.Stderr, "h: attach %s: %v\n", final.selected, err)
 		os.Exit(1)
 	}
 }

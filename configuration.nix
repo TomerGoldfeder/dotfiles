@@ -2,7 +2,7 @@
 
 let
   aerospace-cheatsheet = pkgs.callPackage ./home/bin/aerospace-cheatsheet { };
-  hp = pkgs.callPackage ./home/bin/hs { };
+  h = pkgs.callPackage ./home/bin/hs { };
 in
 
 {
@@ -49,7 +49,7 @@ in
   ]) ++ [
     herdr.packages.${pkgs.system}.default
     aerospace-cheatsheet
-    hs
+    h
   ];
 
   fonts.packages = with pkgs; [
