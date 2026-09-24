@@ -1,0 +1,26 @@
+configuration.nix
+  s_a77fac92d5e954::t_bc59bb4aec1a69 115-116,120
+home/.config/borders/bordersrc
+  s_a77fac92d5e954::t_f337dd3c389617 1,3
+  s_a77fac92d5e954::t_043732328f6647 2,4-12
+home.nix
+  s_a77fac92d5e954::t_6b6a3c629c5ee4 126-129
+home/.config/aerospace/aerospace.toml
+  s_a77fac92d5e954::t_5571405afdbe56 2-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a17ad01f0805c3a68e290bc6d2cc80dcb5824d71",
+  "prompts": {},
+  "sessions": {
+    "s_a77fac92d5e954": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fee3acfb-d875-4cad-a8f6-ed9139a8a056",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
