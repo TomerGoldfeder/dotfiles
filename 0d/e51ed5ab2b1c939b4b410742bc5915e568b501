@@ -1,0 +1,30 @@
+home/bin/hs/main.go
+  s_a77fac92d5e954::t_49ead11428aa7c 296
+  s_a77fac92d5e954::t_f0b4a7ab47b621 282
+  s_a77fac92d5e954::t_5c76311199c120 1
+  s_a77fac92d5e954::t_b312e7f9d37796 196
+home/bin/hs/default.nix
+  s_a77fac92d5e954::t_0e850a0235e215 12-15
+  s_a77fac92d5e954::t_f9a8b488b498be 18
+  s_a77fac92d5e954::t_229e20de7a1f49 4
+configuration.nix
+  s_a77fac92d5e954::t_090d0f25189788 52
+home.nix
+  s_a77fac92d5e954::t_c4fdfce6829f92 283-284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0de51ed5ab2b1c939b4b410742bc5915e568b501",
+  "prompts": {},
+  "sessions": {
+    "s_a77fac92d5e954": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fee3acfb-d875-4cad-a8f6-ed9139a8a056",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
