@@ -22,13 +22,13 @@ private func makeUnixSocketAddress(path: String) -> sockaddr_un? {
 }
 
 enum IPCClient {
-    @discardableResult
-    static func send(_ command: IPCCommand, executablePath: String) -> Int32 {
-        launchServerIfNeeded(executablePath: executablePath)
+    static func trySend(_ command: IPCCommand) -> Bool {
+        guard isServerAlive(at: SupportPaths.socketPath) else {
+            return false
+        }
 
         guard let socket = openSocket() else {
-            fputs("aerospace-cheatsheet: could not connect to server\n", stderr)
-            return 1
+            return false
         }
 
         defer { close(socket) }
@@ -40,7 +40,23 @@ enum IPCClient {
 
         var buffer = [UInt8](repeating: 0, count: 16)
         _ = read(socket, &buffer, buffer.count)
-        return 0
+        return true
+    }
+
+    @discardableResult
+    static func send(_ command: IPCCommand, executablePath: String) -> Int32 {
+        if trySend(command) {
+            return 0
+        }
+
+        launchServerIfNeeded(executablePath: executablePath)
+
+        if trySend(command) {
+            return 0
+        }
+
+        fputs("aerospace-cheatsheet: could not connect to server\n", stderr)
+        return 1
     }
 
     private static func launchServerIfNeeded(executablePath: String) {
@@ -53,8 +69,6 @@ enum IPCClient {
             try? FileManager.default.removeItem(atPath: path)
         }
 
-        // Detach from the short-lived CLI parent (AeroSpace exec-and-forget).
-        // Direct Process.run() lets the GUI receive SIGHUP and exit immediately.
         let shell = Process()
         shell.executableURL = URL(fileURLWithPath: "/bin/sh")
         shell.arguments = [
@@ -150,7 +164,7 @@ final class IPCServer {
 
         guard listen(socketFD, 5) == 0 else {
             close(socketFD)
-            throw NSError(domain: "IPCServer", code: 3, userInfo: [NSLocalizedDescriptionKey: "listen() failed"])
+            throw NSError(domain: "IPCServer", code: 4, userInfo: [NSLocalizedDescriptionKey: "listen() failed"])
         }
 
         source = DispatchSource.makeReadSource(fileDescriptor: socketFD, queue: .global(qos: .userInitiated))

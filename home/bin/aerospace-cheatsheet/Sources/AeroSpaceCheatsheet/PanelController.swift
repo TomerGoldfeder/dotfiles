@@ -20,23 +20,26 @@ final class PanelController: NSWindowController {
 
     private var clickMonitor: Any?
     private var keyMonitor: Any?
+    private var dismissMonitorWorkItem: DispatchWorkItem?
     private var isVisible = false
 
     private init() {
         let panel = NSPanel(
             contentRect: NSRect(x: 0, y: 0, width: 800, height: Theme.panelHeight),
-            styleMask: [.fullSizeContentView, .borderless, .nonactivatingPanel],
+            styleMask: [.titled, .fullSizeContentView, .utilityWindow, .nonactivatingPanel],
             backing: .buffered,
             defer: false
         )
-        panel.isFloatingPanel = true
-        panel.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.mainMenuWindow)) + 2)
-        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
-        panel.backgroundColor = .clear
-        panel.isOpaque = false
-        panel.hasShadow = true
-        panel.titleVisibility = .hidden
+        panel.title = "AeroSpace Bindings"
         panel.titlebarAppearsTransparent = true
+        panel.titleVisibility = .hidden
+        panel.isFloatingPanel = true
+        panel.becomesKeyOnlyIfNeeded = false
+        panel.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.screenSaverWindow)) + 1)
+        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
+        panel.backgroundColor = NSColor(red: 0.141, green: 0.153, blue: 0.227, alpha: 1)
+        panel.isOpaque = true
+        panel.hasShadow = true
         panel.hidesOnDeactivate = false
         panel.isMovable = false
         panel.isMovableByWindowBackground = false
@@ -46,7 +49,9 @@ final class PanelController: NSWindowController {
         let rootView = ContentView(onClose: { [weak self] in
             self?.hide()
         })
-        panel.contentView = NSHostingView(rootView: rootView)
+        let hostingView = NSHostingView(rootView: rootView)
+        hostingView.autoresizingMask = [.width, .height]
+        panel.contentView = hostingView
     }
 
     @available(*, unavailable)
@@ -65,27 +70,32 @@ final class PanelController: NSWindowController {
     func show() {
         AppState.shared.reloadBindings()
         positionPanel()
-        window?.alphaValue = 0
-        window?.orderFrontRegardless()
-        NSApp.activate(ignoringOtherApps: true)
-        window?.makeKey()
 
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 0.12
-            window?.animator().alphaValue = 1
+        guard let window else { return }
+
+        if let hostingView = window.contentView as? NSHostingView<ContentView> {
+            hostingView.frame = window.contentLayoutRect
         }
 
+        NSApp.setActivationPolicy(.regular)
+        NSApp.activate(ignoringOtherApps: true)
+        window.alphaValue = 1
+        window.makeKeyAndOrderFront(nil)
+
         isVisible = true
-        installMonitors()
+        scheduleDismissMonitor()
         DispatchQueue.main.async {
             AppState.shared.focusSearch()
         }
     }
 
     func hide() {
+        dismissMonitorWorkItem?.cancel()
+        dismissMonitorWorkItem = nil
         removeMonitors()
         window?.orderOut(nil)
         isVisible = false
+        NSApp.setActivationPolicy(.accessory)
     }
 
     private func positionPanel() {
@@ -106,6 +116,17 @@ final class PanelController: NSWindowController {
             height: height
         )
         window.setFrame(rect, display: true)
+    }
+
+    private func scheduleDismissMonitor() {
+        dismissMonitorWorkItem?.cancel()
+        removeMonitors()
+
+        let work = DispatchWorkItem { [weak self] in
+            self?.installMonitors()
+        }
+        dismissMonitorWorkItem = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: work)
     }
 
     private func installMonitors() {

@@ -8,7 +8,17 @@ if CommandLine.arguments.count > 1 && CommandLine.arguments[1] != "--gui" {
         fputs("Usage: aerospace-cheatsheet [toggle|show|hide|quit]\n", stderr)
         exit(1)
     }
-    exit(IPCClient.send(command, executablePath: executablePath))
+
+    if IPCClient.trySend(command) {
+        exit(0)
+    }
+
+    if command == .quit {
+        exit(0)
+    }
+
+    // No reachable daemon: run the GUI in this process (reliable under exec-and-forget).
+    PendingCommand.value = command
 }
 
 let app = NSApplication.shared
