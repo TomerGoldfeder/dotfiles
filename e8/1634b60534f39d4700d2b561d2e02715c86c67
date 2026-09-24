@@ -1,0 +1,47 @@
+home/bin/hs/main.go
+  s_a77fac92d5e954::t_755243c999dd49 44-52,56,60,63-67,75-79,84,109-121,139-143,179,228-229,231
+  s_a77fac92d5e954::t_6d864702e57395 232
+home/bin/hs/internal/ui/spinner/spinner.go
+  s_a77fac92d5e954::t_3357324932fddc 148-155
+home/bin/hs/internal/ui/theme/tokens.go
+  s_a77fac92d5e954::t_7ed94f61526e97 5-30
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/IPC.swift
+  s_3a9b7aaa349f3c::t_68b1e5c55a995e 56-65,68-69,75
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/PanelController.swift
+  s_3a9b7aaa349f3c::t_5d7301ccfd29d2 28,33
+  s_3a9b7aaa349f3c::t_97a3f9862bfff7 92-101,103-105
+home/bin/hs/internal/ui/commandpalette/command-palette.go
+  s_a77fac92d5e954::t_b55723b2519e88 137-142
+  s_a77fac92d5e954::t_7d55f44b07aa2e 244-250
+  s_a77fac92d5e954::t_a15f3a0e52944c 383-390,398-405,408-409,412-414,419,421,424-425,427-429,434,438-439,442-453
+  s_a77fac92d5e954::t_ad2747c24a7bb3 28
+  s_a77fac92d5e954::t_b5335988e98344 47-48,50-54,57
+  s_a77fac92d5e954::t_14dd179e97eea4 58
+configuration.nix
+  s_a77fac92d5e954::t_70b818fe031d04 5
+  s_3a9b7aaa349f3c::t_51709210bec7bd 128-142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e81634b60534f39d4700d2b561d2e02715c86c67",
+  "prompts": {},
+  "sessions": {
+    "s_3a9b7aaa349f3c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f98d6763-1db4-4657-bbd2-0411398c8eea",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_a77fac92d5e954": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fee3acfb-d875-4cad-a8f6-ed9139a8a056",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
