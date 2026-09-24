@@ -25,12 +25,12 @@ final class PanelController: NSWindowController {
     private init() {
         let panel = NSPanel(
             contentRect: NSRect(x: 0, y: 0, width: 800, height: Theme.panelHeight),
-            styleMask: [.nonactivatingPanel, .fullSizeContentView, .borderless],
+            styleMask: [.fullSizeContentView, .borderless, .nonactivatingPanel],
             backing: .buffered,
             defer: false
         )
         panel.isFloatingPanel = true
-        panel.level = .popUpMenu
+        panel.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.mainMenuWindow)) + 2)
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         panel.backgroundColor = .clear
         panel.isOpaque = false
@@ -89,13 +89,20 @@ final class PanelController: NSWindowController {
     }
 
     private func positionPanel() {
-        guard let window, let screen = NSScreen.main ?? NSScreen.screens.first else { return }
-        let frame = screen.frame
-        let height = min(Theme.panelHeight, frame.height * 0.55)
+        guard let window else { return }
+
+        let mouse = NSEvent.mouseLocation
+        let screen = NSScreen.screens.first { $0.frame.contains(mouse) }
+            ?? NSScreen.main
+            ?? NSScreen.screens.first
+        guard let screen else { return }
+
+        let visible = screen.visibleFrame
+        let height = min(Theme.panelHeight, visible.height * 0.55)
         let rect = NSRect(
-            x: frame.origin.x,
-            y: frame.maxY - height,
-            width: frame.width,
+            x: visible.origin.x,
+            y: visible.maxY - height,
+            width: visible.width,
             height: height
         )
         window.setFrame(rect, display: true)

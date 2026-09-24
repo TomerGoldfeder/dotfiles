@@ -25,6 +25,7 @@ type Command struct {
 	Description string // optional secondary label rendered under Title
 	Group       string // optional grouping label rendered as a section header
 	Keybinding  string // optional shortcut hint rendered right-aligned
+	Live        bool   // table mode: animate status with SpinnerFrame
 }
 
 // SelectMsg is emitted when the user presses Enter on a non-empty match list.
@@ -43,14 +44,17 @@ type Matcher func(cmd Command, query string) int
 // TableLayout renders rows as fixed-width columns on a single line.
 // Title, Keybinding, and Description map to the first three columns.
 type TableLayout struct {
-	Enabled     bool
-	NameHeader  string
+	Enabled      bool
+	NameHeader   string
 	StatusHeader string
-	DirHeader   string
-	NameWidth   int
-	StatusWidth int
-	ColGap      int
+	DirHeader    string
+	NameWidth    int
+	StatusWidth  int
+	ColGap       int
+	SpinnerFrame string
 }
+
+const tableIndicatorWidth = 2
 
 // Palette is a Bubble Tea model for a filterable command picker.
 type Palette struct {
@@ -127,6 +131,12 @@ func (p Palette) WithTableLayout(t TableLayout) Palette {
 		t.ColGap = 2
 	}
 	p.table = t
+	return p
+}
+
+// WithSpinnerFrame sets the animated glyph prefix for live status cells.
+func (p Palette) WithSpinnerFrame(frame string) Palette {
+	p.table.SpinnerFrame = frame
 	return p
 }
 
@@ -231,12 +241,13 @@ func (p Palette) View() string {
 		headerStyle := lipgloss.NewStyle().
 			Foreground(p.theme.TextMuted).
 			Bold(true)
-		headerRow = headerStyle.Render(p.renderTableColumns(
-			padRight(p.table.NameHeader, p.table.NameWidth),
-			padRight(p.table.StatusHeader, p.table.StatusWidth),
-			p.table.DirHeader,
-			false,
-		))
+		headerRow = headerStyle.Render(
+			padDisplay("", tableIndicatorWidth) + p.renderTableLine(
+				padDisplay(p.table.NameHeader, p.table.NameWidth),
+				padDisplay(p.table.StatusHeader, p.table.StatusWidth),
+				p.table.DirHeader,
+			),
+		)
 	}
 
 	matches := p.matches()
@@ -369,53 +380,77 @@ func (p Palette) renderRow(cmd Command, active bool) string {
 }
 
 func (p Palette) renderTableRow(cmd Command, active bool) string {
-	indicator := "  "
+	indicator := padDisplay("", tableIndicatorWidth)
+	if active {
+		indicator = padDisplay(
+			lipgloss.NewStyle().Foreground(p.theme.Primary).Render("▍"),
+			tableIndicatorWidth,
+		)
+	}
+
 	textStyle := lipgloss.NewStyle().Foreground(p.theme.Text)
 	statusStyle := lipgloss.NewStyle().Foreground(p.theme.TextMuted)
 	dirStyle := lipgloss.NewStyle().Foreground(p.theme.TextMuted)
 	if active {
-		indicator = lipgloss.NewStyle().Foreground(p.theme.Primary).Render("▍ ")
 		textStyle = textStyle.Bold(true).Foreground(p.theme.PrimaryStrong)
-		statusStyle = statusStyle.Foreground(p.theme.Success)
 		dirStyle = dirStyle.Foreground(p.theme.Text)
+	}
+	if cmd.Live {
+		statusStyle = statusStyle.Foreground(p.theme.Success)
+	}
+
+	statusPlain := padDisplay("  stopped", p.table.StatusWidth)
+	if cmd.Live {
+		statusPlain = padDisplay(p.table.SpinnerFrame+" running", p.table.StatusWidth)
 	}
 
 	dir := cmd.Description
-	if maxDir := p.maxDirWidth(lipgloss.Width(indicator)); len(dir) > maxDir && maxDir > 3 {
-		dir = "…" + dir[len(dir)-(maxDir-1):]
+	if maxDir := p.maxDirWidth(); lipgloss.Width(dir) > maxDir && maxDir > 3 {
+		dir = truncateDisplay(dir, maxDir)
 	}
 
-	return indicator + p.renderTableColumns(
-		textStyle.Render(padRight(cmd.Title, p.table.NameWidth)),
-		statusStyle.Render(padRight(cmd.Keybinding, p.table.StatusWidth)),
+	return indicator + p.renderTableLine(
+		textStyle.Render(padDisplay(cmd.Title, p.table.NameWidth)),
+		statusStyle.Render(statusPlain),
 		dirStyle.Render(dir),
-		active,
 	)
 }
 
-func (p Palette) renderTableColumns(name, status, dir string, _ bool) string {
+func (p Palette) renderTableLine(name, status, dir string) string {
 	gap := strings.Repeat(" ", p.table.ColGap)
-	return " " + name + gap + status + gap + dir
+	return name + gap + status + gap + dir
 }
 
-func (p Palette) maxDirWidth(indicatorWidth int) int {
-	used := indicatorWidth + 1 + p.table.NameWidth + p.table.ColGap +
+func (p Palette) maxDirWidth() int {
+	used := tableIndicatorWidth + p.table.NameWidth + p.table.ColGap +
 		p.table.StatusWidth + p.table.ColGap
-	avail := p.width - 6 - used
-	if avail < 8 {
-		return 8
+	avail := p.width - 8 - used
+	if avail < 12 {
+		return 12
 	}
 	return avail
 }
 
-func padRight(s string, width int) string {
+func padDisplay(s string, width int) string {
 	if width <= 0 {
 		return s
 	}
-	if len(s) >= width {
+	w := lipgloss.Width(s)
+	if w >= width {
 		return s
 	}
-	return s + strings.Repeat(" ", width-len(s))
+	return s + strings.Repeat(" ", width-w)
+}
+
+func truncateDisplay(s string, maxWidth int) string {
+	if lipgloss.Width(s) <= maxWidth {
+		return s
+	}
+	ellipsis := "…"
+	for len(s) > 0 && lipgloss.Width(ellipsis+s) > maxWidth {
+		s = s[1:]
+	}
+	return ellipsis + s
 }
 
 // windowBounds returns the [start, end) slice indices into matches that

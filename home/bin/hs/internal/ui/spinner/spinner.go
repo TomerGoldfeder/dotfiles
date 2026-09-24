@@ -145,6 +145,14 @@ func (s Spinner) View() string {
 // Frame returns the current frame index.
 func (s Spinner) Frame() int { return s.frame }
 
+// Glyph returns the current animation frame without label styling.
+func (s Spinner) Glyph() string {
+	if len(s.frames) == 0 {
+		return ""
+	}
+	return s.frames[s.frame%len(s.frames)]
+}
+
 func (s Spinner) tick() tea.Cmd {
 	id := s.id
 	return tea.Tick(s.interval, func(t time.Time) tea.Msg {

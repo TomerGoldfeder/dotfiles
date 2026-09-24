@@ -2,8 +2,32 @@ package theme
 
 import "github.com/charmbracelet/lipgloss"
 
-// Default is the dark terminal theme. Edit this file to retheme the entire app.
-var Default = Theme{
+// Nord palette for hs (glyph theme tokens).
+var Nord = Theme{
+	Bg:            lipgloss.Color("#2e3440"),
+	Surface:       lipgloss.Color("#3b4252"),
+	SurfaceStrong: lipgloss.Color("#434c5e"),
+	Border:        lipgloss.Color("#4c566a"),
+	BorderStrong:  lipgloss.Color("#5e81ac"),
+	Text:          lipgloss.Color("#d8dee9"),
+	TextMuted:     lipgloss.Color("#81a1c1"),
+	TextInverse:   lipgloss.Color("#2e3440"),
+
+	Primary:       lipgloss.Color("#88c0d0"),
+	PrimaryStrong: lipgloss.Color("#8fbcbb"),
+	Accent:        lipgloss.Color("#5e81ac"),
+
+	Success: lipgloss.Color("#a3be8c"),
+	Warning: lipgloss.Color("#ebcb8b"),
+	Error:   lipgloss.Color("#bf616a"),
+	Info:    lipgloss.Color("#81a1c1"),
+}
+
+// Default is the app theme.
+var Default = Nord
+
+// Legacy glyph default palette (unused by hs).
+var GlyphDefault = Theme{
 	Bg:            lipgloss.Color("#0e0e10"),
 	Surface:       lipgloss.Color("#16171b"),
 	SurfaceStrong: lipgloss.Color("#1f2026"),

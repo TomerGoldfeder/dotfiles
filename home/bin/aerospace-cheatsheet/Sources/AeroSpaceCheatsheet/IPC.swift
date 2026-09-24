@@ -53,20 +53,26 @@ enum IPCClient {
             try? FileManager.default.removeItem(atPath: path)
         }
 
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: executablePath)
-        process.arguments = ["--gui"]
-        process.standardOutput = FileHandle.nullDevice
-        process.standardError = FileHandle.nullDevice
+        // Detach from the short-lived CLI parent (AeroSpace exec-and-forget).
+        // Direct Process.run() lets the GUI receive SIGHUP and exit immediately.
+        let shell = Process()
+        shell.executableURL = URL(fileURLWithPath: "/bin/sh")
+        shell.arguments = [
+            "-c",
+            "nohup '\(executablePath)' --gui >/dev/null 2>&1 &",
+        ]
+        shell.standardOutput = FileHandle.nullDevice
+        shell.standardError = FileHandle.nullDevice
 
         do {
-            try process.run()
+            try shell.run()
+            shell.waitUntilExit()
         } catch {
             fputs("aerospace-cheatsheet: failed to start server: \(error)\n", stderr)
             return
         }
 
-        for _ in 0..<40 {
+        for _ in 0..<80 {
             if isServerAlive(at: path) {
                 return
             }

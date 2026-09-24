@@ -41,22 +41,29 @@ type sessionsErrMsg struct {
 }
 
 type model struct {
-	theme    theme.Theme
-	phase    phase
-	spinner  spinner.Spinner
-	palette  commandpalette.Palette
-	width    int
-	height   int
-	err      string
-	selected string
+	theme         theme.Theme
+	phase         phase
+	loadSpinner   spinner.Spinner
+	statusSpinner spinner.Spinner
+	palette       commandpalette.Palette
+	width         int
+	height        int
+	err           string
+	selected      string
 }
 
 func newModel() model {
-	t := theme.Default
+	t := theme.Nord
 	loadSpinner := spinner.New(t).
 		WithStyle(spinner.StyleDots).
 		WithLabel("Loading sessions").
+		WithColor(t.Primary).
 		WithID("load")
+
+	statusSpinner := spinner.New(t).
+		WithStyle(spinner.StyleDots).
+		WithColor(t.Success).
+		WithID("status")
 
 	palette := commandpalette.New(t).
 		WithTitle("Herdr sessions").
@@ -65,15 +72,16 @@ func newModel() model {
 		WithSize(72, 12)
 
 	return model{
-		theme:   t,
-		phase:   phaseLoading,
-		spinner: loadSpinner,
-		palette: palette,
+		theme:         t,
+		phase:         phaseLoading,
+		loadSpinner:   loadSpinner,
+		statusSpinner: statusSpinner,
+		palette:       palette,
 	}
 }
 
 func (m model) Init() tea.Cmd {
-	return tea.Batch(m.spinner.Init(), loadSessions())
+	return tea.Batch(m.loadSpinner.Init(), loadSessions())
 }
 
 func loadSessions() tea.Cmd {
@@ -98,6 +106,19 @@ func loadSessions() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+	case spinner.TickMsg:
+		var cmd tea.Cmd
+		switch msg.ID {
+		case "load":
+			m.loadSpinner, cmd = m.loadSpinner.Update(msg)
+		case "status":
+			m.statusSpinner, cmd = m.statusSpinner.Update(msg)
+			if m.phase == phasePicker {
+				m.palette = m.palette.WithSpinnerFrame(m.statusSpinner.Glyph())
+			}
+		}
+		return m, cmd
+
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 		m.height = msg.Height
@@ -115,8 +136,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case sessionsLoadedMsg:
 		m.phase = phasePicker
 		cmds, table := sessionsToCommands(msg.sessions)
-		m.palette = m.palette.WithCommands(cmds).WithTableLayout(table)
-		return m, nil
+		m.palette = m.palette.
+			WithCommands(cmds).
+			WithTableLayout(table).
+			WithSpinnerFrame(m.statusSpinner.Glyph())
+		return m, m.statusSpinner.Init()
 
 	case sessionsErrMsg:
 		m.phase = phaseError
@@ -137,10 +161,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 
 	switch m.phase {
-	case phaseLoading:
-		var cmd tea.Cmd
-		m.spinner, cmd = m.spinner.Update(msg)
-		return m, cmd
 	case phasePicker:
 		var cmd tea.Cmd
 		m.palette, cmd = m.palette.Update(msg)
@@ -156,7 +176,7 @@ func (m model) View() string {
 		return lipgloss.Place(
 			m.width, m.height,
 			lipgloss.Center, lipgloss.Center,
-			m.spinner.View(),
+			m.loadSpinner.View(),
 			lipgloss.WithWhitespaceChars(" "),
 		)
 	case phasePicker:
@@ -205,11 +225,11 @@ func sessionsToCommands(sessions []herdrSession) ([]commandpalette.Command, comm
 		return a.Name < b.Name
 	})
 
-	nameWidth := len("name")
-	statusWidth := len("stopped")
+	nameWidth := lipgloss.Width("name")
+	statusWidth := lipgloss.Width("⠋ running")
 	for _, s := range sessions {
-		if len(s.Name) > nameWidth {
-			nameWidth = len(s.Name)
+		if w := lipgloss.Width(s.Name); w > nameWidth {
+			nameWidth = w
 		}
 	}
 
@@ -230,6 +250,7 @@ func sessionsToCommands(sessions []herdrSession) ([]commandpalette.Command, comm
 			Title:       s.Name,
 			Keybinding:  sessionStatusText(s),
 			Description: s.SessionDir,
+			Live:        s.Running,
 		})
 	}
 	return cmds, table
