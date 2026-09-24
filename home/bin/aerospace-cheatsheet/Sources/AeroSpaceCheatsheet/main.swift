@@ -1,6 +1,6 @@
 import AppKit
 
-let executablePath = CommandLine.arguments[0]
+let executablePath = ExecutablePath.resolved()
 
 if CommandLine.arguments.count > 1 && CommandLine.arguments[1] != "--gui" {
     let commandName = CommandLine.arguments[1]

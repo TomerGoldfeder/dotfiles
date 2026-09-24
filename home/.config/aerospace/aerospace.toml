@@ -114,7 +114,7 @@ alt-ctrl-2 = 'move-workspace-to-monitor built-in'
 alt-ctrl-3 = 'move-workspace-to-monitor -- 3'
 
 alt-shift-semicolon = 'mode service'
-alt-shift-slash = 'exec-and-forget aerospace-cheatsheet toggle'
+alt-shift-slash = 'exec-and-forget /run/current-system/sw/bin/aerospace-cheatsheet toggle'
 
 alt-shift-enter = 'mode apps'
 alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'

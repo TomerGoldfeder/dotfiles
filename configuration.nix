@@ -2,6 +2,7 @@
 
 let
   aerospace-cheatsheet = pkgs.callPackage ./home/bin/aerospace-cheatsheet { };
+  hs = pkgs.callPackage ./home/bin/hs { };
 in
 
 {
@@ -41,12 +42,14 @@ in
     markdown-toc
     nodejs
     kubectl
+    jq
     jdk8 # Zulu 8; Spark 3.1.3 (Java 8 or 11). Native aarch64, not Temurin cask.
     cargo # herdr plugin install builds Rust plugins from source
     rustc
   ]) ++ [
     herdr.packages.${pkgs.system}.default
     aerospace-cheatsheet
+    hs
   ];
 
   fonts.packages = with pkgs; [

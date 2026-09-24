@@ -83,6 +83,8 @@ in
   home.homeDirectory = "/Users/${user}";
   home.stateVersion = "24.11";
 
+  home.sessionPath = [ "${dotfiles}/home/bin" ];
+
   fonts.fontconfig.enable = true;
 
   # Edit-in-place: the real file stays in the repo, ~/.config just points at it.

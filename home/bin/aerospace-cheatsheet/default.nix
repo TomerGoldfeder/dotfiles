@@ -17,6 +17,7 @@ stdenv.mkDerivation {
       -o aerospace-cheatsheet \
       Sources/AeroSpaceCheatsheet/BindingRow.swift \
       Sources/AeroSpaceCheatsheet/SupportPaths.swift \
+      Sources/AeroSpaceCheatsheet/ExecutablePath.swift \
       Sources/AeroSpaceCheatsheet/IPC.swift \
       Sources/AeroSpaceCheatsheet/PanelController.swift \
       Sources/AeroSpaceCheatsheet/AppDelegate.swift \
