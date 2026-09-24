@@ -1,0 +1,68 @@
+home/bin/hs/internal/ui/theme/tokens.go
+  s_a77fac92d5e954::t_63b4b8bcc21df1 1-184
+home/bin/hs/internal/ui/spinner/spinner.go
+  s_a77fac92d5e954::t_63b4b8bcc21df1 17
+  s_a77fac92d5e954::t_bd87674ffb984e 1-16,18-153
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/main.swift
+  s_3a9b7aaa349f3c::t_287f144e398646 3
+home/bin/hs/internal/ui/commandpalette/command-palette.go
+  s_a77fac92d5e954::t_63b4b8bcc21df1 1-42,55-65,67-123,133-228,242-261,263-289,293-339,344-363,365-368,419-460
+  s_a77fac92d5e954::t_eaa8e388a825ab 235-236
+  s_a77fac92d5e954::t_87b2d83a1decf0 229-234,237-241
+  s_a77fac92d5e954::t_32c75431549073 340-343,364,369-418
+  s_a77fac92d5e954::t_825ea3ae349957 262
+  s_a77fac92d5e954::t_569c72729fc34c 124-132
+  s_a77fac92d5e954::t_c154ea62c6c572 290-292
+  s_a77fac92d5e954::t_96f25b07a45b55 43-54,66
+configuration.nix
+  s_a77fac92d5e954::t_bdf5c86b318850 5
+  s_a77fac92d5e954::t_ec390d664ae51e 52
+  s_a77fac92d5e954::t_a592f5bdda7b92 45
+home/bin/hs/internal/ui/theme/theme.go
+  s_a77fac92d5e954::t_63b4b8bcc21df1 1-50
+home/bin/aerospace-cheatsheet/default.nix
+  s_3a9b7aaa349f3c::t_5e7ad83eda2f81 20
+home/bin/aerospace-cheatsheet/Sources/AeroSpaceCheatsheet/ExecutablePath.swift
+  s_3a9b7aaa349f3c::t_c78d47109d5971 1-50
+home/bin/hs/default.nix
+  s_a77fac92d5e954::t_40c8457120d4c0 1-7,9-17
+  s_a77fac92d5e954::t_6e3c576c3b355a 8
+home/.config/aerospace/aerospace.toml
+  s_3a9b7aaa349f3c::t_0b440c24495422 117
+home/bin/hs/go.mod
+  s_a77fac92d5e954::t_adbfff9a54ceb2 1-2,4-28
+  s_a77fac92d5e954::t_7e1f3fdf147cbd 3
+home/bin/hs/main.go
+  s_a77fac92d5e954::t_922a94580f8f37 108-110
+  s_a77fac92d5e954::t_7520cb36884cc5 117-118
+  s_a77fac92d5e954::t_b0287ad5a6b5bf 188,208-209,211-213,216-223,226-233,235,238,240,242,250
+  s_a77fac92d5e954::t_f48f29bb4a25cb 1-107,111-116,119-187,189-207,210,214-215,224-225,234,236-237,239,241,243-249,251-278
+home.nix
+  s_a77fac92d5e954::t_9a888d03a95b45 86-87
+home/bin/hs/go.sum
+  s_a77fac92d5e954::t_2dc86622281698 1-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4d232031af2e6d1aa0d3b241bff5215d93222151",
+  "prompts": {},
+  "sessions": {
+    "s_3a9b7aaa349f3c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f98d6763-1db4-4657-bbd2-0411398c8eea",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_a77fac92d5e954": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fee3acfb-d875-4cad-a8f6-ed9139a8a056",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
