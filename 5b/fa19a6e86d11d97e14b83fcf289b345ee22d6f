@@ -1,0 +1,22 @@
+configuration.nix
+  h_d5cb918de7058b 87-94,106
+home.nix
+  h_d5cb918de7058b 124-131
+home/.config/aerospace/aerospace.toml
+  h_d5cb918de7058b 1-107
+home/.config/borders/bordersrc
+  h_d5cb918de7058b 1-12
+home/.config/zsh/zshrc
+  h_d5cb918de7058b 54-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5bfa19a6e86d11d97e14b83fcf289b345ee22d6f",
+  "prompts": {},
+  "humans": {
+    "h_d5cb918de7058b": {
+      "author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
