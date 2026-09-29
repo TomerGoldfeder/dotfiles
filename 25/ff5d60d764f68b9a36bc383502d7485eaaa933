@@ -1,0 +1,35 @@
+home/.config/zsh/p10k.zsh
+  s_980cc6dae9e64e::t_99c4426614a008 1-1738
+home.nix
+  s_980cc6dae9e64e::t_0d9ef520067fe8 92-95
+  s_980cc6dae9e64e::t_899ba17f5fffdf 100-103
+  s_980cc6dae9e64e::t_0dc81a2c780b14 96-99
+home/.config/wezterm/wezterm.lua
+  s_980cc6dae9e64e::t_aa9bb5f27023b6 1-67
+configuration.nix
+  s_980cc6dae9e64e::t_acfe034a330d38 69
+  s_980cc6dae9e64e::t_dab1ae2e9a17df 53-54
+  s_980cc6dae9e64e::t_75021782d3f1d4 66
+home/.config/zsh/zshrc
+  s_980cc6dae9e64e::t_6562461919be57 15
+  s_980cc6dae9e64e::t_f3fec03e835e3e 6,8-14,16
+  s_980cc6dae9e64e::t_6471a72495ff97 3-5
+  s_980cc6dae9e64e::t_240a495ffd1783 7
+  s_980cc6dae9e64e::t_477712dbc6a802 17-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "25ff5d60d764f68b9a36bc383502d7485eaaa933",
+  "prompts": {},
+  "sessions": {
+    "s_980cc6dae9e64e": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "60c9fd83-3069-4edf-95ab-9e7eaf7847fd",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
