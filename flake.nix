@@ -27,7 +27,6 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit user herdr; };
-            # Distinct from leftover ~/.zshrc.backup so HM can move colliding files.
             home-manager.backupFileExtension = "hm-backup";
             home-manager.users.${user} = import ./home.nix;
           }

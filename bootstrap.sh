@@ -46,7 +46,7 @@ fi
 
 echo "==> Step 2: symlink this repo to ~/.dotfiles"
 # This is not the same as the ~/.config/* links.
-# home-manager mkOutOfStoreSymlink makes ~/.config/wezterm (and nvim, tmux, …)
+# home-manager mkOutOfStoreSymlink makes ~/.config/nvim (and other app dirs)
 # point at files inside the repo so edits apply without a rebuild.
 # Those targets are all ${home}/.dotfiles/home/.config/..., so this stable
 # alias must exist regardless of where the clone lives

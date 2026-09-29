@@ -89,24 +89,8 @@ in
 
   # Edit-in-place: the real file stays in the repo, ~/.config just points at it.
   home.file = agentSkillFiles // agentSkillStoreFiles // agentRuleFiles // {
-    ".config/wezterm" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
-      force = true;
-    };
-    ".config/starship.toml" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/starship.toml";
-      force = true;
-    };
-    ".config/tmux" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/tmux";
-      force = true;
-    };
     ".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
-      force = true;
-    };
-    ".config/tuicr" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/tuicr";
       force = true;
     };
     ".config/herdr/config.toml" = {
@@ -121,26 +105,6 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/int_plugins.list";
       force = true;
     };
-    ".config/aerospace/aerospace.toml" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/aerospace/aerospace.toml";
-      force = true;
-    };
-    ".config/borders" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/borders";
-      force = true;
-    };
-    ".config/sketchybar" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/sketchybar";
-      force = true;
-    };
-    # compinit only autoloads a file named _git. The bash script must sit
-    # beside it; git-completion.zsh looks there first.
-    ".zsh/completions/_git" = {
-      source = "${pkgs.git}/share/git/contrib/completion/git-completion.zsh";
-    };
-    ".zsh/completions/git-completion.bash" = {
-      source = "${pkgs.git}/share/git/contrib/completion/git-completion.bash";
-    };
   };
 
   # Create-once seed for ~/.second_brain_vault. If the directory already
@@ -150,15 +114,6 @@ in
       cp -R "${dotfiles}/ai_agents_tools/skills/second-brain/vault-seed" \
         "$HOME/.second_brain_vault"
       find "$HOME/.second_brain_vault" -name .gitkeep -delete
-    fi
-  '';
-
-  # Load SketchyBar after ~/.config/sketchybar symlink exists (launchd may
-  # have started the daemon earlier with no config).
-  home.activation.sketchybarConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-    if command -v sketchybar >/dev/null && [ -x "$HOME/.config/sketchybar/sketchybarrc" ]; then
-      sketchybar --reload
     fi
   '';
 
@@ -200,90 +155,4 @@ in
       }
     done < "$int_list"
   '';
-
-  # Ctrl-R history widget. Integration also binds Tab; fzf-tab is sourced
-  # later (order 950) so Tab stays the completion menu.
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;      # ghost text from history
-    syntaxHighlighting.enable = true;  # commands turn green when valid
-    initContent = lib.mkMerge [
-      (lib.mkOrder 400 ''
-        # Before compinit, so `git <Tab>` can complete subcommands.
-        fpath=("''${HOME}/.zsh/completions" $fpath)
-      '')
-      (lib.mkOrder 950 ''
-        zstyle ':completion:*:descriptions' format '[%d]'
-        zstyle ':completion:*' menu no
-        source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-      '')
-      ''
-      bindkey '^f' autosuggest-accept
-      # Option+Right: accept one word of the ghost suggestion (not the whole line).
-      bindkey "^[[1;3C" forward-word
-      bindkey "^[[1;3D" backward-word
-
-      # Dotfiles secrets (GITHUB_TOKEN, etc.) — edit secrets/env.sh locally.
-      if [[ -f "${dotfiles}/secrets/env.sh" ]]; then
-        source "${dotfiles}/secrets/env.sh"
-      fi
-
-      # API tokens and env snippets kept in ~/.oh-my-zsh/custom/ (directory untouched).
-      for _token_file in "''${HOME}"/.oh-my-zsh/custom/*.zsh(N); do
-        [[ "$(basename "$_token_file")" == example.zsh ]] && continue
-        source "$_token_file"
-      done
-      unset _token_file
-
-      # java.zsh exports a missing Temurin 8 path. Prefer the nix-darwin JDK.
-      export JAVA_HOME="${pkgs.jdk8.home}"
-      export PATH="$JAVA_HOME/bin:$PATH"
-      ''
-    ];
-    shellAliases = {
-      ".." = "cd ..";
-      # listing dirs
-      ls = "ls --color";
-      lsa = "ls -la";
-      # neovim 
-      v = "nvim";
-      vim = "nvim";
-      vi = "nvim";
-      # agents init
-      oc = "opencode";
-      ca = "cursor-agent";
-      cc = "claude";
-      # pr review
-      tt = "tuicr tui";
-      add = "git add .";
-      commit = "git commit -m ";
-      push = "git push";
-      pull = "git pull";
-      gd = "git diff --name-only";
-      gst = "git status";
-      gco = "git checkout";
-      gb = "git branch";
-      gba = "git branch -a";
-      k = "kubectl";
-      ka = "kubectl apply -f";
-      kg = "kubectl get";
-      kd = "kubectl describe";
-      kdel = "kubectl delete";
-      kgpo = "kubectl get pod";
-      kgd = "kubectl get deployments";
-      kc = "kubectx";
-      kns = "kubens";
-      kl = "kubectl logs -f";
-      ke = "kubectl exec -it";
-      # Herdr session CLI (list, attach, stop, delete)
-      hs = "herdr session";
-    };
-  };
-
-
 }
