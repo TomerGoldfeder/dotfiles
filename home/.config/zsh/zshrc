@@ -35,13 +35,11 @@ bindkey "^[[1;3C" forward-word
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
-alias ls="eza --icons=always"
 
 eval "$(atuin init zsh)"
 
 eval "$(zoxide init zsh)"
 
-alias cd="z"
 
 # yazi 
 function y() {
@@ -52,4 +50,18 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+
+# alias command
+alias ls="eza --icons=always"
+alias cd='z'
+alias ca='cursor-agent'
+alias cc='claude'
+alias add='git add'
+alias commit='git commit -m'
+alias push='git push'
+alias pull='git pull'
+alias gd='git diff --name-only'
+alias gco='git checkout'
+alias hs='herdr session'
 

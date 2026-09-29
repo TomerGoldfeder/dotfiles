@@ -121,6 +121,14 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/yazi";
       force = true;
     };
+    ".config/aerospace/aerospace.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/aerospace/aerospace.toml";
+      force = true;
+    };
+    ".config/borders" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/borders";
+      force = true;
+    };
   };
 
   # Create-once seed for ~/.second_brain_vault. If the directory already

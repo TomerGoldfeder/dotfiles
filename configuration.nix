@@ -84,6 +84,14 @@ in
         name = "imagemagick-full";
         link = "overwrite";
       }
+      {
+        name = "FelixKratz/formulae/borders";
+        trusted = true;
+      }
+    ];
+    taps = [
+      "nikitabobko/tap"
+      "FelixKratz/formulae"
     ];
     casks = [
       "wezterm"
@@ -95,6 +103,7 @@ in
       # delete them — Homebrew cannot remove root CodeResources files.
       "google-chrome"
       "docker-desktop"
+      "nikitabobko/tap/aerospace"
     ];
   };
 }
