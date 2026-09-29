@@ -55,7 +55,7 @@ function y() {
 # alias command
 alias ls="eza --icons=always"
 alias cd='z'
-alias ca='cursor-agent'
+alias ca='cursor-agent --yolo'
 alias cc='claude'
 alias add='git add'
 alias commit='git commit -m'
