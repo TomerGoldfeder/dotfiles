@@ -17,6 +17,24 @@ fi
 
 . "$HOME/.atuin/bin/env"
 
+
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# history setup
+HISTFILE=$HOME/.zhistory
+SAVEHIST=1000
+HISTSIZE=999
+setopt share_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_verify
+
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
 alias ls="eza --icons=always"
 
 eval "$(atuin init zsh)"
@@ -24,3 +42,14 @@ eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
 
 alias cd="z"
+
+# yazi 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+

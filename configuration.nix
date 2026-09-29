@@ -71,6 +71,8 @@ in
       "jq"
       "poppler"
       "fd"
+      "zsh-autosuggestions"
+      "zsh-syntax-highlighting"
       "ripgrep"
       "zoxide"
       "resvg"

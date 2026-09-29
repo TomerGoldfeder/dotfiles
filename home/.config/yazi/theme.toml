@@ -1,0 +1,6 @@
+# Managed in dotfiles; overrides merge on top of the active flavor.
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
+[flavor]
+dark = "catppuccin-mocha"
+light = "catppuccin-mocha"

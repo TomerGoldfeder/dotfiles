@@ -117,6 +117,10 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/int_plugins.list";
       force = true;
     };
+    ".config/yazi" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/yazi";
+      force = true;
+    };
   };
 
   # Create-once seed for ~/.second_brain_vault. If the directory already
