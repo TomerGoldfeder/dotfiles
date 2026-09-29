@@ -50,18 +50,23 @@ in
     nerd-fonts.jetbrains-mono
   ];
 
+  programs.zsh.enable = true;
+
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
     brews = [
+      "git"
       "glab"
       "opencode"
       "pi-coding-agent"
       "fzf" # pane-navigator; also in systemPackages — brew covers herdr PATH until rebuild
+      "powerlevel10k"
     ];
     casks = [
+      "wezterm"
       "font-jetbrains-mono-nerd-font"
       "claude-code"
       "cursor-cli"
