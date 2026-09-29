@@ -1,7 +1,6 @@
 { user, pkgs, herdr, ... }:
 
 let
-  aerospace-cheatsheet = pkgs.callPackage ./home/bin/aerospace-cheatsheet { };
   h = pkgs.callPackage ./home/bin/hs { };
 in
 
@@ -48,7 +47,6 @@ in
     rustc
   ]) ++ [
     herdr.packages.${pkgs.system}.default
-    aerospace-cheatsheet
     h
   ];
 
@@ -121,21 +119,6 @@ in
       RunAtLoad = true;
       EnvironmentVariables = {
         PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin";
-        LANG = "en_US.UTF-8";
-      };
-    };
-  };
-
-  launchd.user.agents.aerospace-cheatsheet = {
-    serviceConfig = {
-      ProgramArguments = [
-        "/run/current-system/sw/bin/aerospace-cheatsheet"
-        "--gui"
-      ];
-      KeepAlive = true;
-      RunAtLoad = true;
-      EnvironmentVariables = {
-        PATH = "/run/current-system/sw/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/sbin:/usr/bin:/bin:/sbin";
         LANG = "en_US.UTF-8";
       };
     };

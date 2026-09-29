@@ -47,8 +47,8 @@ outer.top = 60
 1 = 'built-in' # laptop
 2 = 1          # left Dell
 3 = 1          # left Dell
-4 = 3          # right Dell
-5 = 3          # right Dell
+4 = 2          # right Dell
+5 = 2          # right Dell
 
 [mode.main.binding]
 
@@ -114,7 +114,6 @@ alt-ctrl-2 = 'move-workspace-to-monitor built-in'
 alt-ctrl-3 = 'move-workspace-to-monitor -- 3'
 
 alt-shift-semicolon = 'mode service'
-alt-shift-slash = 'exec-and-forget /run/current-system/sw/bin/aerospace-cheatsheet toggle'
 
 alt-shift-enter = 'mode apps'
 alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
