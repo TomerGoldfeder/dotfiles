@@ -1,0 +1,21 @@
+home/.config/nvim/lazy-lock.json
+  s_d0414d6c7ec5b2::t_a1f0984e8b019b 2-3,9-11,17,20,22,29,33-34,36-37,39,42
+home/.config/nvim/lua/plugins/snacks.lua
+  s_d0414d6c7ec5b2::t_fd2a1ff9f650d4 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d4357482c6be5fda45810f50dcf2950ac226e2a0",
+  "prompts": {},
+  "sessions": {
+    "s_d0414d6c7ec5b2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "cfb60caf-0eaf-4886-8f59-06c758cc3fee",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
