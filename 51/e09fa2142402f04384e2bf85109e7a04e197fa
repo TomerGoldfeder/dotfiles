@@ -1,0 +1,33 @@
+home/.config/yazi/theme.toml
+  s_b22d543dd7b791::t_190af0bdfbc597 1-6
+home/.config/yazi/flavors/catppuccin-mocha.yazi/LICENSE
+  s_b22d543dd7b791::t_190af0bdfbc597 1-21
+home/.config/yazi/flavors/catppuccin-mocha.yazi/README.md
+  s_b22d543dd7b791::t_190af0bdfbc597 1-36
+home/.config/yazi/flavors/catppuccin-mocha.yazi/tmtheme.xml
+  s_b22d543dd7b791::t_190af0bdfbc597 1-2112
+home/.config/yazi/flavors/catppuccin-mocha.yazi/LICENSE-tmtheme
+  s_b22d543dd7b791::t_190af0bdfbc597 1-21
+home.nix
+  s_b22d543dd7b791::t_1f78b4e38f6412 121
+  s_b22d543dd7b791::t_81d07cee7d7c64 120
+  s_b22d543dd7b791::t_2fa4804c34de6f 122-123
+home/.config/yazi/flavors/catppuccin-mocha.yazi/flavor.toml
+  s_b22d543dd7b791::t_190af0bdfbc597 1-215
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "51e09fa2142402f04384e2bf85109e7a04e197fa",
+  "prompts": {},
+  "sessions": {
+    "s_b22d543dd7b791": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "171654c3-7940-4726-b100-142c8537f4b7",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
