@@ -1,0 +1,20 @@
+configuration.nix
+  s_980cc6dae9e64e::t_2c794216ce1eb2 66
+  s_980cc6dae9e64e::t_878ffa9a31e304 68-84,89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d355a8678b3d9c231e4f8972fecdbd7f0c321f33",
+  "prompts": {},
+  "sessions": {
+    "s_980cc6dae9e64e": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "60c9fd83-3069-4edf-95ab-9e7eaf7847fd",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
