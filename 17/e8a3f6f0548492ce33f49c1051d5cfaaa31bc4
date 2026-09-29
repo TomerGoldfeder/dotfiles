@@ -1,0 +1,24 @@
+home/.config/aerospace/aerospace.toml
+  s_3a9b7aaa349f3c::t_e41c026b88aaa6 50-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "17e8a3f6f0548492ce33f49c1051d5cfaaa31bc4",
+  "prompts": {},
+  "humans": {
+    "h_d5cb918de7058b": {
+      "author": "tomergo <tomergo@mobileye.com>"
+    }
+  },
+  "sessions": {
+    "s_3a9b7aaa349f3c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f98d6763-1db4-4657-bbd2-0411398c8eea",
+        "model": "unknown"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
