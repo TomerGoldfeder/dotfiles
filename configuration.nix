@@ -63,11 +63,30 @@ in
       "opencode"
       "pi-coding-agent"
       "fzf" # pane-navigator; also in systemPackages — brew covers herdr PATH until rebuild
+      "eza"
       "powerlevel10k"
+      # yazi + runtime deps (https://yazi-rs.github.io/docs/installation)
+      "yazi"
+      "sevenzip"
+      "jq"
+      "poppler"
+      "fd"
+      "ripgrep"
+      "zoxide"
+      "resvg"
+      {
+        name = "ffmpeg-full";
+        link = "overwrite";
+      }
+      {
+        name = "imagemagick-full";
+        link = "overwrite";
+      }
     ];
     casks = [
       "wezterm"
       "font-jetbrains-mono-nerd-font"
+      "font-symbols-only-nerd-font" # yazi icons
       "claude-code"
       "cursor-cli"
       # Root-owned apps (they self-update). Listed so zap does not try to

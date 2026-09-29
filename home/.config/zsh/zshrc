@@ -17,4 +17,10 @@ fi
 
 . "$HOME/.atuin/bin/env"
 
+alias ls="eza --icons=always"
+
 eval "$(atuin init zsh)"
+
+eval "$(zoxide init zsh)"
+
+alias cd="z"
