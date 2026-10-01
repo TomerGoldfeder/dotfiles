@@ -127,7 +127,7 @@ After QA writes `qa-verdict-<N>.json` with `decision: NO_SHIP`:
 ## Standards reference (phases 5 and 6)
 
 `standards_ref` in STATE.md points to the `code-standards` skill (default:
-`${DEPLOYMENT_FOR_MACHINE}/skills/code-standards/SKILL.md`). That
+`~/personal_projects/dotfiles/ai_agents_tools/skills/code-standards/SKILL.md`). That
 skill is the entry point; the actual rules are bundled in `standards/` next to
 that skill (via `standards/INDEX.md`).
 

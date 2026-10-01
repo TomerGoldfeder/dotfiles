@@ -12,8 +12,8 @@ description: >-
 Recurring or self-paced agent wakes for long-running waits. State lives in shell
 background tasks and sentinel lines the harness can monitor.
 
-Set `DEPLOYMENT_FOR_MACHINE` in the environment (see `terminal-stack/shell/env.sh`)
-before relying on skill paths in loop payloads.
+Skills live under `~/personal_projects/dotfiles/ai_agents_tools/skills/` — use that
+path in loop payloads when referencing other skills.
 
 ## Parse
 
@@ -83,8 +83,8 @@ Wake notifications include an output file path, not a submitted prompt. Put the 
 
 | Skill / task | Typical loop |
 |--------------|--------------|
-| **pr-babysitting** (pipeline running) | Dynamic: `glab ci status` watcher + 5–10m heartbeat; prompt = refresh MR pipeline and report delta |
+| **pr-babysitting** (checks running) | Dynamic: `gh pr checks` watcher + 5–10m heartbeat; prompt = refresh PR checks and report delta |
 | Deploy wait | Fixed `2m` until health check passes |
 | Long test suite | Fixed `30s` while `pytest` job runs in background terminal |
 
-When **pr-babysitting** arms a loop, the wake prompt should say: re-read live pipeline status, report delta, stop the loop on green/warning or failed (then hand off to pr-babysitting exit rules).
+When **pr-babysitting** arms a loop, the wake prompt should say: re-read live PR check status, report delta, stop the loop on green/warning or failed (then hand off to pr-babysitting exit rules).

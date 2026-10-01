@@ -4,7 +4,7 @@ Goal: bring the implementation to the code standards without changing behavior.
 
 ## Procedure
 1. **Load standards** at `standards_ref` in STATE.md
-   (default `${DEPLOYMENT_FOR_MACHINE}/skills/code-standards/SKILL.md`):
+   (default `~/personal_projects/dotfiles/ai_agents_tools/skills/code-standards/SKILL.md`):
 
    **Path A — code-standards available** (skill file exists):
    a. Read the skill file in full.

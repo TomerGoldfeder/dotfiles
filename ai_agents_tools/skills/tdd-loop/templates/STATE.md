@@ -8,7 +8,7 @@ loop_state_root: <absolute path to .loop_state in user home; OS-resolved>
 branch: <git branch, if one was created for the task>
 status: in_progress        # in_progress | done | halted
 phase: interview           # interview | acceptance-tests | plan | implement | polish | qa
-standards_ref: ${DEPLOYMENT_FOR_MACHINE}/skills/code-standards/SKILL.md
+standards_ref: ~/personal_projects/dotfiles/ai_agents_tools/skills/code-standards/SKILL.md
 standards_mode: code-standards       # code-standards | language-default
 standards_fallback_note:             # required when standards_mode is language-default
 
