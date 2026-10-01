@@ -1,0 +1,37 @@
+ai_agents_tools/skills/tdd-loop/templates/STATE.md
+  s_044c67f7a35a71::t_dd41cf6a57a59f 11
+ai_agents_tools/skills/tdd-loop/phases/05-polish.md
+  s_044c67f7a35a71::t_b6d49c67102219 7
+ai_agents_tools/skills/tdd-loop/SKILL.md
+  s_044c67f7a35a71::t_2b314f6bf94698 130
+ai_agents_tools/skills/loop/SKILL.md
+  s_1bb3afd7f4c281::t_68059486e10eb1 86
+  s_1bb3afd7f4c281::t_4b6ca057b685b5 15-16
+  s_1bb3afd7f4c281::t_3f5c8661a46309 90
+ai_agents_tools/skills/pr-babysitting/SKILL.md
+  s_1bb3afd7f4c281::t_90f7f99889c1a6 4-6,9,11,13,21,29-32,36,40-41,43-44,46,50,53,56,60-61,73-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ca06db24eb733347f910219fef0623d8dced862e",
+  "prompts": {},
+  "sessions": {
+    "s_044c67f7a35a71": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "6d4009bc-88e5-48c7-81fd-9a5b58b653f0",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_1bb3afd7f4c281": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "863c48af-4bff-4e5d-8245-83ee74b1a454",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
