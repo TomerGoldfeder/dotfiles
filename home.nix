@@ -53,6 +53,21 @@ let
       )
       agentSkillStorePaths
   );
+  # Shared custom agents live here; expose them to each harness runtime.
+  agentDirFiles = {
+    ".cursor/agents" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/agents";
+      force = true;
+    };
+    ".agents/agents" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/agents";
+      force = true;
+    };
+    ".claude/agents" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/ai_agents_tools/agents";
+      force = true;
+    };
+  };
   # Same AGENTS.md SOT; each harness wants its own path/name.
   agentRuleFiles = {
     ".cursor/rules/AGENTS.mdc" = {
@@ -88,7 +103,7 @@ in
   fonts.fontconfig.enable = true;
 
   # Edit-in-place: the real file stays in the repo, ~/.config just points at it.
-  home.file = agentSkillFiles // agentSkillStoreFiles // agentRuleFiles // {
+  home.file = agentSkillFiles // agentSkillStoreFiles // agentDirFiles // agentRuleFiles // {
     ".zshrc" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/zsh/zshrc";
       force = true;

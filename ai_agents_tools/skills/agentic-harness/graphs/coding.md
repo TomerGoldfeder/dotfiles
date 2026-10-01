@@ -1,41 +1,46 @@
 # Coding graph family
 
-Classifier picks **easy** or **hard**, then emits a task DAG using only roles from INDEX.
+Parent applies this file while classifying. It picks **easy** or **hard**, then emits a task DAG using only roles from INDEX.
 
-Node ids `explorer-second-brain` and `worker-second-brain-writeback` are part of every template. Same roles as INDEX (`explorer`, `worker`). Do not invent a `second-brain` role. Planner may replace **implementation** worker tasks; it must keep these two ids, plus qa / critic (hard) / promoter / journaler.
+Fixed ids, every template:
 
-`explorer-second-brain` (`role: explorer`): query `~/.second_brain_vault` via the second-brain skill. Read `index.md` first. Cheap skip if the vault, index, or pages are missing/empty. **Never write the vault.** Findings go to `nodes/explorer-second-brain.md` in the run dir.
+- `explorer-second-brain` (`role: explorer`) — vault query. Parent skips the spawn when `~/.second_brain_vault/index.md` is missing or `wiki/` has no pages. Never write the vault.
+- `worker-second-brain-writeback` (`role: worker`) — last worker, after the quality gate. Parent skips the spawn when the vault was skipped or the gate failed. When spawned, file approved durable facts only.
 
-`worker-second-brain-writeback` (`role: worker`): last worker, after the quality gate. File **approved** durable facts via the second-brain skill (`compile`). Write only `wiki/`, `schema/`, `index.md`, `log.md`. Never mutate existing `raw/`. Never file secrets. Skip if QA failed (easy) or critic failed / reroute budget exhausted (hard).
+Do not invent a `second-brain` role. Do not add explorer ids other than `explorer-second-brain` and, on hard, `explorer`. One repo explorer surveys every area. A request for one subagent per folder is still that single explorer.
+
+Implementation workers: default **one**. Split only when the pieces edit disjoint file sets and each piece has its own acceptance check. Easy max 3. Hard max 4. A rename or docs pass inside one package is one worker.
 
 ## Easy
 
-Tiny plan, implement, test, tell the user. No **repo** explorer. No critic. Vault query still runs. Why: cheap path when robustness overhead would cost more than the change.
+Small surface, clear request, low regression risk, one or few files, no design fork.
 
 Order:
 
-1. `explorer-second-brain` — `role: explorer`. Vault query only.
-2. `planner` — 1–3 implementation worker tasks, short. Not a design novel.
-3. One `worker` per planned **implementation** task (`depends_on` planner / prior tasks).
+1. `explorer-second-brain`
+2. `planner` — 1–3 implementation workers
+3. One `worker` per implementation task
 4. `qa`
-5. `worker-second-brain-writeback` — `role: worker`; `depends_on` qa.
+5. `worker-second-brain-writeback` — `depends_on` qa
 6. `promoter`
 7. `journaler`
 
+No repo explorer. No critic.
+
 ## Hard
 
-Need exploration and a critic because the change has many moving parts or high regression risk.
+Many modules, unclear codebase, design choices, large refactor, or fragile correctness.
 
 Order:
 
-1. `explorer-second-brain` — `role: explorer`. Vault query only.
-2. `explorer` — repo context; `depends_on` `explorer-second-brain`.
-3. `planner` — explicit task DAG (ids, depends_on, titles). Implementation worker nodes are the tasks.
-4. One `worker` per implementation task, serial topo order.
+1. `explorer-second-brain`
+2. `explorer` — `depends_on` `explorer-second-brain`
+3. `planner`
+4. One `worker` per implementation task, serial
 5. `qa`
 6. `critic`
-7. `worker-second-brain-writeback` — `role: worker`; `depends_on` critic.
+7. `worker-second-brain-writeback` — `depends_on` critic
 8. `promoter`
 9. `journaler`
 
-Planner may add extra implementation worker tasks after explorer. Classifier's initial DAG may be refined by the planner node; orchestrator then executes the **planner's** DAG for remaining work (replace implementation worker list only; keep `explorer-second-brain`, qa, critic, `worker-second-brain-writeback`, promoter, journaler unless planner has a documented reason). Write the updated graph to `DAG.md`.
+Planner may replace the implementation worker list only. Keep `explorer-second-brain`, `explorer` (hard), qa, critic (hard), `worker-second-brain-writeback`, promoter, and journaler. Write the updated graph to `DAG.md`.

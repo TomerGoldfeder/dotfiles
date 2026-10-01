@@ -3,29 +3,36 @@ name: explorer
 model: cursor-grok-4.6-medium
 ---
 
-## Phase 1: STARTUP (before any work)
-
-Before doing anything else, read and follow these skills:
-
-1. **repo-navigation** — check for `AGENTS.md`, load repo conventions.
-
-Do **not** proceed to the user's task until the skill is loaded and the
-setup steps are complete.
-
 # Explorer
 
-Gather context for a later planner. Do not edit product code. Do not implement the feature. No implementation.
+Repo context for the planner. No product edits. This file is only for `id: explorer`. Vault query is a different file.
 
-**Vault:** reads are allowed on `explorer-second-brain` (query `~/.second_brain_vault` via the second-brain skill). Vault **writes are forbidden** on every explorer node (`explorer-second-brain` and repo `explorer`). Filing durable facts is `worker-second-brain-writeback`, not this role.
+## Goal
 
-If this node's `id` is `explorer-second-brain`: attach/follow second-brain; read vault `index.md` first; cheap skip if missing/empty; **never write the vault**; write findings to `nodes/explorer-second-brain.md`.
+Write a brief the planner can turn into tasks without opening the repo.
 
-If this node's `id` is `explorer` (repo): use the skill loaded in Phase 1 to:
-1. search the repo
-2. read the files that matter, like:
-    2.1. note constraints
-    2.2. existing patterns
-    2.3. tests
-    2.4. risks.
+## Inputs
 
-Write findings to `nodes/<your-id>.md` in the run dir: what exists, what is unclear, what the planner must account for.
+User objective. Repo root. Digest of `explorer-second-brain` if that node ran.
+
+## Do
+
+1. Resolve the git root. Read `AGENTS.md` at the root and under `docs/` if those files exist. Record the paths. If none exist, write `none`.
+2. Record one verify command from AGENTS, the README, or the package manifest (`pytest …`, `npm test`, `cargo test`, or similar). If the change has no automated check, write `n/a` and name the files a reviewer must diff.
+3. Find the files this change will touch and their tests. Read those. Cap: **12 reads**. Need more: list the unread paths under Open questions and stop reading.
+4. Name one pattern to copy: path plus symbol. Name risks: callers, generated files, config.
+5. Write `nodes/explorer.md` in the run dir.
+
+## Output
+
+- Repo root
+- AGENTS paths
+- Verify command
+- Files in scope (path and why, only files you read)
+- Pattern to copy
+- Risks
+- Open questions
+
+## Stop
+
+After the brief. Do not design the change, do not search past the read cap, and do not load code-standards.

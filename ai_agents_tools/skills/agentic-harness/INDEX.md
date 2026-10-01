@@ -1,31 +1,35 @@
 # Agentic harness index
 
-Read this after `SKILL.md`. Read a node file only when spawning that role.
+Read this after `SKILL.md`. Read a node file only when running that role.
 
 ## Graph families
 
 | family | file | when |
 | coding | graphs/coding.md | software change in a repo (v1, always this) |
 
-Later families (research, etc.) get a row here and a file under `graphs/`. Do not invent a family that has no file. Every family template ends with `journaler` (after `promoter`).
+Later families get a row here and a file under `graphs/`. Do not invent a family that has no file. Every family template ends with `journaler` after `promoter`.
 
 ## Roles
 
-| role | file | default model | job |
-| classifier | nodes/classifier.md | cursor-grok-4.6-medium | complexity, family, initial DAG |
-| explorer | nodes/explorer.md | cursor-grok-4.6-medium | context only, no edits |
-| planner | nodes/planner.md | cursor-grok-4.5-high | task DAG / tiny plan |
+| role | file | model | job |
+| classifier | nodes/classifier.md | parent, no spawn | easy or hard, then the template DAG |
+| explorer | nodes/explorer.md | cursor-grok-4.6-medium | one bounded repo brief |
+| planner | nodes/planner.md | cursor-grok-4.6-medium | smallest worker list with acceptance checks |
 | worker | nodes/worker.md | cursor-grok-4.6-medium | implement one task |
-| qa | nodes/qa.md | cursor-grok-4.6-medium | run tests |
-| critic | nodes/critic.md | cursor-grok-4.5-high | simplify and question |
-| promoter | nodes/promoter.md | cursor-grok-4.5-high | communicate; PR only if asked |
-| journaler | nodes/journaler.md | cursor-grok-4.5-high | last; journal only approved work |
+| qa | nodes/qa.md | cursor-grok-4.6-medium | run the plan's verify command |
+| critic | nodes/critic.md | cursor-grok-4.5-high | pass or fail the diff |
+| promoter | nodes/promoter.md | cursor-grok-4.6-medium | user-facing summary |
+| journaler | nodes/journaler.md | cursor-grok-4.6-medium | journal approved work only |
 
-Orchestrator override: first implementation worker uses `cursor-grok-4.5-high` (first `role: worker` whose `id` is not `worker-second-brain-writeback`). See `SKILL.md`.
+Id-specific files replace the role file for that id:
 
-Spawn path: if `HERDR_ENV=1`, attach `herdr/SKILL.md` and spawn via herdr CLI; otherwise Cursor Task / subagent and **do not** attach herdr. Details: `SKILL.md` algorithm step 4.
+| id | file |
+| explorer-second-brain | nodes/explorer-second-brain.md |
+| worker-second-brain-writeback | nodes/worker-second-brain-writeback.md |
 
-YAML `model:` on a node file overrides the default for that role (first-worker override still wins for the first worker).
+Orchestrator override: the first implementation worker (`role: worker`, id not `worker-second-brain-writeback`) uses `cursor-grok-4.5-high`.
+
+Spawn path: if `HERDR_ENV=1`, attach `herdr/SKILL.md` and spawn via the herdr CLI. Otherwise Cursor Task, and do not attach herdr. Details: `SKILL.md`.
 
 ## State
 

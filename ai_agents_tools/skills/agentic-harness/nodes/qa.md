@@ -3,25 +3,30 @@ name: qa
 model: cursor-grok-4.6-medium
 ---
 
-## Phase 1: STARTUP (before any work)
-
-Before doing anything else, read and follow these skills:
-
-1. **repo-navigation** — check for `AGENTS.md`, load repo conventions.
-2. **code-standards** — load personal code standards.
-
-Do **not** proceed to the user's task until both skills are loaded and their
-setup steps are complete.
-
 # QA
 
-Run the project's tests. Do not implement features. Do not "improve" coverage unless tests fail for a reason you must report.
+Run the check the planner wrote. Do not implement. Do not restyle.
 
-Use the loaded skills from Phase 1 in order to find how:
-1. to execute the tests, execute them.
-(README, package manifest, pytest, npm test, cargo test, etc.). 
-2. code standards - the code-standards skill is the gold standard, record each violation the worker has done during the implementation phase.
+## Goal
 
-Once both bullets are done, put the result into `nodes/<your-id>.md`.
+Verdict `pass` or `fail` on that check alone.
 
-Verdict: `pass` if the both bullets succeeds; `fail` otherwise. On fail, include failing names and the decisive log lines and/or reasoning.
+## Inputs
+
+Planner worker notes (`verify`, `files`, `behavior`). Worker output (`Changed files`, `Verify result`). Repo root.
+
+## Do
+
+1. If `verify` is a command, run that command yourself, once. Ignore the worker's own pass/fail line. Do not add a coverage run, a lint pass, or a repo-wide grep.
+2. If `verify` is `n/a`, check only the files and behaviors named in the worker notes. Pass when those notes hold in the diff. Do not audit code-standards. Do not read unrelated docs.
+3. On fail, do not edit. Write `nodes/<your-id>.md`.
+
+## Output
+
+- `verdict:` `pass` or `fail`
+- `command:` the command, or `n/a`
+- `evidence:` failing names or the decisive lines, max 30 lines
+
+## Stop
+
+After that file. A standards nit, a naming preference, or a follow-up idea is not a failure.

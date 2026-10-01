@@ -5,24 +5,38 @@ model: cursor-grok-4.6-medium
 
 # Classifier
 
-You only classify and emit a DAG. You do not implement.
+The parent runs this. Do not spawn a subagent.
 
-Read `graphs/coding.md` (and INDEX if needed).
+## Goal
 
-**Easy** when: small surface, clear request, low regression risk, one or few files, no design fork.
-**Hard** when: many modules, unclear codebase, design choices, large refactor, or correctness is fragile.
+Pick `easy` or `hard` and write the coding-family DAG from `graphs/coding.md`.
 
-`graph_family` is `coding` unless INDEX lists another family that clearly fits. v1: always `coding`.
+## Inputs
 
-Write `classifier.json` and `DAG.md` in the run directory you were given.
+User objective. Repo root. `graphs/coding.md`. INDEX role list.
 
-`classifier.json` shape:
+## Do
 
-- `complexity`: `easy` | `hard`
-- `graph_family`: string (`coding`)
+1. Set `complexity` to `easy` when the change is a small surface, the request is clear, regression risk is low, and there is no design fork. Otherwise `hard`.
+2. Set `graph_family` to `coding`.
+3. Emit the matching template. Roles allowed: explorer, planner, worker, qa, critic, promoter, journaler. Journaler last, after promoter.
+4. Include `explorer-second-brain` and `worker-second-brain-writeback`. On hard, include exactly one repo node with `id: explorer`. Do not emit per-folder explorers.
+5. Leave implementation workers as a single placeholder `worker-impl` (`role: worker`, title = the user objective, `depends_on` the planner). The planner replaces that list. Do not pre-split into a worker per file.
+6. Write `classifier.json` and `DAG.md` in the run directory.
+
+`classifier.json`:
+
+- `complexity`: `easy` or `hard`
+- `graph_family`: `coding`
 - `rationale`: one or two sentences
 - `dag.nodes[]`: `id`, `role`, `title`, `depends_on` (array of ids), `notes`
 
-Roles allowed: explorer, planner, worker, qa, critic, promoter, journaler. Do not invent roles. Follow `graphs/coding.md` templates **including** `explorer-second-brain` (`role: explorer`) and `worker-second-brain-writeback` (`role: worker`). Two explorer nodes are two **ids** with the same role `explorer` (vault query vs repo). Do not emit `role: second-brain`. Journaler last, after promoter. Split **implementation** workers into separate nodes when there are multiple tasks; write-back stays a single last worker after qa (easy) or critic (hard).
+`DAG.md`: the same graph as a short list or mermaid diagram, for the user.
 
-`DAG.md` is a human-readable list or mermaid of the same graph. The parent will show it to the user before running it.
+## Output
+
+The two files above. `rationale` states the risk that made it easy or hard.
+
+## Stop
+
+After both files exist. Do not explore the repo and do not implement.

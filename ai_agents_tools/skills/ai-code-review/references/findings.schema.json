@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ai-code-review/finding.schema.json",
+  "title": "AI code review finding",
+  "type": "object",
+  "required": ["reviewer", "category", "severity", "confidence", "file", "line_start", "title", "mechanism", "evidence"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^F\\d{3,}$", "description": "Assigned by merge_findings.py"},
+    "reviewer": {"type": "string"},
+    "category": {
+      "enum": ["intent", "scope", "logic", "edge-case", "error-handling", "concurrency", "test-integrity",
+               "dependency", "api-misuse", "duplication", "blast-radius", "convention", "standards", "security"]
+    },
+    "severity": {"enum": ["critical", "high", "medium", "low"]},
+    "confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+    "file": {"type": "string"},
+    "line_start": {"type": "integer", "minimum": 0},
+    "line_end": {"type": "integer", "minimum": 0},
+    "title": {"type": "string", "maxLength": 140},
+    "mechanism": {"type": "string"},
+    "evidence": {"type": "string"},
+    "suggested_fix": {"type": "string"},
+    "status": {"enum": ["unverified", "confirmed", "plausible", "rejected"], "default": "unverified"},
+    "also_flagged_by": {"type": "array", "items": {"type": "string"}},
+    "verification": {
+      "type": "object",
+      "properties": {
+        "method": {"enum": ["none", "test", "command", "trace", "registry"]},
+        "repro": {"type": "string"},
+        "result": {"type": "string"},
+        "notes": {"type": "string"}
+      }
+    }
+  },
+  "additionalProperties": true
+}
