@@ -1,0 +1,59 @@
+home/.config/wezterm/wezterm.lua
+  s_d0414d6c7ec5b2::t_1e1b8a571967bd 44
+  s_d0414d6c7ec5b2::t_3d04df14440dfe 41-43
+  s_d0414d6c7ec5b2::t_5015ce2faf0253 45-47
+home/bin/hs/internal/ui/theme/tokens.go
+  s_b6e1b84c35722b::t_552d52fb180948 26-27,101-116
+  s_b6e1b84c35722b::t_f8fd24c913ad82 117-119
+home/bin/hs/internal/ui/spinner/spinner.go
+  s_b6e1b84c35722b::t_a229c2a4b7d9ee 34-39,49-83,173,177-178
+home/bin/hs/internal/ui/commandpalette/match.go
+  s_b6e1b84c35722b::t_9fd4fc9802ac96 1-79
+home/bin/hs/internal/ui/commandpalette/row.go
+  s_b6e1b84c35722b::t_7e39c535791b7c 86-90
+  s_b6e1b84c35722b::t_5fcff5d5f969ac 1-85,91-128
+home/bin/hs/main.go
+  s_b6e1b84c35722b::t_a8e09f7284c07e 56,58-59,64,174,177-183,185,187-188,190,192-193,196,200-212,236,241-243,271,273,289-293
+  s_b6e1b84c35722b::t_14d85d1933aaf2 294-295
+home/bin/hs/internal/ui/commandpalette/view.go
+  s_b6e1b84c35722b::t_a7168c8791e8cd 4
+  s_b6e1b84c35722b::t_56a7d5a359ebb2 1-3,5-163,165,170,172-174,176-185,187,189
+  s_b6e1b84c35722b::t_3d1cb405c20e85 164,166-169,171,175,186,188
+home/.config/zsh/zshrc
+  s_56ff0c1502f61c::t_c52de6f27c2cca 40-49
+  s_56ff0c1502f61c::t_54baea54665c56 50
+home/.config/zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+  s_56ff0c1502f61c::t_73dfc98518f93d 1-383
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ee259a647468091850be6ff00b5d8a4c8dd7148d",
+  "prompts": {},
+  "sessions": {
+    "s_56ff0c1502f61c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "13858a83-ff20-4ce8-86ed-4ca7a3985d64",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_b6e1b84c35722b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "a002012f-e6b8-4bcc-bf68-e62318d72475",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_d0414d6c7ec5b2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "cfb60caf-0eaf-4886-8f59-06c758cc3fee",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
