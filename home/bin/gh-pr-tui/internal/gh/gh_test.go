@@ -108,3 +108,16 @@ func TestParseShortstat(t *testing.T) {
 		t.Errorf("got %d %d %d", f, a, d)
 	}
 }
+
+func TestDiffCommand(t *testing.T) {
+	c := NewExecClient()
+	t.Setenv("PATH", t.TempDir()) // no delta
+	t.Setenv("GH_PR_TUI_DIFF", "")
+	if got := strings.Join(c.DiffCommand("main", "feat").Args, " "); got != "git --paginate diff origin/main...feat" {
+		t.Errorf("fallback = %q", got)
+	}
+	t.Setenv("GH_PR_TUI_DIFF", `git difftool -d "$1"`)
+	if got := c.DiffCommand("main", "feat").Args; got[len(got)-1] != "origin/main...feat" || got[2] != `git difftool -d "$1"` {
+		t.Errorf("override = %q", got)
+	}
+}

@@ -184,6 +184,7 @@ type editorMsg struct {
 	path string
 	err  error
 }
+type diffViewedMsg struct{ err error }
 
 func (m Model) Init() tea.Cmd {
 	return tea.Batch(textinput.Blink, m.loadLists(), m.loadDiff())
@@ -322,6 +323,12 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		os.Remove(msg.path)
 		return m, nil
 
+	case diffViewedMsg:
+		if msg.err != nil {
+			m.setStatus("diff viewer: "+msg.err.Error(), true)
+		}
+		return m, nil
+
 	case tea.KeyMsg:
 		return m.handleKey(msg)
 	}
@@ -438,6 +445,9 @@ func (m Model) navKey(key string) (tea.Model, tea.Cmd) {
 		m.setFocus(fDraft)
 	case "q":
 		return m.quit()
+	case "v":
+		cmd := m.viewDiff()
+		return m, cmd
 	case "up", "k":
 		m.setFocus(m.focus - 1)
 	case "down", "j":
@@ -665,6 +675,21 @@ func (m Model) create() tea.Cmd {
 		url, err := c.CreatePR(ctx, spec)
 		return createdMsg{url, err}
 	}
+}
+
+// ---- diff viewer ----------------------------------------------------------------
+
+// viewDiff suspends the TUI and hands the terminal to delta (or git's pager);
+// the form comes back untouched when the pager exits.
+func (m *Model) viewDiff() tea.Cmd {
+	if m.base == "" || m.head == "" || m.base == m.head {
+		m.setStatus("pick two different branches to see a diff", true)
+		return nil
+	}
+	m.setStatus("", false)
+	return tea.ExecProcess(m.client.DiffCommand(m.base, m.head), func(err error) tea.Msg {
+		return diffViewedMsg{err}
+	})
 }
 
 // ---- $EDITOR ------------------------------------------------------------------

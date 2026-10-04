@@ -61,7 +61,7 @@ function y() {
 
 
 # alias command
-alias ls="eza --icons=always"
+alias ls="eza --icons=always --color=always --long --git --no-filesize --no-user --no-permissions"
 alias cd='z'
 alias ca='cursor-agent --yolo'
 alias cc='claude'

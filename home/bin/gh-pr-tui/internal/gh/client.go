@@ -45,6 +45,8 @@ type Client interface {
 	Diffstat(ctx context.Context, base, head string) (Diffstat, error)
 	CommitSubjects(ctx context.Context, base, head string) ([]string, error)
 	PRTemplate(ctx context.Context) (string, error)
+	// DiffCommand returns an interactive command that pages the PR diff.
+	DiffCommand(base, head string) *exec.Cmd
 	NeedsPush(ctx context.Context, head string) (bool, error)
 	Push(ctx context.Context, head string) error
 	CreatePR(ctx context.Context, spec PRSpec) (string, error)
@@ -212,6 +214,23 @@ func parseShortstat(s string) (files, adds, dels int) {
 func (c *ExecClient) CommitSubjects(ctx context.Context, base, head string) ([]string, error) {
 	out, err := c.git(ctx, "log", "--reverse", "--format=%s", c.baseRef(base)+".."+head)
 	return lines(out), err
+}
+
+// DiffCommand shows exactly what the PR will contain: the three-dot diff
+// (changes on head since it forked from base). With delta on PATH the diff is
+// piped through it (delta reads its own [delta] gitconfig section, so
+// side-by-side, line numbers and theme follow your settings); otherwise git
+// pages it with your configured core.pager. GH_PR_TUI_DIFF overrides both and
+// receives the range as $1, e.g. GH_PR_TUI_DIFF='git difftool -d "$1"'.
+func (c *ExecClient) DiffCommand(base, head string) *exec.Cmd {
+	rng := c.baseRef(base) + "..." + head
+	if custom := os.Getenv("GH_PR_TUI_DIFF"); custom != "" {
+		return exec.Command("sh", "-c", custom, "sh", rng)
+	}
+	if _, err := exec.LookPath("delta"); err == nil {
+		return exec.Command("sh", "-c", `git diff "$1" | delta --paging=always`, "sh", rng)
+	}
+	return exec.Command("git", "--paginate", "diff", rng)
 }
 
 // PRTemplate returns the repo's default pull request template, if any.

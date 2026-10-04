@@ -98,7 +98,8 @@ func (m Model) branchesView() string {
 	default:
 		d := m.diff
 		r = sMuted.Render(fmt.Sprintf("↑ %d %s · %d %s ", d.Commits, plural(d.Commits, "commit"), d.Files, plural(d.Files, "file"))) +
-			sGreen.Render(fmt.Sprintf("+%d", d.Additions)) + " " + sRed.Render(fmt.Sprintf("−%d", d.Deletions))
+			sGreen.Render(fmt.Sprintf("+%d", d.Additions)) + " " + sRed.Render(fmt.Sprintf("−%d", d.Deletions)) +
+			sDim.Render(" · ") + sKey.Render("v") + sDim.Render(" diff")
 	}
 	if m.needsPush && m.base != m.head {
 		r += sYellow.Render(" · will push")
@@ -254,9 +255,9 @@ func (m Model) keybarView() string {
 	case m.focus == fBody:
 		keys = []kv{{"tab", "next"}, {"ctrl+p", "preview"}, {"ctrl+o", "$EDITOR"}, {"ctrl+s", "create"}, {"esc", "quit"}}
 	case m.focus == fBranches:
-		keys = []kv{{"←→", "base/feature"}, {"enter", "pick"}, {"tab", "next"}, {"t e a r l", "jump"}, {"d", "draft"}, {"ctrl+s", "create"}, {"esc", "quit"}}
+		keys = []kv{{"←→", "base/feature"}, {"enter", "pick"}, {"v", "diff"}, {"tab", "next"}, {"t e a r l", "jump"}, {"d", "draft"}, {"ctrl+s", "create"}, {"esc", "quit"}}
 	default:
-		keys = []kv{{"tab ↑↓", "move"}, {"enter", "pick"}, {"x", "clear"}, {"b t e a r l", "jump"}, {"d", "draft"}, {"ctrl+s", "create"}, {"esc", "quit"}}
+		keys = []kv{{"tab ↑↓", "move"}, {"enter", "pick"}, {"x", "clear"}, {"v", "diff"}, {"b t e a r l", "jump"}, {"d", "draft"}, {"ctrl+s", "create"}, {"esc", "quit"}}
 	}
 	var parts []string
 	for _, p := range keys {

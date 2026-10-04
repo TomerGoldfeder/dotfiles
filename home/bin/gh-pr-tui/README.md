@@ -50,6 +50,7 @@ cd ~/src/some-repo && gh pr-tui
 | panels | `d` | toggle Draft |
 | panels | `enter` | open the picker for that panel |
 | panels | `x` | clear that list |
+| panels | `v` | view the PR diff (delta if installed), `q` to return |
 | branches | `←` `→` | choose base or feature, then `enter` |
 | picker | type | fuzzy filter (spaces ignored) |
 | picker | `space` | toggle (multi-select) |
@@ -61,6 +62,11 @@ cd ~/src/some-repo && gh pr-tui
   PR template, else a bullet list of commit subjects.
 - If the feature branch isn't on `origin` (or is ahead of it), `ctrl+s` runs
   `git push --set-upstream origin <branch>` before `gh pr create`.
+- `v` shows exactly what the PR will contain: `git diff origin/<base>...<feature>` (committed
+  changes only). If `delta` is on `PATH` it's piped through `delta --paging=always`, which reads
+  your `[delta]` gitconfig (side-by-side, line numbers, theme). Without delta, git pages it with
+  your `core.pager`. Override with `GH_PR_TUI_DIFF`, which gets the range as `$1`, e.g.
+  `export GH_PR_TUI_DIFF='git difftool --dir-diff "$1"'`.
 - The body goes to `gh` on stdin (`--body-file -`); the PR URL is printed on exit.
 
 ## Layout

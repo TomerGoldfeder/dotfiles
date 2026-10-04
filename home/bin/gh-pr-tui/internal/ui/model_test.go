@@ -2,6 +2,7 @@ package ui
 
 import (
 	"context"
+	"os/exec"
 	"reflect"
 	"strings"
 	"testing"
@@ -17,6 +18,12 @@ type fakeClient struct {
 	pushed    []string
 	created   []gh.PRSpec
 	diffCalls [][2]string
+	viewed    [][2]string
+}
+
+func (f *fakeClient) DiffCommand(b, h string) *exec.Cmd {
+	f.viewed = append(f.viewed, [2]string{b, h})
+	return exec.Command("true")
 }
 
 func (f *fakeClient) Repo(context.Context) (gh.Repo, error) {
@@ -323,4 +330,21 @@ func ansiStrip(s string) string {
 		}
 	}
 	return b.String()
+}
+
+func TestViewDiff(t *testing.T) {
+	h := newHarness(t, baseOpts())
+	h.keys("v") // in the title it's just a letter
+	if h.m.title.Value() != "Add xv" || len(h.fc.viewed) != 0 {
+		t.Fatalf("v in title: title=%q viewed=%v", h.m.title.Value(), h.fc.viewed)
+	}
+	h.keys("shift+tab", "v")
+	if !reflect.DeepEqual(h.fc.viewed, [][2]string{{"main", "feat/x"}}) {
+		t.Fatalf("viewed = %v", h.fc.viewed)
+	}
+	h.m.base = "feat/x"
+	h.keys("v")
+	if len(h.fc.viewed) != 1 || !h.m.statusErr {
+		t.Fatalf("same branch should not open a diff: viewed=%v status=%q", h.fc.viewed, h.m.status)
+	}
 }
