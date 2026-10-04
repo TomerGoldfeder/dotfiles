@@ -1,0 +1,60 @@
+home.nix
+  s_3c5b1cc16ca0b8::t_445675bc8144ec 209-217
+  s_3c5b1cc16ca0b8::t_9be2c8b1951774 197-208,218
+configuration.nix
+  s_3c5b1cc16ca0b8::t_cc69349b79a44d 50
+home/bin/gpr/internal/tui/model_test.go
+  s_a3b8468635cd41::t_79f557653b85e5 1-96
+home/.config/zsh/zshrc
+  s_3c5b1cc16ca0b8::t_f335557dd187cc 75
+home/bin/gh-pr-tui/.gitignore
+  s_3c5b1cc16ca0b8::t_05eed0f50e6901 1-2
+home/bin/gh-pr-tui/README.md
+  s_3c5b1cc16ca0b8::t_b9d53f999a1131 1-82
+home/bin/gh-pr-tui/go.mod
+  s_3c5b1cc16ca0b8::t_207f34b7b56e3f 1-37
+home/bin/gh-pr-tui/go.sum
+  s_3c5b1cc16ca0b8::t_63f5fbb6d89e5b 1-48
+home/bin/gh-pr-tui/internal/gh/client.go
+  s_3c5b1cc16ca0b8::t_164a2e4e21e855 1-273
+home/bin/gh-pr-tui/internal/gh/gh_test.go
+  s_3c5b1cc16ca0b8::t_77f4dfbdec4084 1-110
+home/bin/gh-pr-tui/internal/gh/spec.go
+  s_3c5b1cc16ca0b8::t_feefb3dbf26f4e 1-61
+home/bin/gh-pr-tui/internal/ui/model.go
+  s_3c5b1cc16ca0b8::t_435280abc54ed7 1-697
+home/bin/gh-pr-tui/internal/ui/model_test.go
+  s_3c5b1cc16ca0b8::t_9f4fb6712e1672 1-326
+home/bin/gh-pr-tui/internal/ui/picker.go
+  s_3c5b1cc16ca0b8::t_486f34890784ce 1-228
+home/bin/gh-pr-tui/internal/ui/styles.go
+  s_3c5b1cc16ca0b8::t_64f8ecb38827a7 1-192
+home/bin/gh-pr-tui/internal/ui/view.go
+  s_3c5b1cc16ca0b8::t_e6c87fdb113d64 1-348
+home/bin/gh-pr-tui/main.go
+  s_3c5b1cc16ca0b8::t_a85e9de691d6ec 1-111
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f38e5ec65846f17bd26d2183ca25d139ea66cfd8",
+  "prompts": {},
+  "sessions": {
+    "s_3c5b1cc16ca0b8": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "ce6f1d4d-db34-4855-936f-c7c8e18eb31b",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_a3b8468635cd41": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "6c07c9fa-9a60-4bbe-b26c-6f0f658e9ec8",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
