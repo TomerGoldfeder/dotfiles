@@ -1,4 +1,4 @@
-# Phase 5 — Polish
+¸# Phase 5 — Polish
 
 Goal: bring the implementation to the code standards without changing behavior.
 
