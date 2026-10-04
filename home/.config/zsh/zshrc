@@ -19,7 +19,6 @@ fi
 
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # history setup
 HISTFILE=$HOME/.zhistory
@@ -34,11 +33,20 @@ bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
-
-
 eval "$(atuin init zsh)"
 
 eval "$(zoxide init zsh)"
+
+# lincheney/fzf-tab-completion — Tab → fzf_completion against zsh completer
+# Resolve from this file’s realpath so ~/.zshrc symlink works.
+autoload -Uz compinit && compinit
+_zsh_config_dir="${${(%):-%x}:A:h}"
+source "${_zsh_config_dir}/fzf-tab-completion/zsh/fzf-zsh-completion.sh"
+bindkey '^I' fzf_completion
+unset _zsh_config_dir
+
+# Must stay after zle widgets (fzf_completion, etc.)
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 # yazi 
@@ -65,3 +73,7 @@ alias gd='git diff --name-only'
 alias gco='git checkout'
 alias hs='herdr session'
 
+alias update_stable_pointers='git fetch origin --tags --force'
+
+# Added by git-ai installer on Sun Oct  4 13:01:32 2026
+export PATH="/Users/tomergo/.git-ai/bin:$PATH"

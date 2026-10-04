@@ -23,8 +23,8 @@ var Nord = Theme{
 	Info:    lipgloss.Color("#81a1c1"),
 }
 
-// Default is the app theme.
-var Default = Nord
+// Default is the live app theme. Flip this assignment to switch palettes.
+var Default = TokyoNightMidnight
 
 // Legacy glyph default palette (unused by hs).
 var GlyphDefault = Theme{
@@ -76,6 +76,44 @@ var TokyoNight = Theme{
 
 	Primary:       lipgloss.Color("#7aa2f7"),
 	PrimaryStrong: lipgloss.Color("#a4b8ff"),
+	Accent:        lipgloss.Color("#bb9af7"),
+
+	Success: lipgloss.Color("#9ece6a"),
+	Warning: lipgloss.Color("#e0af68"),
+	Error:   lipgloss.Color("#f7768e"),
+	Info:    lipgloss.Color("#7dcfff"),
+
+	SyntaxKeyword:     lipgloss.Color("#bb9af7"),
+	SyntaxString:      lipgloss.Color("#9ece6a"),
+	SyntaxComment:     lipgloss.Color("#565f89"),
+	SyntaxNumber:      lipgloss.Color("#ff9e64"),
+	SyntaxFunction:    lipgloss.Color("#7aa2f7"),
+	SyntaxType:        lipgloss.Color("#2ac3de"),
+	SyntaxPunctuation: lipgloss.Color("#a9b1d6"),
+
+	SyntaxParameter:  lipgloss.Color("#e0af68"),
+	SyntaxProperty:   lipgloss.Color("#73daca"),
+	SyntaxEnumMember: lipgloss.Color("#ff9e64"),
+	SyntaxNamespace:  lipgloss.Color("#bb9af7"),
+	SyntaxReadonly:   lipgloss.Color("#7dcfff"),
+}
+
+// TokyoNightMidnight is the near-black live theme. Hexes come from
+// folke/tokyonight.nvim's night palette darkest surfaces (bg_dark1 /
+// bg_dark / bg_highlight) with the shared Tokyo Night accent set — not
+// the night editor background #1a1b26.
+var TokyoNightMidnight = Theme{
+	Bg:            lipgloss.Color("#0C0E14"),
+	Surface:       lipgloss.Color("#16161e"),
+	SurfaceStrong: lipgloss.Color("#1f2335"),
+	Border:        lipgloss.Color("#3b4261"),
+	BorderStrong:  lipgloss.Color("#7aa2f7"),
+	Text:          lipgloss.Color("#c0caf5"),
+	TextMuted:     lipgloss.Color("#565f89"),
+	TextInverse:   lipgloss.Color("#0C0E14"),
+
+	Primary:       lipgloss.Color("#7aa2f7"),
+	PrimaryStrong: lipgloss.Color("#89ddff"),
 	Accent:        lipgloss.Color("#bb9af7"),
 
 	Success: lipgloss.Color("#9ece6a"),

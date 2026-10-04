@@ -53,15 +53,15 @@ type model struct {
 }
 
 func newModel() model {
-	t := theme.Nord
+	t := theme.Default
 	loadSpinner := spinner.New(t).
-		WithStyle(spinner.StyleDots).
-		WithLabel("Loading sessions").
+		WithStyle(spinner.StyleBars).
+		WithLabel("Loading Herdr sessions").
 		WithColor(t.Primary).
 		WithID("load")
 
 	statusSpinner := spinner.New(t).
-		WithStyle(spinner.StyleDots).
+		WithStyle(spinner.StyleMoon).
 		WithColor(t.Success).
 		WithID("status")
 
@@ -171,38 +171,45 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
+	var content string
 	switch m.phase {
 	case phaseLoading:
-		return lipgloss.Place(
-			m.width, m.height,
-			lipgloss.Center, lipgloss.Center,
-			m.loadSpinner.View(),
-			lipgloss.WithWhitespaceChars(" "),
-		)
-	case phasePicker:
-		return lipgloss.Place(
-			m.width, m.height,
-			lipgloss.Center, lipgloss.Center,
-			m.palette.View(),
-			lipgloss.WithWhitespaceChars(" "),
-		)
-	case phaseError:
-		errStyle := lipgloss.NewStyle().
-			Foreground(m.theme.Error).
+		card := lipgloss.NewStyle().
 			Border(lipgloss.RoundedBorder()).
 			BorderForeground(m.theme.BorderStrong).
+			Background(m.theme.Surface).
+			Padding(1, 3).
+			Render(m.loadSpinner.View())
+		content = card
+	case phasePicker:
+		content = m.palette.View()
+	case phaseError:
+		icon := lipgloss.NewStyle().Foreground(m.theme.Error).Bold(true).Render("󰅙  ")
+		hint := lipgloss.NewStyle().Foreground(m.theme.TextMuted).Render("\n\nesc to close")
+		errStyle := lipgloss.NewStyle().
+			Foreground(m.theme.Text).
+			Border(lipgloss.RoundedBorder()).
+			BorderForeground(m.theme.Error).
+			Background(m.theme.Surface).
 			Padding(1, 2).
 			Width(56)
-		body := errStyle.Render("h: " + m.err + "\n\nesc to close")
-		return lipgloss.Place(
-			m.width, m.height,
-			lipgloss.Center, lipgloss.Center,
-			body,
-			lipgloss.WithWhitespaceChars(" "),
-		)
+		content = errStyle.Render(icon + "h: " + m.err + hint)
 	default:
 		return ""
 	}
+
+	placed := lipgloss.Place(
+		m.width, m.height,
+		lipgloss.Center, lipgloss.Center,
+		content,
+		lipgloss.WithWhitespaceChars(" "),
+		lipgloss.WithWhitespaceForeground(m.theme.Bg),
+	)
+	return lipgloss.NewStyle().
+		Background(m.theme.Bg).
+		Width(max(m.width, 1)).
+		Height(max(m.height, 1)).
+		Render(placed)
 }
 
 func sessionsToCommands(sessions []herdrSession) ([]commandpalette.Command, commandpalette.TableLayout) {
@@ -226,10 +233,13 @@ func sessionsToCommands(sessions []herdrSession) ([]commandpalette.Command, comm
 	})
 
 	nameWidth := lipgloss.Width("name")
-	statusWidth := lipgloss.Width("⠋ running")
+	statusWidth := lipgloss.Width("◑ 󰐥 live")
 	for _, s := range sessions {
 		if w := lipgloss.Width(s.Name); w > nameWidth {
 			nameWidth = w
+		}
+		if w := lipgloss.Width(sessionStatusText(s)) + 2; w > statusWidth {
+			statusWidth = w
 		}
 	}
 
@@ -258,9 +268,9 @@ func sessionsToCommands(sessions []herdrSession) ([]commandpalette.Command, comm
 
 func sessionStatusText(s herdrSession) string {
 	if s.Running {
-		return "running"
+		return "󰐥 live"
 	}
-	return "stopped"
+	return "󰒲 idle"
 }
 
 func sessionMatcher(cmd commandpalette.Command, query string) int {
@@ -274,6 +284,13 @@ func sessionMatcher(cmd commandpalette.Command, query string) int {
 		}
 	}
 	return 0
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func main() {

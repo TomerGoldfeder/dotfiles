@@ -31,6 +31,12 @@ const (
 	StylePulse
 	// StyleBounce moves a single dot up and down.
 	StyleBounce
+	// StyleMoon is a richer half-circle orbit for status chrome.
+	StyleMoon
+	// StyleBars is a rising/falling block meter for load states.
+	StyleBars
+	// StyleOrbit is an 8-spoke radial glyph set.
+	StyleOrbit
 )
 
 // preset holds the frames and default interval for one Style.
@@ -40,11 +46,41 @@ type preset struct {
 }
 
 var presets = map[Style]preset{
-	StyleDots:   {frames: []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"}, interval: 80 * time.Millisecond},
-	StyleLine:   {frames: []string{"-", "\\", "|", "/"}, interval: 100 * time.Millisecond},
-	StyleArc:    {frames: []string{"◜", "◠", "◝", "◞", "◡", "◟"}, interval: 100 * time.Millisecond},
-	StylePulse:  {frames: []string{"█", "▓", "▒", "░"}, interval: 120 * time.Millisecond},
-	StyleBounce: {frames: []string{"⠁", "⠂", "⠄", "⠂"}, interval: 100 * time.Millisecond},
+	StyleDots: {
+		frames:   []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"},
+		interval: 80 * time.Millisecond,
+	},
+	StyleLine: {
+		frames:   []string{"-", "\\", "|", "/"},
+		interval: 100 * time.Millisecond,
+	},
+	StyleArc: {
+		frames:   []string{"◜", "◠", "◝", "◞", "◡", "◟"},
+		interval: 100 * time.Millisecond,
+	},
+	StylePulse: {
+		frames:   []string{"█", "▓", "▒", "░"},
+		interval: 120 * time.Millisecond,
+	},
+	StyleBounce: {
+		frames:   []string{"⠁", "⠂", "⠄", "⠂"},
+		interval: 100 * time.Millisecond,
+	},
+	StyleMoon: {
+		frames:   []string{"◐", "◓", "◑", "◒"},
+		interval: 120 * time.Millisecond,
+	},
+	StyleBars: {
+		frames: []string{
+			"▁", "▂", "▃", "▄", "▅", "▆", "▇", "█",
+			"▇", "▆", "▅", "▄", "▃", "▂",
+		},
+		interval: 70 * time.Millisecond,
+	},
+	StyleOrbit: {
+		frames:   []string{"⠁", "⠈", "⠐", "⠠", "⢀", "⡀", "⠄", "⠂"},
+		interval: 70 * time.Millisecond,
+	},
 }
 
 // TickMsg is the per-frame advance message. Each Spinner produces its
@@ -134,12 +170,12 @@ func (s Spinner) Update(msg tea.Msg) (Spinner, tea.Cmd) {
 
 // View renders the current frame and optional label.
 func (s Spinner) View() string {
-	glyph := lipgloss.NewStyle().Foreground(s.color).Render(s.frames[s.frame])
+	glyph := lipgloss.NewStyle().Foreground(s.color).Bold(true).Render(s.frames[s.frame])
 	if s.label == "" {
 		return glyph
 	}
-	label := lipgloss.NewStyle().Foreground(s.theme.Text).Render(s.label)
-	return glyph + " " + label
+	label := lipgloss.NewStyle().Foreground(s.theme.TextMuted).Render(s.label)
+	return glyph + "  " + label
 }
 
 // Frame returns the current frame index.

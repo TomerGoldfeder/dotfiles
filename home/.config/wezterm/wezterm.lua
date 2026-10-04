@@ -1,54 +1,54 @@
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
-config.font = wezterm.font 'JetBrainsMono Nerd Font'
+config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 14.0
 
 config.keys = {
-  {
-    key = 'h',
-    mods = 'CTRL',
-    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-  },
-  {
-    key = 'v',
-    mods = 'CTRL',
-    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
-  },
-  {
-    key = 'w',
-    mods = 'CTRL',
-    action = wezterm.action.CloseCurrentPane { confirm = false },
-  },
-  {
-    key = 'w',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.CloseCurrentTab { confirm = false },
-  },
-  {
-    key = 'LeftArrow',
-    mods = 'CTRL',
-    action = wezterm.action.ActivatePaneDirection 'Left',
-  },
-  {
-    key = 'RightArrow',
-    mods = 'CTRL',
-    action = wezterm.action.ActivatePaneDirection 'Right',
-  },
-  {
-    key = 'UpArrow',
-    mods = 'CTRL',
-    action = wezterm.action.ActivatePaneDirection 'Up',
-  },
-  {
-    key = 'DownArrow',
-    mods = 'CTRL',
-    action = wezterm.action.ActivatePaneDirection 'Down',
-  },
+	{
+		key = "h",
+		mods = "CTRL",
+		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "v",
+		mods = "CTRL",
+		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "w",
+		mods = "CTRL",
+		action = wezterm.action.CloseCurrentPane({ confirm = false }),
+	},
+	{
+		key = "w",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.CloseCurrentTab({ confirm = false }),
+	},
+	{
+		key = "LeftArrow",
+		mods = "CTRL",
+		action = wezterm.action.ActivatePaneDirection("Left"),
+	},
+	{
+		key = "RightArrow",
+		mods = "CTRL",
+		action = wezterm.action.ActivatePaneDirection("Right"),
+	},
+	{
+		key = "UpArrow",
+		mods = "CTRL",
+		action = wezterm.action.ActivatePaneDirection("Up"),
+	},
+	{
+		key = "DownArrow",
+		mods = "CTRL",
+		action = wezterm.action.ActivatePaneDirection("Down"),
+	},
 }
 
 config.enable_tab_bar = false
-config.window_decorations = 'RESIZE'
+config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.8
 config.macos_window_background_blur = 10
 
