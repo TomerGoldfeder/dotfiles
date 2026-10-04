@@ -1,0 +1,66 @@
+home/bin/gpr/internal/fill/fill.go
+  s_0039ef8c18b02f::t_75a4f4555fb4d5 1-93
+home/bin/gpr/internal/create/create.go
+  s_0039ef8c18b02f::t_88e378db88c407 1-98
+home/bin/gpr/internal/tui/model.go
+  s_0039ef8c18b02f::t_0654921fa67a7d 1-113,117-256
+  s_0039ef8c18b02f::t_325436ad4a79e8 114-116
+home/bin/gpr/internal/theme/theme.go
+  s_0039ef8c18b02f::t_6ca1b73a68868a 1-27
+docs/superpowers/specs/2026-10-04-gpr-pr-open-tui.md
+  s_0039ef8c18b02f::t_64fd61f96a86bd 1-74
+home/bin/gpr/internal/gitctx/gitctx_test.go
+  s_0039ef8c18b02f::t_903fe8aa5d0541 1-96
+home/bin/gpr/internal/create/create_test.go
+  s_0039ef8c18b02f::t_318fa858c52646 1-121
+home/bin/gpr/internal/gitctx/gitctx.go
+  s_0039ef8c18b02f::t_782b62c53f65bd 1-103
+home/bin/gpr/internal/templates/templates_test.go
+  s_0039ef8c18b02f::t_a4b95c2746201c 1-57
+configuration.nix
+  s_a013f37d878c65::t_7c8063b0ca2d86 46,49
+  s_0039ef8c18b02f::t_3f7ce47d2e5935 5
+  s_0039ef8c18b02f::t_13ac14608e021c 55
+home/bin/gpr/internal/tui/update.go
+  s_0039ef8c18b02f::t_59686375aa225e 1-193
+home/bin/gpr/internal/theme/tokens.go
+  s_0039ef8c18b02f::t_7f32616a1c0b54 1-28
+home/bin/gpr/main.go
+  s_0039ef8c18b02f::t_3a08fb014813fc 1-49
+home/bin/gpr/default.nix
+  s_0039ef8c18b02f::t_890ffcd706b7d9 1-7,9-17
+  s_0039ef8c18b02f::t_3aea666d059459 8
+home/bin/gpr/internal/tui/view.go
+  s_0039ef8c18b02f::t_6078967a0a79ea 1-132
+home/bin/gpr/internal/fill/fill_test.go
+  s_0039ef8c18b02f::t_46eb336e7e2fe2 1-62
+home/bin/gpr/internal/templates/templates.go
+  s_0039ef8c18b02f::t_73fc95b5bffb8e 27-32,35-36,55-57,61,64
+  s_0039ef8c18b02f::t_54acafad896a17 1-26,33-34,37-54,58-60,62-63,65-81
+result
+  s_0039ef8c18b02f::t_2200770687032c 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8aa0b6c13da0cdd2c964f356c49b62654dbefaf6",
+  "prompts": {},
+  "sessions": {
+    "s_0039ef8c18b02f": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "b4d5bab1-d6d8-4fc4-98dc-52796634d8af",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_a013f37d878c65": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "ac0eadef-de58-44f7-ab82-917834583600",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
