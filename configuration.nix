@@ -2,7 +2,6 @@
 
 let
   h = pkgs.callPackage ./home/bin/hs { };
-  gpr = pkgs.callPackage ./home/bin/gpr { };
 in
 
 {
@@ -53,7 +52,6 @@ in
   ]) ++ [
     herdr.packages.${pkgs.system}.default
     h
-    gpr
   ];
 
   fonts.packages = with pkgs; [
