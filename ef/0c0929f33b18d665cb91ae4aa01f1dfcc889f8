@@ -1,0 +1,29 @@
+home/bin/gh-pr-tui/README.md
+  s_df761ac8507f01::t_67bde7cd4ee74d 53,65-69
+home/bin/gh-pr-tui/internal/gh/client.go
+  s_df761ac8507f01::t_cf0263d338386c 48-49,219-235
+home/bin/gh-pr-tui/internal/gh/gh_test.go
+  s_df761ac8507f01::t_4382a44bc3ee90 111-123
+home/bin/gh-pr-tui/internal/ui/model.go
+  s_df761ac8507f01::t_ecd35d1faa5015 187,326-331,448-450,680-694
+home/bin/gh-pr-tui/internal/ui/model_test.go
+  s_df761ac8507f01::t_862097822f3d16 5,21-26,334-350
+home/bin/gh-pr-tui/internal/ui/view.go
+  s_df761ac8507f01::t_5976345aedbb3f 101-102,258,260
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ef0c0929f33b18d665cb91ae4aa01f1dfcc889f8",
+  "prompts": {},
+  "sessions": {
+    "s_df761ac8507f01": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "eec42927-5af5-4005-937a-e90987770be5",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
