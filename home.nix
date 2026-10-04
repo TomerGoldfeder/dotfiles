@@ -194,4 +194,26 @@ in
       }
     done < "$int_list"
   '';
+
+  home.activation.ghExtensions = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    export PATH="/run/current-system/sw/bin:/opt/homebrew/bin:$PATH"
+    ext_path="${dotfiles}/home/bin/gh-pr-tui"
+    if [ ! -d "$ext_path" ]; then
+      echo "gh extension source missing: $ext_path" >&2
+      exit 1
+    fi
+    if ! command -v gh >/dev/null; then
+      echo "gh not on PATH during activation; skip extension install" >&2
+      exit 1
+    fi
+    if gh extension list | awk '{print $1}' | grep -qx 'pr-tui'; then
+      echo "gh extension remove pr-tui"
+      gh extension remove pr-tui
+    fi
+    echo "gh extension install . (from $ext_path)"
+    (
+      cd "$ext_path"
+      gh extension install .
+    )
+  '';
 }

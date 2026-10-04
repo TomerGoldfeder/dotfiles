@@ -47,6 +47,7 @@ in
     curl
     gnutar
     gzip
+    go
     gh
     gh-dash
   ]) ++ [
