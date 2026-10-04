@@ -2,6 +2,7 @@
 
 let
   h = pkgs.callPackage ./home/bin/hs { };
+  gpr = pkgs.callPackage ./home/bin/gpr { };
 in
 
 {
@@ -42,14 +43,16 @@ in
     jdk8 # Zulu 8; Spark 3.1.3 (Java 8 or 11). Native aarch64, not Temurin cask.
     cargo # herdr plugin install builds Rust plugins from source
     rustc
-    # herdr plugin install scripts need curl/tar; activation PATH omits /usr/bin
+    # herdr plugin install scripts need curl/tar/gzip; activation PATH omits /usr/bin
     curl
     gnutar
+    gzip
     gh
     gh-dash
   ]) ++ [
     herdr.packages.${pkgs.system}.default
     h
+    gpr
   ];
 
   fonts.packages = with pkgs; [
