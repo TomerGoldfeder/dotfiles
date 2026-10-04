@@ -104,7 +104,7 @@ in
 
   programs.git = {
     enable = true;
-    extraConfig = {
+    settings = {
       delta = {
         side-by-side = true;
       };
