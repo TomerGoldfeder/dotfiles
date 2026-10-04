@@ -1,0 +1,38 @@
+configuration.nix
+  s_7c05523b8d0975::t_6c04a5ad3170d7 57
+  s_beb1fe2b1af086::t_b4793e7099dcff 45-47
+  s_97ca5f83333e68::t_a3c9a73157f9a8 34
+  s_7c05523b8d0975::t_0d63fbd76ffff5 48-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9a71d30e9adc7c02a6b7a5432574c4a07398112b",
+  "prompts": {},
+  "sessions": {
+    "s_7c05523b8d0975": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "278619e2-951a-4cae-9f00-e8d8f3ba7b43",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_97ca5f83333e68": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "bf37dcb5-42c1-4517-afa5-6b13b0bc445b",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_beb1fe2b1af086": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a288536-cdd7-44e0-ad20-f10f64774f74",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
