@@ -1,0 +1,20 @@
+home.nix
+  s_df761ac8507f01::t_ad824ea0fbabd0 222-238
+  s_df761ac8507f01::t_9d59778994df4f 105-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ed4242820fa2446c949cc19981204a40b6257d77",
+  "prompts": {},
+  "sessions": {
+    "s_df761ac8507f01": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "eec42927-5af5-4005-937a-e90987770be5",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
