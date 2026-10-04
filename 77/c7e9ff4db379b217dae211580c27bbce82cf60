@@ -1,0 +1,21 @@
+home/bin/gpr/go.mod
+  s_3c5b1cc16ca0b8::t_f6dc0c183fbff9 3
+home/bin/gpr/internal/tui/model_test.go
+  s_3c5b1cc16ca0b8::t_ea785493037dcd 34,39-40,42-43,45-46,48-49,53,55-58,60-61,63-66,68,70-71,75,77-78,83-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "77c7e9ff4db379b217dae211580c27bbce82cf60",
+  "prompts": {},
+  "sessions": {
+    "s_3c5b1cc16ca0b8": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "ce6f1d4d-db34-4855-936f-c7c8e18eb31b",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
