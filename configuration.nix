@@ -31,6 +31,7 @@ in
   environment.systemPackages = (with pkgs; [
     neovim
     fzf # herdr pane-navigator (and other TUIs)
+    gawk # needed by lincheney/fzf-tab-completion (`awk -W interactive`)
     # LazyVim lang.markdown lints via nvim-lint; mason cannot install these
     # without npm. Put the binaries on PATH instead of :MasonInstall.
     markdownlint-cli2
@@ -41,6 +42,11 @@ in
     jdk8 # Zulu 8; Spark 3.1.3 (Java 8 or 11). Native aarch64, not Temurin cask.
     cargo # herdr plugin install builds Rust plugins from source
     rustc
+    # herdr plugin install scripts need curl/tar; activation PATH omits /usr/bin
+    curl
+    gnutar
+    gh
+    gh-dash
   ]) ++ [
     herdr.packages.${pkgs.system}.default
     h
@@ -48,6 +54,7 @@ in
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
   ];
 
   programs.zsh.enable = true;
