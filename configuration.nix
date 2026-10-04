@@ -68,6 +68,7 @@ in
     onActivation.extraFlags = [ "--force" ];
     brews = [
       "git"
+      "git-delta"
       "glab"
       "opencode"
       "pi-coding-agent"

@@ -102,6 +102,15 @@ in
 
   fonts.fontconfig.enable = true;
 
+  programs.git = {
+    enable = true;
+    extraConfig = {
+      delta = {
+        side-by-side = true;
+      };
+    };
+  };
+
   # Edit-in-place: the real file stays in the repo, ~/.config just points at it.
   home.file = agentSkillFiles // agentSkillStoreFiles // agentDirFiles // agentRuleFiles // {
     ".zshrc" = {
@@ -209,6 +218,23 @@ in
     if gh extension list | awk '{print $1}' | grep -qx 'pr-tui'; then
       echo "gh extension remove pr-tui"
       gh extension remove pr-tui
+    fi
+    if [ -x "$ext_path/gh-pr-tui" ]; then
+      chmod +x "$ext_path/gh-pr-tui"
+    fi
+    if command -v go >/dev/null; then
+      echo "go build -o gh-pr-tui . (from $ext_path)"
+      (
+        cd "$ext_path"
+        go build -o gh-pr-tui .
+        chmod +x gh-pr-tui
+      )
+    else
+      echo "go not on PATH during activation; using existing $ext_path/gh-pr-tui" >&2
+      if [ ! -x "$ext_path/gh-pr-tui" ]; then
+        echo "missing executable: $ext_path/gh-pr-tui" >&2
+        exit 1
+      fi
     fi
     echo "gh extension install . (from $ext_path)"
     (
