@@ -1,0 +1,12 @@
+filters:
+  and:
+    - 'type == "person"'
+views:
+  - type: table
+    name: People
+    order:
+      - file.name
+      - note.team
+      - note.role
+      - note.owns
+      - note.ask_about

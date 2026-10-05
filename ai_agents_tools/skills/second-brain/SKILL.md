@@ -6,7 +6,8 @@ description: >-
   personal notes with Obsidian wikilinks, or when the harness node is
   explorer-second-brain or worker-second-brain-writeback. Use when the user
   mentions second brain, Karpathy llm-wiki, vault index.md, durable facts that
-  should persist beyond chat, or filing knowledge after a coding run.
+  should persist beyond chat, or filing knowledge after a coding run. Use on
+  "brief me", open questions, commitments, or people in the vault.
 ---
 
 # Second brain (LLM wiki)
@@ -52,6 +53,12 @@ One primary op per pass. Append `log.md` when the vault was actually used (query
 **Lint** — orphans (not in index / no inbound links), missing `[[targets]]`, contradictions, stale claims. Fix `wiki/` `schema/` `index.md` `log.md` only. Never “fix” raw.
 
 **Compile** — refresh wiki from ingested raw and/or **approved** facts (write-back). Same write targets as lint. No raw mutation. No secrets.
+
+**Brief** — `python3 <skill dir>/scripts/brief.py [--vault PATH]` on "brief me" / "what's open". Prints a markdown companion brief and updates `<vault>/.companion/state.json`. Cursor `sessionStart` hook runs `brief.py --hook` (JSON on stdin; prints `{}` or `{"additional_context": ...}`; at most once per day; fail-open). Do not log a `query` for brief.
+
+## Typed pages
+
+Pages with `type` follow `references/typed-pages.md` (this skill). Validate with `python3 <columbus skill dir>/scripts/render_maps.py --check` when columbus is installed. Two-output rule applies. People, questions, and commitments are typed pages here, not columbus-only.
 
 ## Two-output rule
 

@@ -173,6 +173,38 @@ in
     fi
   '';
 
+  # Merge: ~/.cursor/hooks.json is tool-written; never replace it.
+  home.activation.cursorCompanionHook = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    export PATH="/run/current-system/sw/bin:/opt/homebrew/bin:$PATH"
+    hooks_dir="$HOME/.cursor"
+    hooks_file="$hooks_dir/hooks.json"
+    cmd="/usr/bin/python3 ${dotfiles}/ai_agents_tools/skills/second-brain/scripts/brief.py --hook"
+    mkdir -p "$hooks_dir"
+    if [ ! -f "$hooks_file" ]; then
+      printf '%s\n' '{"version":1,"hooks":{}}' > "$hooks_file"
+    fi
+    if ! command -v jq >/dev/null; then
+      echo "cursorCompanionHook: jq missing; skip hooks.json merge" >&2
+    elif ! jq -e . "$hooks_file" >/dev/null 2>&1; then
+      echo "cursorCompanionHook: hooks.json is not valid JSON; skip merge" >&2
+    else
+      if ! jq -e --arg needle "second-brain/scripts/brief.py" '
+        any(.hooks.sessionStart[]?.command // ""; contains($needle))
+      ' "$hooks_file" >/dev/null; then
+        tmp="$(mktemp "$hooks_dir/hooks.json.XXXXXX")"
+        if jq --arg command "$cmd" '
+          ({command: $command, timeout: 10}) as $entry |
+          .hooks.sessionStart = ((.hooks.sessionStart // []) + [$entry])
+        ' "$hooks_file" > "$tmp"; then
+          mv "$tmp" "$hooks_file"
+        else
+          echo "cursorCompanionHook: jq merge failed; skip" >&2
+          rm -f "$tmp"
+        fi
+      fi
+    fi
+  '';
+
   # Ensure listed Herdr plugins are installed (idempotent reinstall).
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     export PATH="/run/current-system/sw/bin:/opt/homebrew/bin:$PATH"

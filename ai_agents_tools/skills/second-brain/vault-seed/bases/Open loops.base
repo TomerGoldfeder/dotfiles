@@ -1,0 +1,24 @@
+filters:
+  and:
+    - 'status == "open"'
+views:
+  - type: table
+    name: Questions
+    filters:
+      and:
+        - 'type == "question"'
+    order:
+      - file.name
+      - note.ask
+      - note.about
+      - note.raised
+  - type: table
+    name: Commitments
+    filters:
+      and:
+        - 'type == "commitment"'
+    order:
+      - file.name
+      - note.to
+      - note.due
+      - note.about

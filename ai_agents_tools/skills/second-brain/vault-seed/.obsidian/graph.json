@@ -1,0 +1,9 @@
+{
+  "colorGroups": [
+    {"query": "[type:domain]", "color": {"a": 1, "rgb": 8037111}},
+    {"query": "[type:service]", "color": {"a": 1, "rgb": 8245247}},
+    {"query": "[type:person]", "color": {"a": 1, "rgb": 10407530}},
+    {"query": "[type:concept]", "color": {"a": 1, "rgb": 12294903}},
+    {"query": "[type:question]", "color": {"a": 1, "rgb": 16752228}}
+  ]
+}
