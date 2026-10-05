@@ -1,0 +1,19 @@
+configuration.nix
+  s_2f1ea1f7177e28::t_b05e0b33fac722 81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "28fcc2679dd45625e67048fcf0568c2e390ee812",
+  "prompts": {},
+  "sessions": {
+    "s_2f1ea1f7177e28": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1ef59c7c-1a73-4b0f-b6cd-9ed82da33135",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
