@@ -1,0 +1,14 @@
+home/.config/zsh/zshrc
+  h_d5cb918de7058b 76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "700c0354c38931e5da63e00b97c02a6b5f355249",
+  "prompts": {},
+  "humans": {
+    "h_d5cb918de7058b": {
+      "author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
