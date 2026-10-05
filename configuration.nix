@@ -49,6 +49,7 @@ in
     go
     gh
     gh-dash
+    diffnav
   ]) ++ [
     herdr.packages.${pkgs.system}.default
     h
@@ -84,6 +85,7 @@ in
       "zsh-autosuggestions"
       "zsh-syntax-highlighting"
       "ripgrep"
+      "worktrunk"
       "zoxide"
       "resvg"
       {
