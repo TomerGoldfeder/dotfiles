@@ -1,0 +1,14 @@
+home/.config/wezterm/wezterm.lua
+  h_d5cb918de7058b 30,35,40,45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "16dbd23853c001e55e66366f8e00d331f308e92e",
+  "prompts": {},
+  "humans": {
+    "h_d5cb918de7058b": {
+      "author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
