@@ -1,0 +1,21 @@
+home.nix
+  s_2eeea5c59561f9::t_8faf30b6cf6d05 144-147
+home/.config/herdr/plugins/config/hhdebb.herdr-radar/config.toml
+  s_2eeea5c59561f9::t_0f2b431240d99a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0233a5101cc70238a4650c16cdfdce7a43a4e280",
+  "prompts": {},
+  "sessions": {
+    "s_2eeea5c59561f9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "48bb5ce8-bcc8-4a4f-a8fe-d1694974f8d4",
+        "model": "default"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
