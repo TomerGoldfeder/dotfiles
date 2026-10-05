@@ -1,0 +1,28 @@
+configuration.nix
+  s_2f1ea1f7177e28::t_d4724d20cd9d25 88
+  s_df761ac8507f01::t_46513552a8f64a 52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "73b6381e5462ecf769de9f13887906ebe03cfc49",
+  "prompts": {},
+  "sessions": {
+    "s_2f1ea1f7177e28": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1ef59c7c-1a73-4b0f-b6cd-9ed82da33135",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_df761ac8507f01": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "eec42927-5af5-4005-937a-e90987770be5",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
