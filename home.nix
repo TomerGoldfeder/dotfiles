@@ -145,6 +145,10 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/plugins/config/hhdebb.herdr-radar/config.toml";
       force = true;
     };
+    ".config/gh-dash" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/gh-dash";
+      force = true;
+    };
     ".config/yazi" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/yazi";
       force = true;
