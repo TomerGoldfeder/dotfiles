@@ -73,6 +73,7 @@ alias gd='git diff --name-only'
 alias gco='git checkout'
 alias hs='herdr session'
 alias gpr='gh pr-tui'
+alias ghd='gh-dash'
 
 alias update_stable_pointers='git fetch origin --tags --force'
 
