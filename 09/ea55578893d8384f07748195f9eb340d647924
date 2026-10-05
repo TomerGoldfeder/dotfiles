@@ -1,0 +1,105 @@
+ai_agents_tools/skills/second-brain/references/typed-pages.md
+  s_e9acede08da95e::t_f3b53e36e263e2 1-152
+ai_agents_tools/skills/second-brain/SKILL.md
+  s_6924059e01a803::t_27a1283e5817d9 9-10
+  s_6924059e01a803::t_f314676a10ed0a 57-62
+ai_agents_tools/skills/second-brain/vault-seed/schema/AGENTS.md
+  s_6924059e01a803::t_d562f9f26331e8 12-14
+ai_agents_tools/skills/second-brain/vault-seed/index.md
+  s_6924059e01a803::t_7ab87cbfaa79fc 8-14
+ai_agents_tools/skills/second-brain/vault-seed/.obsidian/graph.json
+  s_6924059e01a803::t_4098c9de52095b 1-9
+ai_agents_tools/skills/second-brain/scripts/test_brief.py
+  s_e9acede08da95e::t_e587480caf7cd1 1-119
+ai_agents_tools/skills/second-brain/scripts/vault.py
+  s_e9acede08da95e::t_3135af25c655b1 161-166
+  s_e9acede08da95e::t_638774ff8229bc 1-160,167-356
+ai_agents_tools/skills/second-brain/scripts/brief.py
+  s_e9acede08da95e::t_5c8fd001af5075 1-242
+home.nix
+  s_a3266e215e77cf::t_e0850be75e90b7 176-207
+ai_agents_tools/skills/second-brain/vault-seed/bases/People.base
+  s_6924059e01a803::t_5ec8aa63b08445 1-12
+docs/columbus-guide.md
+  s_667ac4d89e9fb3::t_20d9908c33e475 80
+  s_6924059e01a803::t_fcce6146c861ef 1-18,30-31,34-52,61-79,81-94,96,105-106,108-142,146-155
+  s_6924059e01a803::t_2b15d284017e6a 53-60
+  s_6924059e01a803::t_1c37131f467794 97-104,107
+  s_6924059e01a803::t_d0f4c26eab3e93 32-33
+  s_6924059e01a803::t_d545d07e696259 143-145
+  s_6924059e01a803::t_cae01345122dbd 95
+  s_6924059e01a803::t_a956e91ccba214 19-29
+ai_agents_tools/skills/columbus/scripts/render_maps.py
+  s_667ac4d89e9fb3::t_73f147d55faa36 215
+  s_e9acede08da95e::t_d70dc10485733f 4,12-13,19,30,33,50,53,62,76,94,100,125,127,139,154,165,184,188,198,203,225,227,242,254,258-259,267,276,286-287,300,328,355-358,366,385-388,396,406,427,445
+  s_e9acede08da95e::t_debd8103097b4f 16-17,21,24,28,31,81,84,87-88,90,97,101-102,104,106-108,110,113,119-120,123,126,130,136,143,148,150,158,166,172,176,185,187,189-191,195,199-201,221-223,226,228-231,235,239-241,243-244,247-249,252-253,255-257,260-264,266,268-275,281,283-284,290-293,305,307-308,320,333,338-340,344-345,359-360,363,368-369,371,377-378,392,395,402,404,408-413,421-423,429,432-435,442-443
+  s_667ac4d89e9fb3::t_5dcfe2a581ee29 98
+  s_e9acede08da95e::t_397cf347e2d486 1-3,5-11,14-15,18,20,23,25-27,29,32,49,51-52,54,77-80,82-83,85-86,89,91-93,95-96,99,103,105,109,111-112,114-118,121-122,124,129,131-135,138,140-142,144-147,149,151-153,155-157,159-164,167-171,173-175,177-183,186,193-194,197,218-220,232-234,236-238,245-246,250,265,277-280,288,298-299,301-304,314-315,317-319,326-327,329-332,335-337,341-343,346-354,362,364-365,367,373-374,376,379-384,394,397-401,403,405,407,414-420,424-426,428,430-431,436-441,444,446-447
+  s_667ac4d89e9fb3::t_ff4a71417a1aba 309-313
+  s_667ac4d89e9fb3::t_91f69a144002be 22,34-48,55-56,59,61,63,65-67,71,128,137,192,204-209,212-213,217,224,251,282,285,289,294-297,306,316,321-325,334,361,370,372,375,389-391,393
+  s_667ac4d89e9fb3::t_82b5886755033a 68-70,72-75
+  s_667ac4d89e9fb3::t_d81eb489f21023 196,202,210-211,214,216
+  s_667ac4d89e9fb3::t_44b991b642000d 57-58,60,64
+ai_agents_tools/skills/columbus/SKILL.md
+  s_6924059e01a803::t_3dc54a26bf7cdb 1-85,90-112
+  s_6924059e01a803::t_3062abe225fa12 86-89
+ai_agents_tools/skills/second-brain/scripts/test_vault.py
+  s_e9acede08da95e::t_6063f902c25495 1-140
+"ai_agents_tools/skills/second-brain/vault-seed/bases/Open loops.base"
+  s_6924059e01a803::t_e715d250421115 1-24
+ai_agents_tools/skills/columbus/scripts/test_render_maps.py
+  s_e9acede08da95e::t_676eef1beb23f8 1-151,254-255
+  s_667ac4d89e9fb3::t_36aa550448943e 152-175,180-181,184-225,232,241-253
+  s_667ac4d89e9fb3::t_496d980763a5a4 226-231,233-240
+  s_667ac4d89e9fb3::t_33258565a450f8 176-179,182-183
+docs/superpowers/plans/2026-10-05-columbus.md
+  s_459b1d1568050a::t_a4cb7af70c552f 1-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "09ea55578893d8384f07748195f9eb340d647924",
+  "prompts": {},
+  "sessions": {
+    "s_459b1d1568050a": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "0edfcf28-a2b3-4122-bdc5-b186ed42678d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_667ac4d89e9fb3": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "17cea0aa-78d2-44d7-924e-5e86d4de93dc",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_6924059e01a803": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "503a5e90-5bd9-47df-aaef-cd0d116dc638",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_a3266e215e77cf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "0f362341-83ac-4790-a2a5-9a83654d7baf",
+        "model": "cursor-grok-4.6-medium"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    },
+    "s_e9acede08da95e": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "27e9ed5b-97ae-403b-9c1a-87ab9a2b7931",
+        "model": "cursor-grok-4.5-high"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
