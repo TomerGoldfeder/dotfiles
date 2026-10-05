@@ -1,0 +1,47 @@
+home.nix
+  s_2eeea5c59561f9::t_c0d6005e170297 148-151
+home/.config/gh-dash/pr-review-launch.sh
+  s_2f1ea1f7177e28::t_b3c8640db58362 1-27,32-37,39-40
+  s_2f1ea1f7177e28::t_c5fae5637273cc 28-31,42-47
+  s_2f1ea1f7177e28::t_ccf529da506d1b 38
+  s_2f1ea1f7177e28::t_d8d081bbf7aade 41
+home/.config/herdr/plugins/config/hhdebb.herdr-radar/config.toml
+  s_d1fc1e84a05770::t_6324ddd84de22e 1
+home/.config/gh-dash/config.yml
+  s_d1fc1e84a05770::t_b0aa4db1ea9134 40,89,91-92,94-112
+  s_2f1ea1f7177e28::t_28764926e336d2 90
+  s_2eeea5c59561f9::t_c0d6005e170297 1-39,41-88,93,113-117
+  s_2eeea5c59561f9::t_93a3fe28d080f9 118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7df726dda485057d4e54b1228f5b90feee9427a3",
+  "prompts": {},
+  "sessions": {
+    "s_2eeea5c59561f9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "48bb5ce8-bcc8-4a4f-a8fe-d1694974f8d4",
+        "model": "default"
+      },
+      "human_author": null
+    },
+    "s_2f1ea1f7177e28": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1ef59c7c-1a73-4b0f-b6cd-9ed82da33135",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": null
+    },
+    "s_d1fc1e84a05770": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "33ffc206-c823-4ad7-8559-9d7369dcfcae",
+        "model": "composer-2.5"
+      },
+      "human_author": "tomergo <tomergo@mobileye.com>"
+    }
+  }
+}
