@@ -78,3 +78,5 @@ alias update_stable_pointers='git fetch origin --tags --force'
 
 # Added by git-ai installer on Sun Oct  4 13:01:32 2026
 export PATH="/Users/tomergo/.git-ai/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
