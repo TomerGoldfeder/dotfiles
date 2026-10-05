@@ -78,6 +78,7 @@ in
       "powerlevel10k"
       # yazi + runtime deps (https://yazi-rs.github.io/docs/installation)
       "yazi"
+      "superfile"
       "sevenzip"
       "jq"
       "poppler"
