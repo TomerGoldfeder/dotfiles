@@ -3,6 +3,7 @@ alwaysApply: true
 ---
 
 # Writing standard (ASD-STE100 subset)
+Based on ASD-STE100. Follow only the rules below, not its dictionary.
 Apply to every reply to the user. Code, commits, PRs, and docs follow the repo conventions.
     1. One instruction per sentence. One topic per sentence.
     2. Max 20 words in an instruction sentence. Max 25 words in a descriptive sentence.
