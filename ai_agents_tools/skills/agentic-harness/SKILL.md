@@ -62,7 +62,7 @@ Prompt, in this order, and nothing else:
 3. Repo root and run dir.
 4. Dependency digests: the `## Output` section of each `nodes/<dep>.md`, capped at 400 words. Do not paste full node files, diffs, or other skills.
 
-Model = the role file `model`, except the **first implementation worker** uses `cursor-grok-4.5-high`. That is the first node with `role: worker` whose `id` is not `worker-second-brain-writeback`. If the spawn path can pass a model (Cursor Task `model`, or native args after `--` when the herdr kind documents it), use this value. Do not invent a model flag.
+Model = the role file `model`, except the **first implementation worker** uses `opus`. That is the first node with `role: worker` whose `id` is not `worker-second-brain-writeback`. If the spawn path can pass a model (`cc --model` flag, or native args after `--` when the herdr kind documents it), use this value. Do not invent a model flag.
 
 Skill path attaches (one path, not the skill body):
 
@@ -72,10 +72,10 @@ Skill path attaches (one path, not the skill body):
 
 **Spawn path gate is `HERDR_ENV` only.** Treat the gate as true iff `HERDR_ENV` is exactly `1` (`test "${HERDR_ENV:-}" = 1`). Do **not** gate on “the user mentioned herdr this turn.” Mentioning herdr in chat does not attach the skill or switch spawn path if the env is unset.
 
-- **When `HERDR_ENV` is unset, empty, or not `1`:** Cursor Task. Repo `explorer` may use an explore-style subagent; every other role uses a general-purpose subagent. **Do not attach** `herdr/SKILL.md`.
+- **When `HERDR_ENV` is unset, empty, or not `1`:** spawn via the `cc` CLI alias (`claude --dangerously-skip-permissions`) as a headless subprocess: run `cc -p "<role prompt>"` and capture stdout as the node's output. **Do not attach** `herdr/SKILL.md`.
 - **When `HERDR_ENV=1`:** also attach `herdr/SKILL.md`. Spawn and control that role agent with the herdr CLI. Do not invent a control plane, wrapper daemon, or extra scripts.
   - Prefer an existing available shell pane (interactive prompt, shell in foreground, no command/editor/agent). Otherwise split a sibling in the current tab: `herdr pane split --current --direction right` (or `down` if the caller pane is narrow/tall) `--cwd "$PWD" --no-focus`. Parse the new pane id from JSON `.result.pane.pane_id`. Do not create a workspace, tab, or worktree unless the user asked for that topology.
-  - Start: `herdr agent start <name> --kind <kind> --pane <id>`. Default kind is **cursor** unless the original user request asked for another kind from the installed list (`herdr agent`, not guessed). Name uniquely among live agents, matching `[a-z][a-z0-9_-]{0,31}`, derived from the node id (slug of the id; shorten if needed).
+  - Start: `herdr agent start <name> --kind <kind> --pane <id>`. Default kind is **claude** unless the original user request asked for another kind from the installed list (`herdr agent`, not guessed). Pass `--dangerously-skip-permissions` as a native arg after `--` so the role agent runs non-interactively, matching the `cc` alias. Name uniquely among live agents, matching `[a-z][a-z0-9_-]{0,31}`, derived from the node id (slug of the id; shorten if needed).
   - Drive work with `herdr agent prompt <name> "…" --wait` (timeout as needed) and, if wait fails or returns `blocked`, `herdr agent get` / `herdr agent read` before sending more input. Do not blindly re-prompt on timeout.
   - Follow herdr skill safety: `--no-focus` for background work; parse IDs from JSON (do not invent them); do not close panes, tabs, or workspaces you did not create unless the user asked; never run bare `herdr` (that launches the TUI).
 

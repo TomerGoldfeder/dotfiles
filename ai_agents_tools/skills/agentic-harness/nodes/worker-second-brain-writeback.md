@@ -1,6 +1,6 @@
 ---
 name: worker-second-brain-writeback
-model: cursor-grok-4.6-medium
+model: sonnet
 ---
 
 # Worker second brain write-back

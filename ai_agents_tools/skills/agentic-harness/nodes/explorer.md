@@ -1,6 +1,6 @@
 ---
 name: explorer
-model: cursor-grok-4.6-medium
+model: sonnet
 ---
 
 # Explorer

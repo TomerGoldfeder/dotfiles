@@ -1,6 +1,6 @@
 ---
 name: qa
-model: cursor-grok-4.6-medium
+model: sonnet
 ---
 
 # QA

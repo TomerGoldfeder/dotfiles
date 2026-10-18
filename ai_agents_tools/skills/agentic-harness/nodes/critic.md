@@ -1,6 +1,6 @@
 ---
 name: critic
-model: cursor-grok-4.5-high
+model: opus
 ---
 
 # Critic
