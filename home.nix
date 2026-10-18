@@ -157,6 +157,10 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/k9s";
       force = true;
     };
+    "Library/Application Support/k9s/views.yaml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/k9s/views.yaml";
+      force = true;
+    };
     ".config/aerospace/aerospace.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/aerospace/aerospace.toml";
       force = true;

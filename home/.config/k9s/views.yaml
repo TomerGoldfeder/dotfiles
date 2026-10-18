@@ -6,6 +6,6 @@ views:
       - NAMESPACE|WR
       - IMAGE:.spec.template.spec.containers[0].image
       - TAG:.spec.template.spec.containers[0].image|R
-      - REPLICAS
+      - UP-TO-DATE
       - READY
       - AGE
