@@ -1,3 +1,5 @@
 # Local secrets (tokens, PATs). Only env.sh.example is tracked as a template.
 secrets/*
 !secrets/env.sh.example
+
+.superpowers/**/*

@@ -15,7 +15,7 @@
 
   outputs = { self, nix-darwin, home-manager, nixpkgs, herdr }:
     let
-      user = "tomergo";
+      user = "tomergoldfeder";
     in
     {
       darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {

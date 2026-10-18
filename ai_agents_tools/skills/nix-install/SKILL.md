@@ -11,8 +11,8 @@ description: >-
 # Install into Nix (dotfiles)
 
 On this machine, **Nix is the install**. `brew install`, `nix-env -i`, `npm -g`,
-Cargo `install`, and Mason are not durable: Homebrew `zap` on `darwin-rebuild`
-removes formulae that are not listed, and PATH tools vanish on a fresh Mac.
+Cargo `install`, and Mason are not durable: anything not listed here is
+missing on a fresh Mac.
 
 Announce once per conversation:
 
@@ -45,7 +45,7 @@ Prefer **nixpkgs** over Homebrew when the package exists for `aarch64-darwin`.
 2. **Nerd Font from nixpkgs** → `configuration.nix` `fonts.packages`.
 3. **Mac GUI app / extra font cask** → `homebrew.casks`. Add a `homebrew.taps` entry if the cask needs a tap.
 4. **Brew formula** (not in nixpkgs, or required as a brew binary) → `homebrew.brews`. Use the `{ name = "..."; trusted = true; }` attr for tapped formulae that need it. **Do not** `start_service` / `restart_service` — root `darwin-rebuild` cannot bootstrap user LaunchAgents (error 5). Use `launchd.user.agents` instead when a GUI helper must start at login.
-5. **Root-owned self-updating apps** (Chrome, Docker Desktop) → still list them in `casks` so `zap` does not try to uninstall them.
+5. **Root-owned self-updating apps** (e.g. Chrome) → still list them in `casks` so they are installed on a fresh Mac.
 6. **App config** → files under `home/.config/<app>/`, then a `home.file` `mkOutOfStoreSymlink` in `home.nix` pointing at `${dotfiles}/home/.config/...`.
 7. **New agent skill** — two sources; never copy upstream trees into this repo:
    - **First-party skill:** add `ai_agents_tools/skills/<name>/SKILL.md`. `home.nix` auto-discovers directories under that path and out-of-store-symlinks them into the five skill homes: Cursor (`.cursor/skills`), Claude Code (`.claude/skills`), Agents (`.agents/skills`), OpenCode (`.config/opencode/skills`), and Pi (`.pi/agent/skills`) — no list edit. Global rules SOT is `ai_agents_tools/rules/AGENTS.md` (linked as `.cursor/rules/AGENTS.mdc`, `.agents/rules/AGENTS.md`, `.claude/CLAUDE.md`, `.config/opencode/AGENTS.md`, `.pi/agent/AGENTS.md`).

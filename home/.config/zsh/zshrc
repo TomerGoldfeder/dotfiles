@@ -7,6 +7,13 @@ fi
 
 # Source of truth: ~/.dotfiles/home/.config/zsh/zshrc
 
+# Machine-local environment variables (not in version control).
+# ~/.env_vars is created by bootstrap.sh; drop one *.zsh file per concern.
+for _env_file in "$HOME"/.env_vars/*.zsh(N); do
+  source "$_env_file"
+done
+unset _env_file
+
 # Powerlevel10k (Homebrew formula)
 if [[ -r "${HOMEBREW_PREFIX:-/opt/homebrew}/share/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
   source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/powerlevel10k/powerlevel10k.zsh-theme"
@@ -15,7 +22,7 @@ fi
 # Source of truth: ~/.dotfiles/home/.config/zsh/p10k.zsh (symlinked as ~/.p10k.zsh)
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-. "$HOME/.atuin/bin/env"
+# . "$HOME/.atuin/bin/env"
 
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -64,7 +71,7 @@ function y() {
 alias ls="eza --icons=always --color=always --long --git --no-filesize --no-user --no-permissions"
 alias cd='z'
 alias ca='cursor-agent --yolo'
-alias cc='claude'
+alias cc='claude --dangerously-skip-permissions'
 alias add='git add'
 alias commit='git commit -m'
 alias push='git push'
@@ -78,6 +85,6 @@ alias ghd='gh-dash'
 alias update_stable_pointers='git fetch origin --tags --force'
 
 # Added by git-ai installer on Sun Oct  4 13:01:32 2026
-export PATH="/Users/tomergo/.git-ai/bin:$PATH"
+export PATH="/Users/tomergoldfeder/.git-ai/bin:$PATH"
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

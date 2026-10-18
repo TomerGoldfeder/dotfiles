@@ -81,7 +81,12 @@ else
   echo "    flake.nix already matches \"$REAL_USER\", nothing to do."
 fi
 
-echo "==> Step 4: first darwin-rebuild switch (pinned to nix-darwin-26.05)"
+echo "==> Step 4: create ~/.env_vars for machine-local environment variables"
+# zshrc sources every *.zsh file in here. Not version-controlled: put
+# secrets/tokens/per-machine vars here, one concern per file.
+mkdir -p ~/.env_vars
+
+echo "==> Step 5: first darwin-rebuild switch (pinned to nix-darwin-26.05)"
 # darwin-rebuild doesn't exist yet on a fresh machine, so run it straight
 # from the flake this once. After this, rebuild.sh works normally.
 # This fetches the darwin-rebuild tool from the nix-darwin-26.05 release branch,

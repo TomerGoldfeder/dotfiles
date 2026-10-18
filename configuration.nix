@@ -30,6 +30,7 @@ in
 
   environment.systemPackages = (with pkgs; [
     neovim
+    atuin # shell history; zshrc runs `atuin init zsh`
     fzf # herdr pane-navigator (and other TUIs)
     gawk # needed by lincheney/fzf-tab-completion (`awk -W interactive`)
     # LazyVim lang.markdown lints via nvim-lint; mason cannot install these
@@ -38,6 +39,7 @@ in
     markdown-toc
     nodejs
     kubectl
+    k9s
     jq
     jdk8 # Zulu 8; Spark 3.1.3 (Java 8 or 11). Native aarch64, not Temurin cask.
     cargo # herdr plugin install builds Rust plugins from source
@@ -64,7 +66,8 @@ in
 
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";
+    # Never uninstall Homebrew packages that are not listed below.
+    onActivation.cleanup = "none";
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
     brews = [
@@ -112,10 +115,9 @@ in
       "font-symbols-only-nerd-font" # yazi icons
       "claude-code"
       "cursor-cli"
-      # Root-owned apps (they self-update). Listed so zap does not try to
-      # delete them — Homebrew cannot remove root CodeResources files.
+      "flycut"
+      # Root-owned apps (they self-update).
       "google-chrome"
-      "docker-desktop"
       "nikitabobko/tap/aerospace"
     ];
   };

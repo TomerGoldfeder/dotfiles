@@ -3,6 +3,8 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      scroll = { enabled = false },
+      words = { enabled = false },
       picker = {
         sources = {
           explorer = {

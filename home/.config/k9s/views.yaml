@@ -1,0 +1,11 @@
+views:
+  apps/v1/deployments:
+    sortColumn: NAME:asc
+    columns:
+      - NAME
+      - NAMESPACE|WR
+      - IMAGE:.spec.template.spec.containers[0].image
+      - TAG:.spec.template.spec.containers[0].image|R
+      - REPLICAS
+      - READY
+      - AGE
