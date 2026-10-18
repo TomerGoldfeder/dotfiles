@@ -161,6 +161,10 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/k9s/views.yaml";
       force = true;
     };
+    "Library/Application Support/k9s/skins/nord.yaml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/k9s/skins/nord.yaml";
+      force = true;
+    };
     ".config/aerospace/aerospace.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/aerospace/aerospace.toml";
       force = true;
@@ -178,6 +182,17 @@ in
       cp -R "${dotfiles}/ai_agents_tools/skills/second-brain/vault-seed" \
         "$HOME/.second_brain_vault"
       find "$HOME/.second_brain_vault" -name .gitkeep -delete
+    fi
+  '';
+
+  # Merge: ~/Library/Application Support/k9s/config.yaml is tool-written;
+  # only set the skin if the user hasn't already configured one.
+  home.activation.k9sNordSkin = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    config="$HOME/Library/Application Support/k9s/config.yaml"
+    if [ -f "$config" ] && grep -q '^  ui:' "$config" && ! grep -q '^    skin:' "$config"; then
+      sed -i ''' '/^  ui:/a\
+      skin: nord
+  ' "$config"
     fi
   '';
 

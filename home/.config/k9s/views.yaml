@@ -4,8 +4,8 @@ views:
     columns:
       - NAME
       - NAMESPACE|WR
-      - IMAGE:.spec.template.spec.containers[0].image
-      - TAG:.spec.template.spec.containers[0].image|R
-      - UP-TO-DATE
       - READY
+      - UP-TO-DATE
+      - AVAILABLE
       - AGE
+      - IMAGE:.spec.template.spec.containers[0].image
