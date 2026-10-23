@@ -117,6 +117,10 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/zsh/zshrc";
       force = true;
     };
+    ".markdownlint.jsonc" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.markdownlint.jsonc";
+      force = true;
+    };
     ".p10k.zsh" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/zsh/p10k.zsh";
       force = true;

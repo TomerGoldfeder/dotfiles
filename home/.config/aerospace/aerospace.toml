@@ -22,6 +22,10 @@ automatically-unhide-macos-hidden-apps = false
 if.app-name-regex-substring = 'finder'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
+
 [key-mapping]
 preset = 'qwerty'
 
@@ -40,8 +44,8 @@ outer.top = 10
 1 = 'built-in' # laptop
 2 = 1          # left Dell
 3 = 1          # left Dell
-4 = 1          # right Dell
-5 = 1          # right Dell
+4 = 2          # right Dell
+5 = 2          # right Dell
 
 [mode.main.binding]
 

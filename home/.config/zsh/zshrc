@@ -25,7 +25,21 @@ fi
 # . "$HOME/.atuin/bin/env"
 
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Single compinit owner: must run before atuin, zoxide and fzf-tab-completion (they call compdef).
+# Cached dump; full rebuild only when the dump is missing or older than 24h.
+_zsh_cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+[[ -d "$_zsh_cache_dir" ]] || mkdir -p "$_zsh_cache_dir"
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$_zsh_cache_dir"
+autoload -Uz compinit
+_zcompdump_stale=("$_zsh_cache_dir/zcompdump"(Nmh+24))
+if [[ -f "$_zsh_cache_dir/zcompdump" && ${#_zcompdump_stale} -eq 0 ]]; then
+  compinit -C -d "$_zsh_cache_dir/zcompdump"
+else
+  compinit -d "$_zsh_cache_dir/zcompdump"
+  touch "$_zsh_cache_dir/zcompdump"
+fi
+unset _zsh_cache_dir _zcompdump_stale
 
 # history setup
 HISTFILE=$HOME/.zhistory
@@ -46,14 +60,20 @@ eval "$(zoxide init zsh)"
 
 # lincheney/fzf-tab-completion — Tab → fzf_completion against zsh completer
 # Resolve from this file’s realpath so ~/.zshrc symlink works.
-autoload -Uz compinit && compinit
 _zsh_config_dir="${${(%):-%x}:A:h}"
 source "${_zsh_config_dir}/fzf-tab-completion/zsh/fzf-zsh-completion.sh"
 bindkey '^I' fzf_completion
 unset _zsh_config_dir
 
-# Must stay after zle widgets (fzf_completion, etc.)
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zsh-autosuggestions: after atuin, zoxide and fzf_completion widgets exist, before syntax-highlighting.
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
+source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# Must stay last among plugins, after zle widgets (fzf_completion, etc.)
+export ZSH_HIGHLIGHT_MAXLENGTH=300
+source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 
 # yazi 
@@ -68,7 +88,9 @@ function y() {
 
 
 # alias command
+alias n="nvim"
 alias ls="eza --icons=always --color=always --long --git --no-filesize --no-user --no-permissions"
+alias lsa="ls -aa"
 alias cd='z'
 alias ca='cursor-agent --yolo'
 alias cc='claude --dangerously-skip-permissions'
@@ -79,8 +101,21 @@ alias pull='git pull'
 alias gd='git diff --name-only'
 alias gco='git checkout'
 alias hs='herdr session'
+alias hsa="hs attach"
 alias gpr='gh pr-tui'
 alias ghd='gh-dash'
+
+alias cl="clear"
+# Rebuild the completion index after installing a tool.
+alias compsync='rm -f "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump" && exec zsh'
+
+alias k=kubectl
+alias kpods="kubectl get pods"
+alias klogs="kubectl logs"
+alias kflogs="kubectl logs -f"
+alias kcon="kubectl config current-context"
+alias kuse="kubectl config use-context"
+alias kexec="kubectl exec -it"
 
 alias update_stable_pointers='git fetch origin --tags --force'
 

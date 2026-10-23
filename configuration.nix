@@ -19,6 +19,9 @@ in
   system.defaults = {
     finder.CreateDesktop = false;
     trackpad.Clicking = true;
+    # Faster key repeat (units of 15 ms): 30 ms repeat after a 450 ms delay.
+    NSGlobalDomain.KeyRepeat = 2;
+    NSGlobalDomain.InitialKeyRepeat = 30;
   };
 
   # nix-darwin's set-environment overwrites PATH and omits Homebrew.
@@ -52,6 +55,7 @@ in
     gh
     gh-dash
     diffnav
+    wezterm # terminal; nixpkgs build replaces the Homebrew cask
   ]) ++ [
     herdr.packages.${pkgs.system}.default
     h
@@ -63,6 +67,10 @@ in
   ];
 
   programs.zsh.enable = true;
+  # zshrc runs compinit itself; skip the duplicate compinit/promptinit in /etc/zshrc.
+  programs.zsh.enableCompletion = false;
+  programs.zsh.enableBashCompletion = false;
+  programs.zsh.promptInit = "";
 
   homebrew = {
     enable = true;
@@ -110,7 +118,6 @@ in
       "FelixKratz/formulae"
     ];
     casks = [
-      "wezterm"
       "font-jetbrains-mono-nerd-font"
       "font-symbols-only-nerd-font" # yazi icons
       "claude-code"
