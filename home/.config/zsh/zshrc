@@ -105,6 +105,12 @@ alias hsa="hs attach"
 alias gpr='gh pr-tui'
 alias ghd='gh-dash'
 
+# config file shortcuts
+alias config_aerospace="nvim ~/.config/aerospace/aerospace.toml"
+alias config_gh_dash="nvim ~/.config/gh-dash/config.yml"
+alias config_wezterm="nvim ~/.config/wezterm/wezterm.lua"
+alias config_zsh="nvim ~/.config/zsh/zshrc"
+
 alias cl="clear"
 # Rebuild the completion index after installing a tool.
 alias compsync='rm -f "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump" && exec zsh'

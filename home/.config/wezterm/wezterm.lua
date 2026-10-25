@@ -45,6 +45,22 @@ config.keys = {
 		mods = "CTRL|SHIFT",
 		action = wezterm.action.ActivatePaneDirection("Down"),
 	},
+	{
+		key = "r",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.ActivateKeyTable({ name = "resize_pane", one_shot = false }),
+	},
+}
+
+config.key_tables = {
+	resize_pane = {
+		{ key = "LeftArrow", action = wezterm.action.AdjustPaneSize({ "Left", 5 }) },
+		{ key = "RightArrow", action = wezterm.action.AdjustPaneSize({ "Right", 5 }) },
+		{ key = "UpArrow", action = wezterm.action.AdjustPaneSize({ "Up", 5 }) },
+		{ key = "DownArrow", action = wezterm.action.AdjustPaneSize({ "Down", 5 }) },
+		{ key = "Escape", action = "PopKeyTable" },
+		{ key = "Enter", action = "PopKeyTable" },
+	},
 }
 
 config.enable_tab_bar = false
