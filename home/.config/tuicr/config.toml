@@ -1,0 +1,61 @@
+#theme = "catppuccin-mocha"
+appearance = "system"
+#theme_dark = "gruvbox-dark"
+#theme_light = "gruvbox-light"
+
+diff_view = "side-by-side"
+ignore_whitespace = "auto"            # or true / false; omitted defaults to false
+commit_order = "descending"
+initial_commit_selection = "all"
+show_file_list = true
+compact_folders = true
+show_pr_checks = true
+show_pr_comments = true
+pr_comments_visibility = "unresolved"
+show_commits = true
+show_reviewed = true
+mouse = true
+mouse_scroll_lines = 3
+leader = ","
+editor = "nvim"
+comment_vim = false
+q_quits = false
+comment_tab_width = 4
+wrap = false
+wrap_style = "flow"
+relative_line_numbers = false
+cursor_line = true
+search_highlight = true
+transparent_background = true
+scroll_offset = 5
+no_update_check = false
+review_watch_interval_ms = 1000
+single_file_view = false
+username = " tomergo"
+diff_watch_interval_ms = 0
+
+backend = "libgit2"
+
+comment_types = [
+  { id = "note", label = "question", definition = "ask for clarification", color = "yellow" },
+  { id = "suggestion", definition = "possible improvements" },
+  { id = "issue", definition = "problems to fix" },
+  { id = "praise", definition = "positive feedback" },
+  { id = "nit", label = "nitpick", definition = "small optional tweaks", color = "#d19a66" },
+]
+
+[ignore_whitespace_overrides] # only used with ignore_whitespace = "auto"
+rs = false    # keep Rust whitespace changes
+custom = true # ignore whitespace in *.custom files
+
+[forge]
+comment_type_prefix = true
+
+[export]
+intro = "I reviewed your code and have the following comments. Please address them."
+scope_line = true
+pr_metadata = true
+comments_header = "## Local tuicr Comments"
+remote_comments_header = "## Existing GitHub Comments"
+legend = true
+session_header = true

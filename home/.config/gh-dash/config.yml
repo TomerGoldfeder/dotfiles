@@ -87,6 +87,11 @@ keybindings:
       name: code review
       command: >
         ~/.config/gh-dash/pr-review-launch.sh "{{.RepoPath}}" "{{.RepoName}}" "{{.PrNumber}}"
+    - key: D
+      name: diff code
+      command:
+        tuicr pr {{.PrNumber}}
+
 repoPaths:
   TomerGoldfeder/*: ~/personal_projects/*
   TomerGoldfeder/dotfiles: ~/personal_projects/dotfiles

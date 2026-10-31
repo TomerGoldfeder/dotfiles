@@ -100,6 +100,7 @@ in
       "worktrunk"
       "zoxide"
       "resvg"
+      "tuicr"
       {
         name = "ffmpeg-full";
         link = "overwrite";

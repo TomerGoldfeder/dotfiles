@@ -177,6 +177,11 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/borders";
       force = true;
     };
+    ".config/tuicr/config.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/tuicr/config.toml";
+      force = true;
+    };
+
   };
 
   # Create-once seed for ~/.second_brain_vault. If the directory already
