@@ -109,7 +109,7 @@ alias ghd='gh-dash'
 alias config_aerospace="nvim ~/.config/aerospace/aerospace.toml"
 alias config_gh_dash="nvim ~/.config/gh-dash/config.yml"
 alias config_wezterm="nvim ~/.config/wezterm/wezterm.lua"
-alias config_zsh="nvim ~/.config/zsh/zshrc"
+alias config_zsh="nvim ~/personal_projects/dotfiles/home/.config/zsh/zshrc"
 
 alias cl="clear"
 # Rebuild the completion index after installing a tool.
@@ -120,6 +120,7 @@ alias kpods="kubectl get pods"
 alias klogs="kubectl logs"
 alias kflogs="kubectl logs -f"
 alias kcon="kubectl config current-context"
+alias kconx="kubectl config get-contexts"
 alias kuse="kubectl config use-context"
 alias kexec="kubectl exec -it"
 

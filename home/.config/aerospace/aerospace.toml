@@ -95,10 +95,13 @@ alt-ctrl-1 = 'move-workspace-to-monitor -- 1'
 alt-ctrl-2 = 'move-workspace-to-monitor built-in'
 alt-ctrl-3 = 'move-workspace-to-monitor -- 3'
 
+alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
+alt-s = 'exec-and-forget open -a /Applications/Slack.app'
+alt-c = 'exec-and-forget open -a /Applications/Chrome.app'
+
 alt-shift-semicolon = 'mode service'
 
 alt-shift-enter = 'mode apps'
-alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
@@ -108,4 +111,4 @@ backspace = ['close-all-windows-but-current', 'mode main']
 
 [mode.apps.binding]
 esc = 'mode main'
-alt-w = ['exec-and-forget open -a /Applications/WezTerm.app', 'mode main']
+#alt-w = ['exec-and-forget open -a /Applications/WezTerm.app', 'mode main']

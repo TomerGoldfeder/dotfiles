@@ -10,7 +10,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # bump with `nix flake update herdr`
-    herdr.url = "github:herdrdev/herdr/v0.9.1";
+    herdr.url = "github:herdrdev/herdr/v0.9.5";
   };
 
   outputs = { self, nix-darwin, home-manager, nixpkgs, herdr }:
